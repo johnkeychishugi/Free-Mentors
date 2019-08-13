@@ -629,8 +629,6 @@ a.decline:hover{
 .session h4{
   border-bottom: 2px solid #00316b;
 }
-
-/* Re^sponsive part */
 @media (max-width: 1900px){
   body{
     overflow-x: hidden;
@@ -646,13 +644,10 @@ a.decline:hover{
     padding-right: 5em;
     margin: -8em 0 0 5em;
   }
-  
-  /*Footer section for responsive rart*/
   footer .leftBlock2{
     height: 100px;
     border-left: 120px solid white;
     border-radius: 10px;
-    /*padding-top: 14em;*/
     position: absolute;
     left: 0em;
     overflow-x: hidden;
@@ -691,13 +686,10 @@ a.decline:hover{
     padding-right: 5em;
     margin: -8em 0 0 5em;
   }
-  
-  /*Footer section for responsive rart*/
   footer .leftBlock2{
     height: 100px;
     border-left: 120px solid white;
     border-radius: 10px;
-    /*padding-top: 14em;*/
     position: absolute;
     left: 0em;
     overflow-x: hidden;
@@ -744,8 +736,6 @@ a.decline:hover{
     bottom: 1em;
     font-family: Arial, Helvetica, sans-serif;
   }
-
-  /*Second block Responsive tart*/
   div.about{
     width: 70%;
     text-align: left;
@@ -771,12 +761,10 @@ a.decline:hover{
     margin-top: 3em;
   }
   
-  /*Footer section for responsive rart*/
   footer .leftBlock2{
     height: 100px;
     border-left: 120px solid white;
     border-radius: 10px;
-    /*padding-top: 14em;*/
     position: absolute;
     left: 0em;
     overflow-x: hidden;
