@@ -86,7 +86,6 @@ color: #fff;
 }
 .caption span.border {
   background-color: rgba(0,0,0,0.9);
-  /*background-color: #111;*/
   color: #fff;
   padding: 18px;
   font-size: 25px;
@@ -96,7 +95,6 @@ color: #fff;
 }
 .caption span.borderDifferent {
   background-color: rgba(0,0,0,0.9);
-  /*background-color: #111;*/
   color: #fff;
   padding: 18px;
   padding-bottom: 0;
@@ -108,7 +106,7 @@ color: #fff;
 
 button.btn  {
   margin-top: 45px;
-  background-color: #008cba; /* Green */
+  background-color: #008cba;
   border: none;
   color: white;
   padding: 15px 72px;
@@ -121,7 +119,7 @@ button.btn  {
 }
 button.btnRequest  {
   margin-top: -10px;
-  background-color: #008cba; /* Green */
+  background-color: #008cba; 
   border: none;
   color: white;
   padding: 15px 40px;
@@ -134,14 +132,14 @@ button.btnRequest  {
 }
 button.btn:hover {
   margin-top: 45px;
-  background-color: #00316b; /* Green */
+  background-color: #00316b; 
 }
 button.btn:focus{    
    outline-style: none;
    outline: 0;
 }
 button.btnRequest:hover {
-  background-color: #00316b; /* Green */
+  background-color: #00316b; 
 }
 button.btnRequest:focus{    
    outline-style: none;
@@ -177,7 +175,6 @@ div.about p{
 .transition_Border {
   margin-top: -9em;
   position: absolute;
-  /*width: 90%;*/
   border-top: 135px solid transparent;
   border-right:none;
   border-left: 1570px solid #fff;
@@ -185,7 +182,6 @@ div.about p{
   overflow: hidden;
 }
 
-/* Footer */
 .transition_Border2 {
   margin-top: -7.6em;
   position: absolute;
@@ -193,20 +189,17 @@ div.about p{
   border-right:none;
   border-left: 1583px solid transparent;
   border-bottom: : none;
-  /*overflow-x: hidden;*/
 }
 footer .leftBlock2{
   height: 90px;
   border-left: 160px solid white;
   border-radius: 10px;
-  /*padding-top: 14em;*/
   position: absolute;
   left: 4.8em;
   overflow-x: hidden;
   padding-right: 5em;
   margin: -2.9em 0 0 5em;
 }
-
 footer{
   background-image: linear-gradient(#434260 10%, #777);
   text-align: center;
