@@ -10,7 +10,6 @@ body {
 .warn {
   color: red;
 }
-
 header[role="banner"] {
   background: white;
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
@@ -44,7 +43,6 @@ header[role="banner"] .utilities li a {
   font-family: FontAwesome;
   padding-right: 0.6em;
 }
-
 .logout a:before {
   content: "";
 }
@@ -52,7 +50,6 @@ header[role="banner"] .utilities li a {
 .users a:before {
   content: "";
 }
-
 nav[role="navigation"] {
   background: #00316b;
   color: #ddd;
@@ -89,7 +86,6 @@ nav[role="navigation"] .back a:before {
 nav[role="navigation"] .users a:before {
   content: "\f0c0";
 }
-
 .panel {
   background-color: white;
   color: darkslategray;
@@ -122,7 +118,6 @@ nav[role="navigation"] .users a:before {
 .panel .four{
    background: #00A65A !important; 
 }
-
 .admin ul {
   list-style-type: none;
   padding: 0;
@@ -135,8 +130,6 @@ nav[role="navigation"] .users a:before {
   background-color: #eee;
   padding: 14px;
   border-radius: 3px;
-
-
 }
 .admin li:hover {
   background-color: #f6f6f6;
@@ -180,8 +173,8 @@ nav[role="navigation"] .users a:before {
   background: #AA3A2D !important;
   color: #fff !important;
 }
-
 .admin li i{
   font-size: 14px;
   font-weight: 500;
 }
+
