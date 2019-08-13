@@ -299,4 +299,55 @@ form span{
   color: #fff;
   font-size: 16px;
 }
+.homeAuth{
+ 
+ text-align:center;
+}
+.column {
+  float: left;
+  width: 23%;
+  padding: 0 10px;
+  margin-bottom:20px;
+}
 
+.row {
+  margin: 0 130px;
+
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+  padding: 10px;
+  text-align: center;
+  background-color: #f1f1f1;
+}
+.content h4{
+  margin-bottom: -15px;
+  color: #00316b;
+  font-size: 18px;
+}
+.content p{
+  font-size: 15px;
+}
+.coverColor{
+  background-image: linear-gradient(15deg, #13547a 10%, #80d0c7 100%);
+  padding: 70px;
+}
+.coverColor h2{
+  font-size: 27px;
+  color: #fff
+}
+.coverColor p{
+  color: #fff
+}
+.container{
+   margin:10px;
+   padding: 50px;
+   max-width: 1110px;
+   margin: auto;
+}
