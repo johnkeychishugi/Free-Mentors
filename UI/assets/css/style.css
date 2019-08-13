@@ -630,3 +630,398 @@ a.decline:hover{
   border-bottom: 2px solid #00316b;
 }
 
+/* Re^sponsive part */
+@media (max-width: 1900px){
+  body{
+    overflow-x: hidden;
+  } 
+  div .leftBlock{
+    height: 70px;
+    border-right: 120px solid white;
+    border-radius: 10px;
+    padding-top: 3em;
+    position: absolute;
+    right: 3em;
+    overflow-x: hidden;
+    padding-right: 5em;
+    margin: -8em 0 0 5em;
+  }
+  
+  /*Footer section for responsive rart*/
+  footer .leftBlock2{
+    height: 100px;
+    border-left: 120px solid white;
+    border-radius: 10px;
+    /*padding-top: 14em;*/
+    position: absolute;
+    left: 0em;
+    overflow-x: hidden;
+    padding-right: 5em;
+    margin: -3.5em 0 0 5em;
+  }
+  .signup{
+  position: absolute;
+  background: rgba(44,62,80,0.7);
+  padding: 50px;
+  padding-top: 15px; 
+  width: 250px;
+  margin: auto;
+  margin-top: -38em;
+  height: 600px;
+  margin-left: 45em;
+  border-radius: 10px;
+  z-index: 7;
+ }
+
+}
+
+@media (max-width: 1200px){
+  body{
+    overflow-x: hidden;
+  }
+  
+  div .leftBlock{
+    height: 70px;
+    border-right: 120px solid white;
+    border-radius: 10px;
+    padding-top: 3em;
+    position: absolute;
+    right: 3em;
+    overflow-x: hidden;
+    padding-right: 5em;
+    margin: -8em 0 0 5em;
+  }
+  
+  /*Footer section for responsive rart*/
+  footer .leftBlock2{
+    height: 100px;
+    border-left: 120px solid white;
+    border-radius: 10px;
+    /*padding-top: 14em;*/
+    position: absolute;
+    left: 0em;
+    overflow-x: hidden;
+    padding-right: 5em;
+    margin: -3.5em 0 0 5em;
+  }
+.row {
+  margin: 0 20px;
+
+}
+.column {
+    width: 22%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 989px){
+  body{
+    overflow-x: hidden;
+  }
+  .caption{
+    margin-top: -4em;
+  }
+  .caption span.border {
+    background-color: rgba(0,0,0,0.9);
+    color: #fff;
+    padding: 12px;
+    font-size: 20px;
+    letter-spacing: 10px;
+    border-radius: 27px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .caption span.borderDifferent {
+    background-color: rgba(0,0,0,0.9);
+    color: #fff;
+    padding: 12px;
+    height: 20px;
+    font-size: 20px;
+    letter-spacing: 10px;
+    border-radius: 20px;
+    position: relative;
+    bottom: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  /*Second block Responsive tart*/
+  div.about{
+    width: 70%;
+    text-align: left;
+    margin: 10px;
+    margin-left: 5em;
+    margin-bottom: 10em;
+  }
+  div .leftBlock{
+    height: 70px;
+    border-right: 120px solid white;
+    border-radius: 10px;
+    padding-top: 3em;
+    position: absolute;
+    right: 3em;
+    overflow-x: hidden;
+    padding-right: 5em;
+    margin: -10em 0 0 5em;
+  }
+  div.about b{
+    font-size: 2.5em;
+  }
+  div.about p{
+    margin-top: 3em;
+  }
+  
+  /*Footer section for responsive rart*/
+  footer .leftBlock2{
+    height: 100px;
+    border-left: 120px solid white;
+    border-radius: 10px;
+    /*padding-top: 14em;*/
+    position: absolute;
+    left: 0em;
+    overflow-x: hidden;
+    padding-right: 5em;
+    margin: -3.5em 0 0 5em;
+  }
+  footer .footer_content{
+    text-align: left;
+    margin-left: 14 em;
+    color: white;
+    font-weight: 500;
+  }
+  footer .footer_content b a{
+    color: white;
+  }
+  .signin{
+  background: rgba(44,62,80,0.7);
+  padding: 40px;
+  width: 250px;
+  margin: auto;
+  margin-top: 3em;
+  height: 300px;
+  margin-left: 27em;
+  border-radius: 10px;
+}
+.signup{
+  position: absolute;
+  background: rgba(44,62,80,0.7);
+  padding: 50px;
+  padding-top: 15px; 
+  width: 250px;
+  margin: auto;
+  margin-top: -34em;
+  height: 600px;
+  margin-left: 25em;
+  border-radius: 10px;
+  z-index: 7;
+}
+.row {
+  margin: 0 20px;
+
+}
+.column {
+    width: 30%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px){
+  body{
+    overflow-x: hidden;
+  }
+   nav{
+  margin-top: 0px;
+}
+  .toggle i{
+    display: block;
+  }
+  .toggle .navbar-brand {
+    float: left;
+    height: 50px;
+    padding: 5px 15px;
+    font-size: 18px;
+    line-height: 20px;
+    color: #fff;
+    text-decoration:none;
+    }
+  nav ul {
+    width: 100%;
+    display: none;
+    position: absolute;
+    z-index: 10;
+    background: #00316b;
+    }
+   nav ul li{
+      display: block;
+      text-align: center;
+
+    }
+    .active{
+      display: block;
+    }
+   nav i{
+      cursor: pointer;
+    }
+  .caption{
+    margin-top: -4em;
+  }
+  .caption span.border {
+    background-color: rgba(0,0,0,0.9);
+    color: #fff;
+    padding: 12px;
+    font-size: 15px;
+    letter-spacing: 10px;
+    border-radius: 27px;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .caption span.borderDifferent {
+    background-color: rgba(0,0,0,0.9);
+    color: #fff;
+    padding: 12px;
+    height: 20px;
+    font-size: 15px;
+    letter-spacing: 10px;
+    border-radius: 20px;
+    position: relative;
+    bottom: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  /*Second block Responsive tart*/
+  div.about{
+    width: 70%;
+    text-align: left;
+    margin: 10px;
+    margin-left: 3em;
+    margin-bottom: 10em;
+  }
+  div .leftBlock{
+    height: 90px;
+    border-right: 60px solid white;
+    border-radius: 10px;
+    padding-top: 3em;
+    position: absolute;
+    right: .8em;
+    overflow-x: hidden;
+    padding-right: 5em;
+    margin: -12em 0 0 5em;
+  }
+  div.about b{
+    font-size: 2em;
+  }
+  div.about p{
+    margin-top: 3em;
+  }
+  
+  /*Footer section for responsive rart*/
+  footer .leftBlock2{
+    height: 100px;
+    border-left: 60px solid white;
+    border-radius: 10px;
+    /*padding-top: 14em;*/
+    position: absolute;
+    left: -1.5em;
+    overflow-x: hidden;
+    padding-right: 5em;
+    margin: -3.5em 0 0 5em;
+  }
+
+  footer{
+    background-image: linear-gradient(#434260 10%, #777);
+    text-align: center;
+    color: #eee;
+    padding-bottom: 5em;
+  }
+  footer .footer_content{
+    text-align: left;
+    margin-left: 9em;
+    margin-top: 3em;
+    color: white;
+    font-weight: 500;
+  }
+  footer .footer_content b a{
+    color: white;
+  }
+  .signin{
+  background: rgba(44,62,80,0.7);
+  padding: 40px;
+  width: 250px;
+  margin: auto;
+  margin-top: 2em;
+  height: 300px;
+  margin-left: 0,2em;
+  border-radius: 10px;
+ }
+ .signup{
+  position: absolute;
+  background: rgba(44,62,80,0.7);
+  padding: 50px;
+  padding-top: 15px; 
+  width: 250px;
+  margin: auto;
+  margin-top: -34em;
+  height: 600px;
+  margin-left: 4em;
+  border-radius: 10px;
+  z-index: 7;
+}
+.row {
+  margin: 0 70px;
+
+}
+ .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+  .profile .block{
+     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 90%;
+    margin-top: 0.5em;
+ }
+ .countnames{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 60%;
+  margin-top: 0.5em;
+}
+.edit{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 1em;
+ }
+ .edit .editinfo {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 30px;
+  height: 500px;
+}
+.edit .editpass {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 30px;
+  height: 320px;
+ }
+ a.decline{
+  margin-right:10px !important;
+ }
+ a.accept{
+  margin-right:5px !important;
+ }
+ .session{
+  text-align:center;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 30px;
+  height: 320px;
+  width: 250px;
+  margin-left: 3em;
+  }
+} 
+
