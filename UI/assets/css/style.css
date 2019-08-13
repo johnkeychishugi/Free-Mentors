@@ -561,4 +561,72 @@ form span{
   color: #000;
   opacity: 0.5;
 }
+a.decline{
+  border:2px solid #AA3A2D !important;
+  color: #AA3A2D !important;
+}
+a.decline:hover{
+  background:#AA3A2D !important;
+  color: #fff !important;
+}
+.session{
+  text-align:center;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 30px;
+  height: 320px;
+  width: 250px;
+  margin-left: 26em;
+}
+.session input[type=text], .session input[type=email], .session input[type=password],
+.session input[type=number]
+{
+  width: 240px;
+  margin-bottom:10px;
+  text-align:center;
+  background: #0000;
+  border:none;
+  border-bottom: 1.5px solid #00316b;
+  font-family: 'Play', sans-serif;
+  font-size: 16px;
+  font-weight: 200px;
+  padding: 10px 0;
+  transition: border 0.5s;
+  outline: none;
+  color: #000
+}
+
+.session input[type=submit] {
+  width: 100%;
+  background-color: #008CBA;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.session input[type=submit]:hover {
+  background-color: #00316b;
+}
+.mentorships{
+  margin-right:100px;
+  text-align:center;
+}
+.session form textarea{
+  width: 260px;
+  margin-bottom:10px;
+  border: 1.5px solid #00316b;
+  font-family: 'Play', sans-serif;
+  font-size: 16px;
+  transition: border 0.5s;
+  outline: none;
+  color: #000;
+  border-radius: 5px;
+}
+.session h4{
+  border-bottom: 2px solid #00316b;
+}
 
