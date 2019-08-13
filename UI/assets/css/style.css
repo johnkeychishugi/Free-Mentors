@@ -351,4 +351,150 @@ form span{
    max-width: 1110px;
    margin: auto;
 }
+.profile .detail .task{
+  margin-bottom: 20px;
+}
+.profile h3{
+  margin-top: -3px;
+  font-size: 25px;
+  color: #00316b;
+}
+.profile h5{
+  margin-top: -2.6em;
+  font-size: 15px;
+}
+.profile .ano{
+  margin-top:35px
+}
+.profile p{
+  margin-top: -26px;
+}
+.profile h4{
+  margin-top: 5px;
+  margin-bottom: 34px;
+  border-bottom:2px solid #000;
+  width: 110px;
+}
+.profile img{
+  width: 150px;
+  border-radius: 100px;
+}
+.profile .block{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+  margin-top: 0.5em;
+}
+.profile .block .block1{
+   width: 450px;
+}
+.profile .btnImg{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 75%;
+  margin-top: 0.5em;
+}
+.profile .btnImg .btns{
+  margin-top:50px;
+  margin-left:20px;
+}
+.profile .btnImg .btns .btn1{
+  width: 150px;
+  background:#008CBA;
+  color:#fff;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 10px 0;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.profile .btnImg .btns .btn1:hover{
+  background:#00316b;
+}
+.profile .btnImg .btns .btn2{
+  width: 150px;
+  cursor: pointer;
+  color:#000;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 10px 0;
+  border: 2px solid #008CBA; 
+  border-radius: 15px;
+}
+.profile .btnImg .btns .btn2:hover{
+  color:#fff;
+  background:#008CBA;
+}
+.profile .btnImg .btns .btn2:focus{    
+   outline-style: none;
+   outline: 0;
+}
+.profile .btnImg .btns .btn1:focus{    
+   outline-style: none;
+   outline: 0;
+}
+.relations ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.relations li {
+  border: 1px solid #ddd;
+  margin-top: -1px; 
+  background-color: #eee;
+  padding: 14px;
+}
+.relations li:hover {
+  background-color: #f6f6f6;
+}
+.relations li img {
+  width: 45px;
+  border-radius: 50px;
+}
+.relations li p {
+   margin-left:3.5em;
+   padding-top: 25px; 
+   margin-top:-4em;
+   font-size: 16px;
+   font-weight: bold;
+}
+.relations li p a {
+   border:2px solid #008CBA;
+   float:right;
+   text-decoration: none;
+   padding: 3px;
+   border-radius: 5px;
+   color: #00316b;
+   margin-right: 48px;
+   font-size: 14px;
+}
+.relations li p a:hover{
+   color: #fff;
+   background:#008CBA; 
+}
+.relations h4{
+  margin-top: -5px;
+  margin-bottom: 10px;
+  border-bottom:2px solid #000;
+  width: 180px;
+}
+.countnames{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 75%;
+  margin-top: 0.5em;
+}
+.countnames button{
+  width: 150px;
+  color:#fff;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 10px 0;
+  background: #00316b; 
+  border-radius: 6px;
+}
 
