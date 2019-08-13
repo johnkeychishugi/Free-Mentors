@@ -215,3 +215,88 @@ footer .footer_content{
 footer .footer_content b a{
   color: white;
 }
+.signin{
+  background: rgba(44,62,80,0.7);
+  padding: 40px;
+  width: 250px;
+  margin: auto;
+  margin-top: 5em;
+  height: 300px;
+  margin-left: 45em;
+  border-radius: 10px;
+}
+.signup{
+  position: absolute;
+  background: rgba(44,62,80,0.7);
+  padding: 50px;
+  padding-top: 10px; 
+  width: 250px;
+  margin: auto;
+  margin-top: -37em;
+  height: 520px;
+  margin-left: 45em;
+  border-radius: 10px;
+  z-index: 7;
+}
+form{
+  width: 240px;
+  text-align:center;
+}
+input{
+  width: 240px;
+  text-align:center;
+  background: transparent;
+  border:none;
+  border-bottom: 1px solid #fff;
+  font-family: 'Play', sans-serif;
+  font-size: 16px;
+  font-weight: 200px;
+  padding: 10px 0;
+  transition: border 0.5s;
+  outline: none;
+  color: #fff;
+  margin-bottom:10px;
+}
+input[type=button]{
+  border:none;
+  width: 190px;
+  background:#fff;
+  color:#000;
+  font-size: 16px;
+  line-height: 25px;
+  padding: 10px 0;
+  border-radius: 15px;
+  cursor: pointer;
+}
+input[type=button]:hover{
+  color: #fff;
+  background-color: #008CBA;
+}
+h2{
+  color: #fff;
+}
+form a{
+  color:skyblue;
+  text-decoration:blink;
+}
+form a:hover{
+  color:#008CBA;
+}
+::placeholder{
+  color: aliceblue;
+  opacity: 0.8;
+}
+.edit ::placeholder{
+  color: #000;
+  opacity: 0.8;
+}
+.footer{
+  color: #000;
+  text-align: center;
+  margin-top:10em;
+}
+form span{
+  color: #fff;
+  font-size: 16px;
+}
+
