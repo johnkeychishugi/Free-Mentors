@@ -6,7 +6,7 @@ import todo from './server/helpers/general';
 const app = express();
 const guider = todo.todo;
 
-app.use(bodyParser.urlencoded({extended : true}))
+app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
 //intialize routes
@@ -28,9 +28,9 @@ app.use('**', (req, res) => res.status(404).send({
     message : "The requested resource was not found on the server"
 }));
 
- 
 //listen for requests
 app.listen(process.env.port || 3000,function(){
     console.log('Now listening for request on port 3000');
  });
+
   
