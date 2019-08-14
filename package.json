@@ -4,6 +4,7 @@
   "description": "Free-Mentors is a relationship in which a more experienced or more knowledgeable person helps to guide a less experienced or less knowledgeable person.",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon --exec babel-node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -26,9 +27,14 @@
     "mocha": "^6.2.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
     "eslint": "^6.1.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2"
+    "eslint-plugin-import": "^2.18.2",
+    "nodemon": "^1.19.1"
   }
 }
