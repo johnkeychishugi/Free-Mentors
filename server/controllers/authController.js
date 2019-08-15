@@ -59,3 +59,4 @@ const sendToken = (user,res,status) =>{
   })
 }
 export default authController;
+
