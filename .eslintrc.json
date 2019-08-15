@@ -1,10 +1,9 @@
 {
     "env": {
-        "browser": true,
         "es6": true,
         "node": true
     },
-    "extends": "airbnb",
+    "extends": "eslint:recommended",
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -14,12 +13,12 @@
         "sourceType": "module"
     },
     "rules": {
-        "linebreak-style": 0,
-         "consistent-return": 0,
-         "no-unused-vars": 0,
-         "radix": 0,
-         "no-undef": 0,
-         "indent": ["error", 2],
-         "no-console":0
-      }
+      "linebreak-style": 0,
+       "consistent-return": 0,
+       "no-unused-vars": 0,
+       "radix": 0,
+       "no-undef": 0,
+       "indent": ["error", 2],
+       "no-console":0
+    }
 }
