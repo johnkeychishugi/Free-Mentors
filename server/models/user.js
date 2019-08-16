@@ -23,6 +23,7 @@ class DataUser{
     this.occupation = data.occupation;
     this.expertise = data.expertise;
     this.is_admin = data.is_admin;
+    this.is_mentor = false;
     this.password = hash;
     this.created_at = created_at;
   }

@@ -1,8 +1,9 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import config from '../config/config';
 import User from '../models/user';
 import Validator from '../middlewares/validators';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const users = new User.User();
 
@@ -28,7 +29,7 @@ const authController = {
             const data = new User.DataUser(req.body,id,hash,created_at);
 
             users.save(data).then(response =>{
-              sendToken(response,res,201);
+              sendToken(response,res,201,'User created successfully');
             });
           });
         }
@@ -38,24 +39,48 @@ const authController = {
     }
   },
   signin : (req,res) => {
-    res.status(200),json('sign up pass'); 
+    const validate = Validator.schemaSignIn(req.body);
+    if(!validate.error){
+      users.checkIfExist(req.body.email).then(user =>{
+        if(user){
+          bcrypt.compare(req.body.password, user.password, (err,result)=>{
+            if(result){
+              sendToken(user, res, 200,'User is successfully logged in')
+            }else{
+              authFails(res); 
+            }
+          })
+        }else{
+          authFails(res); 
+        }
+      });
+    }else{
+      res.status(422).send(validate.error);
+    }
   }
 }
-const sendToken = (user,res,status) =>{
+const sendToken = (user,res,status,msg) =>{
   const token = jwt.sign(
     {
       email : user.email,
       userId : user.id,
       firstname : user.firstname 
     },
-    config.jwt.secretKey,
+    process.env.TOKEN_KEY,
     { 
       expiresIn : 3600
     }
   )
   return res.status(status).json({
     status : status,
-    data : [{token : token},{user:user}]
+    message : msg,
+    data : {token : token , user: user}
+  })
+}
+const authFails = (res) =>{
+  return res.status(401).json({
+    status : 401,
+    error : 'Authentication failed, please check your credentials'
   })
 }
 export default authController;

@@ -12,8 +12,15 @@ export default class Validator {
       expertise: Joi.string().required(),
       password : Joi.string().regex(/^[a-zA-Z0-9]{6,16}$/).min(6).required(),
       confirmPassword : Joi.string().valid(Joi.ref('password')).required().strict(),
-      is_admin: Joi.boolean().required(),
+      is_admin: Joi.boolean()
     }
     return Joi.validate(user, userSchema);
+  }
+  static schemaSignIn(user){
+    const userSchema ={
+      email: Joi.string().email().required(),
+      password: Joi.string().regex(/^[a-zA-Z0-9]{6,16}$/).required()
+    }
+    return Joi.validate(user,userSchema);
   }
 }
