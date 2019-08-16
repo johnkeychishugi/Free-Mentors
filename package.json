@@ -20,6 +20,7 @@
   "dependencies": {
     "bcrypt": "^3.0.6",
     "chai-http": "^4.3.0",
+    "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",
