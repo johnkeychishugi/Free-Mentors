@@ -9,6 +9,12 @@ class session {
   async find(id){
     return this.datas.find(data => data.id === id);
   }
+  async findForMentor(id){
+    return this.datas.filter(data => data.mentorId === id);
+  }
+  async findForMentee(id){
+    return this.datas.filter(data => data.menteeId === id);
+  }
 }
 class DataSession {
   constructor(mentor,id,mentee,created_at){

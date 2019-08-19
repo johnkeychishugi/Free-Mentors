@@ -6,5 +6,6 @@ const routes = express.Router();
 
 routes.post('/sessions',authCheck,sessionController.createSession)
   .patch('/sessions/:sessionId/accept',authCheck,sessionController.acceptSession)
-  .patch('/sessions/:sessionId/reject',authCheck,sessionController.rejectSession);
+  .patch('/sessions/:sessionId/reject',authCheck,sessionController.rejectSession)
+  .get('/sessions',authCheck,sessionController.getSession);
 export default routes;   

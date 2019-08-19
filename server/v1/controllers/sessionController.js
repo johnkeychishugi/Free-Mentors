@@ -66,6 +66,47 @@ const sessionController = {
         });
       }
     }); 
+  },
+  getSession : (req, res) => {
+    const user = helper.authUser(req.headers.authorization);
+    users.find(user.userId).then(user =>{
+      if(user){
+        if(user.is_mentor){
+          sessions.findForMentor(user.id).then(sessions =>{
+            if(sessions.length != 0){
+              res.status(200).json({
+                status : 200,
+                data : sessions
+              });
+            }else{
+              res.status(404).json({
+                status : 404,
+                error : 'No session found from now'
+              });  
+            }
+          });
+        }else{
+          sessions.findForMentee(user.id).then(sessions =>{
+            if(sessions.length != 0){
+              res.status(200).json({
+                status : 200,
+                data : sessions
+              });
+            }else{
+              res.status(404).json({
+                status : 404,
+                error : 'No session found from now'
+              });   
+            }
+          });
+        }
+      }else{
+        res.status(404).json({
+          status : 404,
+          error : 'user not found'
+        }); 
+      }
+    });
   }
 }
 
