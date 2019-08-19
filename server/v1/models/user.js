@@ -12,6 +12,9 @@ class User {
   async find(id){
     return this.datas.find( user => user.id === id );
   }
+  async findMentors(){
+    return this.datas.filter(user => user.is_mentor === true);
+  }
 }
 class DataUser{
   constructor(data,id,hash,created_at){
