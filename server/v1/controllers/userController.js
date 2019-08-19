@@ -3,7 +3,7 @@ import User from '../models/user';
 const users =  User.Users;
 
 const userController = {
-  changeToadmin : (req, res, next) => {
+  changeToMentor : (req, res) => {
     users.find(parseInt(req.params.userId)).then(user =>{
       if(user){
         user.is_mentor = true;
@@ -16,7 +16,22 @@ const userController = {
       }else{
         res.status(404).json({
           status: 404,
-          error: "User not found"
+          error: 'User not found'
+        });
+      }
+    });
+  },
+  mentors  : (req, res) =>{
+    users.findMentors().then(users =>{
+      if(users.length != 0){
+        res.status(200).json({ 
+          status : 200,
+          data : users
+        });
+      }else{
+        res.status(404).json({
+          status : 404,
+          error: 'Not mentors found'
         });
       }
     });
