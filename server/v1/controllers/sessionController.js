@@ -33,6 +33,23 @@ const sessionController = {
         });
       }
     });    
+  },
+  acceptSession : (req, res) => {
+    const id = parseInt(req.params.sessionId);
+    sessions.find(id).then(session =>{
+      if(session){
+        session.status = 'accepted'; 
+        res.status(200).json({
+          status : 200,
+          data : session
+        });
+      }else{
+        res.status(404).json({
+          status : 404,
+          error : 'Session mentorship not found'
+        });
+      }
+    }); 
   }
 }
 
