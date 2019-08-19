@@ -5,5 +5,6 @@ import sessionController from '../controllers/sessionController';
 const routes = express.Router();
 
 routes.post('/sessions',authCheck,sessionController.createSession)
-  .patch('/sessions/:sessionId/accept',authCheck,sessionController.acceptSession);
+  .patch('/sessions/:sessionId/accept',authCheck,sessionController.acceptSession)
+  .patch('/sessions/:sessionId/reject',authCheck,sessionController.rejectSession);
 export default routes;   
