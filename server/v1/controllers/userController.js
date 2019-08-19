@@ -35,7 +35,29 @@ const userController = {
         });
       }
     });
-  }
+  },
+  mentor : (req, res) =>{
+    users.find(parseInt(req.params.mentorId)).then(user =>{
+      if(user){
+        if(user.is_mentor === true){
+          res.status(200).json({
+            status: 200,
+            data: user 
+          });
+        }else{
+          res.status(404).json({
+            status: 404,
+            error: 'This user is not a mentor'
+          });
+        }
+      }else{
+        res.status(404).json({
+          status: 404,
+          error: 'Mentor not found'
+        });
+      }
+    });
+  }  
 }
 
 export default userController;
