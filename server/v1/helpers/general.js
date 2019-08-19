@@ -1,3 +1,8 @@
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 const todo = {
   "notice" : "This is the V1 API so make sure to put /api/v1/ before any route. eg: api/v1/auth/signin",
   "GET/" : {
@@ -25,5 +30,10 @@ const todo = {
 
   }
 }
+const authUser = (header) =>{
+  const token = header.split(" ")[1];
+  const decoded = jwt.verify(token, process.env.TOKEN_KEY);
+  return decoded;
+}
 
-export default { todo }
+export default { todo, authUser }

@@ -69,7 +69,7 @@ const sendToken = (user,res,status,msg) =>{
     },
     process.env.TOKEN_KEY,
     { 
-      expiresIn : 3600
+      expiresIn : '2h'
     }
   )
   return res.status(status).json({
