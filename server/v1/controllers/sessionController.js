@@ -5,7 +5,6 @@ import helper  from '../helpers/general';
 const sessions = Session.sessions;
 const users =  User.Users;
 
-
 const sessionController = {
   createSession : (req, res) => {
     const user = helper.authUser(req.headers.authorization);
@@ -39,6 +38,23 @@ const sessionController = {
     sessions.find(id).then(session =>{
       if(session){
         session.status = 'accepted'; 
+        res.status(200).json({
+          status : 200,
+          data : session
+        });
+      }else{
+        res.status(404).json({
+          status : 404,
+          error : 'Session mentorship not found'
+        });
+      }
+    }); 
+  },
+  rejectSession : (req, res) => {
+    const id = parseInt(req.params.sessionId);
+    sessions.find(id).then(session =>{
+      if(session){
+        session.status = 'rejected'; 
         res.status(200).json({
           status : 200,
           data : session
