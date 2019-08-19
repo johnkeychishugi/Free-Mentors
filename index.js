@@ -1,6 +1,6 @@
 import express from 'express';
-import routes from './server/routes';
-import todo from './server/helpers/general';
+import routes from './server/v1/routes';
+import todo from './server/v1/helpers/general';
 
 const app = express();
 const guider = todo.todo;
@@ -8,8 +8,8 @@ const guider = todo.todo;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-//intialize routes
-app.use('/api',routes);
+//intialize routes vesrion 1
+app.use('/api/v1',routes);
 
 //errors handling middleware
 app.use(function(error,req,res,next){
