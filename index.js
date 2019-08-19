@@ -1,9 +1,9 @@
 import express from 'express';
 import routes from './server/v1/routes';
-import todo from './server/v1/helpers/general';
+import helper from './server/v1/helpers/general';
 
 const app = express();
-const guider = todo.todo;
+const guider = helper.todo;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
