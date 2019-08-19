@@ -9,7 +9,7 @@ class User {
   async  checkIfExist (email){
     return this.datas.find( user => user.email === email );
   }
-  find(id){
+  async find(id){
     return this.datas.find( user => user.id === id );
   }
 }
@@ -22,10 +22,11 @@ class DataUser{
     this.bio = data.bio;
     this.occupation = data.occupation;
     this.expertise = data.expertise;
-    this.is_admin = data.is_admin ? data.is_admin : false;
+    this.is_admin = data.is_admin ? true : false;
     this.is_mentor = false;
     this.password = hash;
     this.created_at = created_at;
   }
 }
-export default { User, DataUser }
+const Users = new User();
+export default { Users, DataUser }

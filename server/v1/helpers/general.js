@@ -1,5 +1,5 @@
 const todo = {
-  "notice" : "this is the V1 api of free mentors",
+  "notice" : "This is the V1 API so make sure to put /api/v1/ before any route. eg: api/v1/auth/signin",
   "GET/" : {
     "mentors" : "all mentors",
     "mentor/:id" : "get specific mentor",
@@ -12,7 +12,7 @@ const todo = {
 
   "POST/" : {
     "auth/signup" : "register a new user",
-    "auth/login" : "login a registered user",
+    "auth/signin" : "login a registered user",
     "request-session/:id" : "send a mentorship requsest to a mentor",
   },
   "DELETE/" : {

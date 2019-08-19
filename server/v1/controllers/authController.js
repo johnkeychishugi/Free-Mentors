@@ -5,7 +5,7 @@ import Validator from '../middlewares/validators';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const users = new User.User();
+const users =  User.Users;
 
 const authController = {
   signup : (req, res) => {
@@ -75,7 +75,7 @@ const sendToken = (user,res,status,msg) =>{
   return res.status(status).json({
     status : status,
     message : msg,
-    data : {token : token , user: user}
+    data : {token : token}
   })
 }
 const authFails = (res) =>{
