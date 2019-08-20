@@ -35,7 +35,7 @@ const authController = {
         }
       });
     }else{
-      res.status(422).send(validate.error);
+      res.status(422).send({status: 422, error: validate.error});
     }
   },
   signin : (req,res) => {
@@ -55,7 +55,7 @@ const authController = {
         }
       });
     }else{
-      res.status(422).send(validate.error);
+      res.status(422).send({status: 422, error: validate.error});
     }
   }
 }
