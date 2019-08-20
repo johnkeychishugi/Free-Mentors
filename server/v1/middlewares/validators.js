@@ -23,6 +23,13 @@ export default class Validator {
     }
     return Joi.validate(user,userSchema);
   }
+  static schemaSession(session){
+    const sessionSchema ={
+      mentorId: Joi.number().required(),
+      questions: Joi.string().required()
+    }
+    return Joi.validate(session,sessionSchema);
+  }
   static schemaReview(review){
     const reviewSchema ={
       score: Joi.number().min(1).max(5).required(),

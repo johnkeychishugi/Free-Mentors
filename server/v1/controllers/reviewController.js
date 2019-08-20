@@ -45,8 +45,7 @@ const reviewController = {
             error : 'Session mentorship not found'
           });
         }
-      })
-   
+      });
     }else{
       res.status(422).send({status: 422, error: validate.error});
     }
