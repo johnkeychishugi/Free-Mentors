@@ -6,6 +6,19 @@ class Review {
     this.datas.push(review);
     return this.datas[this.datas.length - 1];
   }
+  async delete(id) {
+    let deleted;
+    for (const index in this.datas) {
+      if (this.datas[index].sessionId === id ) {
+        deleted = this.datas.splice(index, 1);
+      }
+    }
+    if(deleted){
+      return true;
+    }else{
+      return false;
+    }
+  }
 }
 
 class DataReview {
