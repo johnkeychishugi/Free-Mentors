@@ -19,6 +19,9 @@ class Review {
       return false;
     }
   }
+  async find(id){
+    return this.datas.find( review => review.id === id );
+  }
 }
 
 class DataReview {

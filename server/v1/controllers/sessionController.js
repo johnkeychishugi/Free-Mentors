@@ -25,8 +25,8 @@ const sessionController = {
           const data = new Session.DataSession(req.body,id,user,created_at);
   
           sessions.save(data).then(session =>{
-            res.status(200).json({
-              status : 200,
+            res.status(201).json({
+              status : 201,
               data : session
             });
           });

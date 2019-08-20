@@ -27,8 +27,8 @@ const reviewController = {
               const data = new Review.DataReview(session,req.body,id,menteeFullName,created_at);
 
               reviews.save(data).then(review =>{
-                res.status(200).json({
-                  status : 200,
+                res.status(201).json({
+                  status : 201,
                   data : review
                 });
               });
@@ -63,6 +63,21 @@ const reviewController = {
         res.status(404).json({
           status : 404,
           error : 'Review not found'
+        });
+      }
+    })
+  },
+  showReview : (req, res) =>{
+    reviews.find(parseInt(req.params.reviewId)).then(review =>{
+      if(review){
+        res.status(200).json({
+          status : 200,
+          data : review 
+        });
+      }else{
+        res.status(404).json({
+          status : 404,
+          error: 'Review not found'
         });
       }
     })
