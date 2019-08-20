@@ -1,7 +1,9 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/user';
+import helper  from '../helpers/general';
 import Validator from '../middlewares/validators';
+
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -57,6 +59,36 @@ const authController = {
     }else{
       res.status(422).send({status: 422, error: validate.error});
     }
+  },
+  changePassword : (req, res) => {
+    const user = helper.authUser(req.headers.authorization);
+    const validate = Validator.schemaChangePassword(req.body);
+    if(!validate.error){
+      users.find(parseInt(user.userId)).then(user =>{
+        if(user){
+          bcrypt.compare(req.body.old_password, user.password, (err,result)=>{
+            if(result){
+              bcrypt.hash(req.body.new_password, 10, (err, hash)=>{
+                user.password = hash;
+                res.status(200).json({
+                  status: 200, 
+                  data:{
+                    message : 'Password change succuefully'}
+                });
+              });
+            }else{
+              res.status(400).json({
+                status : 200,
+                error : 'Current password incorrect'
+              })
+            }
+          })
+        }
+      });
+    }else{
+      res.status(422).send({status: 422, error: validate.error});
+    }
+    
   }
 }
 const sendToken = (user,res,status,msg) =>{
