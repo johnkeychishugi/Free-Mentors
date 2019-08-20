@@ -50,6 +50,23 @@ const reviewController = {
     }else{
       res.status(422).send({status: 422, error: validate.error});
     }
+  },
+  Deletereview : (req ,res) =>{
+    reviews.delete(parseInt(req.params.sessionId)).then(reviews =>{
+      if(reviews){
+        res.status(200).json({
+          status : 200,
+          data:{
+            mesaage : 'Review successfully deleted'
+          }
+        });
+      }else{
+        res.status(404).json({
+          status : 404,
+          error : 'Review not found'
+        });
+      }
+    })
   }
 }
 export default reviewController;
