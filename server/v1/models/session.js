@@ -1,4 +1,4 @@
-class session {
+class Session {
   constructor(){
     this.datas=[];
   }
@@ -28,5 +28,5 @@ class DataSession {
 
   }
 }
-const sessions = new session
+const sessions = new Session;
 export default { sessions, DataSession };
