@@ -37,4 +37,12 @@ export default class Validator {
     }
     return Joi.validate(review,reviewSchema);
   }
+  static schemaChangePassword(user){
+    const changepasswordSchema ={
+      old_password: Joi.string().regex(/^[a-zA-Z0-9]{6,16}$/).min(6).required(),
+      new_password: Joi.string().regex(/^[a-zA-Z0-9]{6,16}$/).min(6).required(),
+      confirm_new_password : Joi.string().valid(Joi.ref('new_password')).required().strict()
+    }
+    return Joi.validate(user,changepasswordSchema);
+  }
 }
