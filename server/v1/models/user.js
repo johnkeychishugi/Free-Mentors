@@ -15,6 +15,9 @@ class User {
   async findMentors(){
     return this.datas.filter(user => user.is_mentor === true);
   }
+  async findAdmins(){
+    return this.datas.filter(user => user.is_admin === true);
+  }
 }
 class DataUser{
   constructor(data,id,hash,created_at){

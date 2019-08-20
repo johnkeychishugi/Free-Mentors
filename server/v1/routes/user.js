@@ -7,6 +7,7 @@ const routes = express.Router();
 
 routes.patch('/user/:userId',authCheck, adminCheck, userController.changeToMentor)
   .get('/mentors',authCheck,userController.mentors)
-  .get('/mentors/:mentorId',authCheck,userController.mentor);
+  .get('/mentors/:mentorId',authCheck,userController.mentor)
+  .get('/admins',authCheck, adminCheck,userController.admins);
 
 export default routes;   
