@@ -1,6 +1,6 @@
 export default {
   jwt : {
-    secretKey : "SecretKey12345"
+    secretKey : 'SecretKey12345'
   }
 }
   

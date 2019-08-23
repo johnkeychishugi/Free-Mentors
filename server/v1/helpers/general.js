@@ -31,7 +31,7 @@ const todo = {
   }
 }
 const authUser = (header) =>{
-  const token = header.split(" ")[1];
+  const token = header.split(' ')[1];
   const decoded = jwt.verify(token, process.env.TOKEN_KEY);
   return decoded;
 }
