@@ -3,3 +3,5 @@ node_js :
 - stable
 script :
 - npm run test -s
+after_success:
+- npm run coverage
