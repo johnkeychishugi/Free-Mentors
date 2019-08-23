@@ -7,6 +7,6 @@ const routes = express.Router();
 
 routes.post('/auth/signup',authController.signup)
   .post('/auth/signin',authController.signin)
-  .post('/auth/changepassword',authCheck,authController.changePassword);
+  .patch('/auth/changepassword',authCheck,authController.changePassword);
 
 export default routes;   

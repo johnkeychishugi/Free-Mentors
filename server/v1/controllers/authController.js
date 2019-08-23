@@ -16,7 +16,7 @@ const authController = {
       users.checkIfExist(req.body.email).then(user =>{
         if(user){
           res.status(400).send({
-            status: 401, 
+            status: 400, 
             error:'Email already exist!!'
           });
         }else{
@@ -78,7 +78,7 @@ const authController = {
               });
             }else{
               res.status(400).json({
-                status : 200,
+                status : 400,
                 error : 'Current password incorrect'
               })
             }
