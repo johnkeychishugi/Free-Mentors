@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/johnkeychishugi/Free-Mentors.svg?branch=develop)](https://travis-ci.com/johnkeychishugi/Free-Mentors)
 [![Coverage Status](https://coveralls.io/repos/github/johnkeychishugi/Free-Mentors/badge.svg?branch=develop)](https://coveralls.io/github/johnkeychishugi/Free-Mentors?branch=develop)
+[![Maintainability](https://api.codeclimate.com/v1/badges/777fc7958611cff542ab/maintainability)](https://codeclimate.com/github/johnkeychishugi/Free-Mentors/maintainability)
 
 Free-Mentors is a relationship in which a more experienced or more knowledgeable person helps to guide a less experienced or less knowledgeable person.
 
