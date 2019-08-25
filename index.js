@@ -2,6 +2,9 @@ import express from 'express';
 import routes from './server/v1/routes/';
 import helper from './server/v1/helpers/general';
 import dotenv from 'dotenv';
+import swaggerUi from 'swagger-ui-express';
+import docs from './swagger.json';
+
 dotenv.config();
 
 const app = express();
@@ -12,6 +15,9 @@ app.use(express.json());
 
 //intialize routes vesrion 1
 app.use('/api/v1',routes);
+
+//intialize endpoint of api documatation  of vesrion 1
+app.use('/api/v1/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
 
 app.get('/',(req, res, next) => res.status(200).send({
   status : 200,

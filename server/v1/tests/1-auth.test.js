@@ -56,6 +56,17 @@ describe('Authentifications',()=>{
         done();
       })
   });
+  it('Should return an html page with 200 status when users access api documentation', (done) => {
+    chai.request(server)
+      .get('/api/v1/api-docs')
+      .set('Content-type', 'text/html')
+      .end((err, res) => {
+        if (err) done(err);
+        expect(res).to.have.status(200)
+        expect(res.headers['content-type']).to.equal('text/html; charset=utf-8')
+        done();
+      })
+  });
   describe('Sign Up', ()=>{
     it('Should register with 201 status and give the token', (done)=>{
       chai.request(server)

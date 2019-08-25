@@ -1,0 +1,616 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0",
+      "title": "Free Mentors",
+      "description": "This is a public Free mentors api",
+      "contact": {}
+    },
+    "host": "herokuapp.com",
+    "basePath": "/api/v1",
+    "securityDefinitions": {},
+    "schemes": [
+      "http",
+      "https"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/auth/signup": {
+        "post": {
+          "description": "Makes a post request to signup or register a new user and authenticate the given user once the registration is successful by providing the token",
+          "summary": "Sign up",
+          "tags": [
+            "All Endpoints"
+          ],
+          "operationId": "Localhost3000ApiV1AuthSignupPost",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "application/x-www-form-urlencoded"
+          ],
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "",
+              "headers": {}
+            }
+          }
+        }
+      },
+      "/auth/signin": {
+        "post": {
+          "description": "Sign in the user already having a user account on our platform and returns a token",
+          "summary": "Sign in",
+          "tags": [
+            "All Endpoints"
+          ],
+          "operationId": "SigninPost1",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "application/x-www-form-urlencoded"
+          ],
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "Content-Type",
+              "in": "header",
+              "required": true,
+              "type": "string",
+              "description": ""
+            },
+            {
+              "name": "email",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": ""
+            },
+            {
+              "name": "password",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": ""
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "headers": {}
+            }
+          }
+        }
+      },
+      "/auth/changepassword": {
+        "post": {
+          "description": "User can change the password by providing the bew one",
+          "summary": "Change password",
+          "tags": [
+            "All Endpoints"
+          ],
+          "operationId": "changepasseord2",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "application/x-www-form-urlencoded"
+          ],
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "required": false,
+              "default": "Bearer {token}",
+              "type": "string"
+            },
+            {
+              "name": "Content-Type",
+              "in": "header",
+              "required": true,
+              "type": "string",
+              "description": ""
+            },
+            {
+              "name": "old password",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": ""
+            },
+            {
+                "name": "new  password",
+                "in": "formData",
+                "required": true,
+                "type": "string",
+                "description": ""
+              },
+            {
+              "name": "confirm new password",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": ""
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "headers": {}
+            }
+          }
+        }
+      },
+      "/user/:userId": {
+        "patch": {
+          "description": "Admin can Change user to mentor by passing userId as parameter ",
+          "summary": "Change user to mentor",
+          "tags": [
+            "All Endpoints"
+          ],
+          "operationId": "UnnammedEndpointPost1",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "required": false,
+              "default": "Bearer {token}",
+              "type": "string"
+            },
+            {
+                "name": "user_id",
+                "in": "formData",
+                "required": true,
+                "type": "integer",
+                "format": "int32",
+                "description": ""
+              }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "headers": {}
+            }
+          }
+        }
+      },
+      "/mentor/:userId": {
+        "patch": {
+          "description": "Admin can remove a mentor by passing mentor id as parameter",
+          "summary": "Remove mentor",
+          "tags": [
+            "All Endpoints"
+          ],
+          "operationId": "RenovePatch",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "required": false,
+              "default": "Bearer {token}",
+              "type": "string"
+            },
+            {
+                "name": "user_id",
+                "in": "formData",
+                "required": true,
+                "type": "integer",
+                "format": "int32",
+                "description": ""
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "headers": {}
+            }
+          }
+        }
+      },
+      "/mentors": {
+        "get": {
+          "description": "FOR viewing all mentors in the platform",
+          "summary": "View all mentors",
+          "tags": [
+            "All Endpoints"
+          ],
+          "operationId": "mentorsGet",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "in": "header",
+              "required": true,
+              "type": "string",
+              "description": ""
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "headers": {}
+            }
+          }
+        }
+      },
+      "/mentors/:mentorId": {
+        "get": {
+          "description": "For Viewing a specific mentor and get all details about mentor",
+          "summary": "Specific mentor",
+          "tags": [
+            "All Endpoints"
+          ],
+          "operationId": "specificmentor",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "application/x-www-form-urlencoded"
+          ],
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "required": false,
+              "default": "Bearer {token}",
+              "type": "string"
+            },
+            {
+                "name": "mentor_id",
+                "in": "formData",
+                "required": true,
+                "type": "integer",
+                "format": "int32",
+                "description": ""
+              }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "headers": {}
+            }
+          }
+        }
+      },
+      "/admins": {
+        "get ": {
+          "description": "For an admin can view all other admins in the platform",
+          "summary": "View all admins",
+          "tags": [
+            "All Endpoints"
+          ],
+          "operationId": "Localhost3000admins3",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "required": false,
+              "default": "Bearer {token}",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "headers": {}
+            }
+          }
+        },
+        "get": {
+          "description": "For an admin can view all other admins in the platform",
+          "summary": "View all admin",
+          "tags": [
+            "All Endpoints"
+          ],
+          "operationId": "Localhost3000Amdin",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "required": false,
+              "default": "Bearer {token}",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "headers": {}
+            }
+          }
+        }
+      },
+      "/sessions/": {
+        "post": {
+          "description": "For creating a session, action perform by the user",
+          "summary": "Create session",
+          "tags": [
+            "All Endpoints"
+          ],
+          "operationId": "Localhost3000sessiokc1",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "required": false,
+              "default": "Bearer {token}",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "headers": {}
+            }
+          }
+        }
+      },
+      "/sessions/:sessionId/accept": {
+        "patch": {
+          "description": "For the mentor to accept the mentorship session",
+          "summary": "Accept session",
+          "tags": [
+            "All Endpoints"
+          ],
+          "operationId": "Localhost3000Apiaccpet",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "required": false,
+              "default": "Bearer {token}",
+              "type": "string"
+            },
+            {
+                "name": "session_id",
+                "in": "formData",
+                "required": true,
+                "type": "integer",
+                "format": "int32",
+                "description": ""
+            }
+
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "headers": {}
+            }
+          }
+        }
+      },
+      "/sessions/:sessionId/reject": {
+        "patch": {
+          "description": "For the mentor to reject the mentorship session",
+          "summary": "Reject session",
+          "tags": [
+            "All Endpoints"
+          ],
+          "operationId": "Localhost3000Apireject",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "required": false,
+              "default": "Bearer {token}",
+              "type": "string"
+            },
+            {
+                "name": "session_id",
+                "in": "formData",
+                "required": true,
+                "type": "integer",
+                "format": "int32",
+                "description": ""
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "headers": {}
+            }
+          }
+        }
+      },
+      "/sessions": {
+        "get": {
+          "description": "For the mentor or mentee to view all his mentorship sessions",
+          "summary": "View sessions",
+          "tags": [
+            "All Endpoints"
+          ],
+          "operationId": "Localhost3000Viewsession12",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "required": false,
+              "default": "Bearer {token}",
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "headers": {}
+            }
+          }
+        }
+      },
+      "/sessions/:sessionId/review/": {
+        "post": {
+          "description": "For the mentor to create a review of a mentorship session",
+          "summary": "Create a review",
+          "tags": [
+            "All Endpoints"
+          ],
+          "operationId": "Localhost3000createrevi",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "required": false,
+              "default": "Bearer {token}",
+              "type": "string"
+            },
+            {
+                "name": "session_id",
+                "in": "formData",
+                "required": true,
+                "type": "integer",
+                "format": "int32",
+                "description": ""
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "headers": {}
+            }
+          }
+        }
+      },
+      "/reviews/:reviewId": {
+        "get": {
+          "description": "For the mentee or mentor to get his specific reveiw ",
+          "summary": "Get a specific review",
+          "tags": [
+            "All Endpoints"
+          ],
+          "operationId": "Localhost3000getspecReview2",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "required": false,
+              "default": "Bearer {token}",
+              "type": "string"
+            },
+            {
+                "name": "review_id",
+                "in": "formData",
+                "required": true,
+                "type": "integer",
+                "format": "int32",
+                "description": ""
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "headers": {}
+            }
+          }
+        }
+      },
+      "/sessions/:sessionId/review": {
+        "delete": {
+          "description": "For admin can delete mentorship session review deemed inappropriate.",
+          "summary": "Delete a review",
+          "tags": [
+            "All Endpoints"
+          ],
+          "operationId": "Localhost3000deletereview1",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "required": false,
+              "default": "Bearer {token}",
+              "type": "string"
+            },
+            {
+                "name": "session_id",
+                "in": "formData",
+                "required": true,
+                "type": "integer",
+                "format": "int32",
+                "description": ""
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "headers": {}
+            }
+          }
+        }
+      }
+    },
+    "tags": [
+      {
+        "name": "All Endpoints",
+        "description": "all endpoints  return objects in JSON format"
+      }
+    ]
+  }
