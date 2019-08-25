@@ -1,14 +1,10 @@
 import express from 'express';
 import routes from './server/v1/routes/';
-import helper from './server/v1/helpers/general';
-import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import docs from './swagger.json';
 
-dotenv.config();
-
 const app = express();
-const guider = helper.todo;
+const docsUrl = 'https://free-mentors-app.herokuapp.com/api/v1/api-docs/';
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -21,17 +17,17 @@ app.use('/api/v1/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
 
 app.get('/',(req, res, next) => res.status(200).send({
   status : 200,
-  message : 'welcome to the Free mentor Api, below is how to use it',
-  guider
+  message : 'welcome to the Free mentor Api, below link is how to use it',
+  documentation : `For the documentaion visit this link ${docsUrl}`,
 }));
 
 app.use('**', (req, res) => res.status(404).send({
   status : 404,
-  message : 'The requested resource was not found on the server'
+  message : `The requested resource was not found on the server, Visit the documentation link ${docsUrl}`
 }));
 
 //listen for requests
-app.listen(process.env.SERVER_PORT || 3000,function(){
+app.listen(process.env.PORT || 3000,function(){
   console.log('Now listening for request on port 3000');
 });
 export default app;

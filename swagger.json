@@ -6,7 +6,7 @@
       "description": "This is a public Free mentors api",
       "contact": {}
     },
-    "host": "herokuapp.com",
+    "host": "free-mentors-app.herokuapp.com",
     "basePath": "/api/v1",
     "securityDefinitions": {},
     "schemes": [
