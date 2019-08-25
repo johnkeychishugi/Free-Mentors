@@ -4,7 +4,8 @@
   "description": "Free-Mentors is a relationship in which a more experienced or more knowledgeable person helps to guide a less experienced or less knowledgeable person.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node index.js",
+    "start": "babel-node index.js",
+    "start-dev": "nodemon --exec babel-node index.js",
     "test": "mocha --exit --require @babel/register --require babel-polyfill ./server/**/*.test.js",
     "lint": "eslint ./*.js",
     "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test | coveralls"

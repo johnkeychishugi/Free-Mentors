@@ -1,11 +1,8 @@
 import express from 'express';
 import routes from './server/v1/routes/';
 import helper from './server/v1/helpers/general';
-import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import docs from './swagger.json';
-
-dotenv.config();
 
 const app = express();
 const guider = helper.todo;
@@ -31,7 +28,7 @@ app.use('**', (req, res) => res.status(404).send({
 }));
 
 //listen for requests
-app.listen(process.env.SERVER_PORT || 3000,function(){
+app.listen(process.env.PORT || 3000,function(){
   console.log('Now listening for request on port 3000');
 });
 export default app;
