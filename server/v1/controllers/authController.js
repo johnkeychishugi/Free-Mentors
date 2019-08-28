@@ -97,7 +97,8 @@ const sendToken = (user,res,status,msg) =>{
       email : user.email,
       userId : user.id,
       firstname : user.firstname,
-      is_admin : user.is_admin 
+      is_admin : user.is_admin,
+      is_mentor : user.is_mentor
     },
     process.env.TOKEN_KEY,
     { 

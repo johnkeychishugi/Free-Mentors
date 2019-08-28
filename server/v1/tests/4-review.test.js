@@ -69,6 +69,23 @@ describe('Review of sessions',() =>{
           done();
         });
     });
+    it('Should return an error with a 403 status when a no mentor review a mentorship session while is not a mentor',(done) =>{  
+      chai.request(server)
+        .post(`/api/v1/sessions/${1}/review`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${usertoken}`)
+        .send({
+          score: 3,
+          remark : 'Good job,but continous to learn by youself'
+        })
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(403)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error')
+          done();
+        });
+    });
     it('Should return a message with a 201 status when the mentor review a mentorship session',(done) =>{  
       chai.request(server)
         .post(`/api/v1/sessions/${1}/review`)

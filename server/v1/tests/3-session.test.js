@@ -129,6 +129,19 @@ describe('Sessions',() =>{
           done();
         });
     });
+    it('Should return an error with a 403 status when a no mentor try to accept a mentorship session while is not a mentor',(done) =>{  
+      chai.request(server)
+        .patch(`/api/v1/sessions/${1}/accept`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${usertoken}`)
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(403)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error');
+          done();
+        });
+    });
     it('Should return a message with a 200 status when the mentor accept a mentorship session',(done) =>{  
       chai.request(server)
         .patch(`/api/v1/sessions/${1}/accept`)
@@ -164,6 +177,19 @@ describe('Sessions',() =>{
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(401)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error');
+          done();
+        });
+    });
+    it('Should return a message with a 403 status when a no mentor try reject a mentorship session while is not a mentor',(done) =>{  
+      chai.request(server)
+        .patch(`/api/v1/sessions/${2}/reject`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${usertoken}`)
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(403)
           expect(res.body).to.be.an('object')
           expect(res.body).to.have.property('error');
           done();
