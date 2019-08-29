@@ -25,6 +25,7 @@ class DataUser{
     this.firstname = data.firstname;
     this.lastname = data.lastname;
     this.email = data.email;
+    this.address = data.address;
     this.bio = data.bio;
     this.occupation = data.occupation;
     this.expertise = data.expertise;

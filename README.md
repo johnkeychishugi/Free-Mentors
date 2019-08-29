@@ -79,7 +79,7 @@ Tools used for development of this API are;
 
 ## Api Documentation
 
-Get started with WayFarer Api endpoints documentation [here](https://free-mentors-app.herokuapp.com/api/v1/api-docs).
+Get started with Free Mentor Api endpoints documentation [here](https://free-mentors-app.herokuapp.com/api/v1/api-docs).
 
 ## Key Contributor
 
