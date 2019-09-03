@@ -79,6 +79,18 @@ describe('After Authentifications',() =>{
           done();
         });
     });
+    it('Should return an object message with status 200 to set admin', (done) => {
+      chai.request(server)
+        .patch(`/api/v1/auth/${2}/setadmin`)
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(200)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('message');
+          done();
+        })
+    });
     it('Should return an object with a error and 403 status when a no admin change user to mentor',(done) =>{
       chai.request(server)
         .patch(`/api/v1/user/${1}`)
