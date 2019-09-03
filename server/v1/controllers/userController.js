@@ -41,10 +41,25 @@ const userController = {
   },
   mentors  : (req, res) =>{
     users.findMentors().then(users =>{
-      if(users.length != 0){
+      let re = [];
+      users.forEach(user => {
+        let l = {
+          firstname : user.firstname,
+          lastname : user.lastname,
+          email : user.status,
+          address : user.email,
+          bio : user.bio,
+          occupation : user.occupation,
+          expertise : user.expertise,
+          is_mentor : user.is_mentor,
+          created_at : user.created_at
+        }
+        re.push(l); 
+      });
+      if(re.length != 0){
         res.status(200).json({ 
           status : 200,
-          data : users
+          data : re,
         });
       }else{
         res.status(404).json({

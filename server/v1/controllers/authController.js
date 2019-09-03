@@ -15,8 +15,8 @@ const authController = {
     if(!validate.error){
       users.checkIfExist(req.body.email).then(user =>{
         if(user){
-          res.status(400).send({
-            status: 400, 
+          res.status(409).send({
+            status: 409, 
             error:'Email already exist!!'
           });
         }else{
@@ -27,7 +27,7 @@ const authController = {
             }else{
               id = 1;
             }
-            const created_at = new Date(); 
+            const created_at = new Date().toDateString(); 
             const data = new User.DataUser(req.body,id,hash,created_at);
 
             users.save(data).then(response =>{
@@ -89,6 +89,63 @@ const authController = {
       res.status(422).send({status: 422, error: validate.error});
     }
     
+  },
+  addInformations : (req, res) =>{
+    const user = helper.authUser(req.headers.authorization);
+    const validate = Validator.schemaAddInfos(req.body);
+    
+    if(!validate.error){
+      users.find(parseInt(user.userId)).then(user =>{
+        if(user){
+          user.address = req.body.address;
+          user.bio = req.body.bio;
+          user.occupation = req.body.occupation;
+          user.expertise = req.body.expertise;
+
+
+          res.status(200).json({
+            status: 200, 
+            data:{
+              message : 'Informations added succuefully',
+              data : {
+                firstname : user.firstname,
+                lastname : user.lastname,
+                email : user.email,
+                address : user.address,
+                bio : user.bio,
+                occupation : user.occupation,
+                expertise : user.occupation,
+                is_mentor : user.is_mentor,
+                created_at : user.created_at
+              },
+          
+            }
+          });
+        }
+      });
+    }else{
+      res.status(422).send({status: 422, error: validate.error});
+    }
+
+  },
+  setadmin : (req, res) =>{
+    users.find(parseInt(req.params.userid)).then(user =>{
+      if(user){
+        user.is_admin = true;
+        res.status(200).json({
+          status: 200, 
+          data:{
+            message : 'user set to admin succuefully',
+            user :user
+          }
+        });
+      }else{
+        res.status(404).json({
+          status : 404,
+          errr : 'No user found'
+        });
+      }
+    });
   }
 }
 const sendToken = (user,res,status,msg) =>{
