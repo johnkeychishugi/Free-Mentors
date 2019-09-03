@@ -233,7 +233,7 @@ footer .footer_content b a{
   width: 250px;
   margin: auto;
   margin-top: -37em;
-  height: 520px;
+  height: 400px;
   margin-left: 45em;
   border-radius: 10px;
   z-index: 7;
@@ -506,9 +506,7 @@ form span{
 .edit .editinfo{
    margin-bottom:10px;   
 }
-.edit .editpass{
 
-}
 .edit h3{
   text-align:center;
 }
@@ -662,7 +660,7 @@ a.decline:hover{
   width: 250px;
   margin: auto;
   margin-top: -38em;
-  height: 600px;
+  height: 450px;
   margin-left: 45em;
   border-radius: 10px;
   z-index: 7;
@@ -798,7 +796,7 @@ a.decline:hover{
   width: 250px;
   margin: auto;
   margin-top: -34em;
-  height: 600px;
+  height: 450px;
   margin-left: 25em;
   border-radius: 10px;
   z-index: 7;
@@ -950,7 +948,7 @@ a.decline:hover{
   width: 250px;
   margin: auto;
   margin-top: -34em;
-  height: 600px;
+  height: 450px;
   margin-left: 4em;
   border-radius: 10px;
   z-index: 7;
