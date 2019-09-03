@@ -131,9 +131,9 @@ const authController = {
       if(user){
         user.is_admin = true;
         users.findMentors().then(data =>{
-          let re = [];
+          let usersArray = [];
           data.forEach(user => {
-            let l = {
+            let userData = {
               firstname : user.firstname,
               lastname : user.lastname,
               email : user.status,
@@ -144,13 +144,13 @@ const authController = {
               is_mentor : user.is_mentor,
               created_at : user.created_at
             }
-            re.push(l); 
+            usersArray.push(userData); 
           });
           res.status(200).json({
             status: 200, 
             message : 'user set to admin succuefully',
             data:{
-              mentors: re
+              mentors: usersArray
             } 
           });
         });
