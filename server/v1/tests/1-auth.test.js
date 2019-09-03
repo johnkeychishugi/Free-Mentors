@@ -19,12 +19,8 @@ describe('Authentifications',()=>{
         firstname : 'Aristotle',
         lastname : 'Kalume',
         email : 'kalume@gmail.com',
-        address : 'Gisozi Kigali',
-        bio : 'Born to worship',
-        occupation : 'Programmer',
-        expertise : 'Software developer',
-        password : '123456',
-        confirmPassword : '123456'
+        password : 'Chi@123456',
+        confirmPassword : 'Chi@123456'
       })
       .then(res => {
         token = res.body.data.token;
@@ -67,6 +63,7 @@ describe('Authentifications',()=>{
         done();
       })
   });
+
   describe('Sign Up', ()=>{
     it('Should register with 201 status and give the token', (done)=>{
       chai.request(server)
@@ -77,13 +74,8 @@ describe('Authentifications',()=>{
           firstname : 'John',
           lastname : 'Chishugi',
           email : 'jkchishugi@gmail.com',
-          address : 'Gisozi Kigali',
-          bio : 'Born to worship',
-          occupation : 'Programmer',
-          expertise : 'Software developer',
-          password : '123456',
-          confirmPassword : '123456',
-          is_admin : true
+          password : 'Ch@123456',
+          confirmPassword : 'Ch@123456',
         })
         .end((err, res) =>{
           if (err) done(err);
@@ -116,20 +108,39 @@ describe('Authentifications',()=>{
           firstname : 'John',
           lastname : 'Chishugi',
           email : 'jkchishugi@gmail.com',
-          address : 'Gisozi Kigali',
-          bio : 'Born to worship',
-          occupation : 'Programmer',
-          expertise : 'Software developer',
-          password : '123456',
-          confirmPassword : '123456',
-          is_admin : true
+          password : 'Ch@123456',
+          confirmPassword : 'Ch@123456',
         })
         .end((err, res) =>{
           if (err) done(err);
-          res.body.should.have.status(400)
+          res.body.should.have.status(409)
           res.body.should.be.an('Object')
           res.body.should.have.property('error')
           done()
+        })
+    });
+    it('Should return an object message with status 200 to set admin', (done) => {
+      chai.request(server)
+        .patch(`/api/v1/auth/${2}/setadmin`)
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(200)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('message');
+          done();
+        })
+    });
+    it('Should return an error  with status 404 to set admin but, user is not found', (done) => {
+      chai.request(server)
+        .patch(`/api/v1/auth/${20}/setadmin`)
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(404)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error');
+          done();
         })
     });
   });
@@ -141,7 +152,7 @@ describe('Authentifications',()=>{
         .set('Content-type', 'application/x-www-form-urlencoded')
         .send({
           email: 'jkchishugi@gmail.com',
-          password : '123456'
+          password : 'Ch@123456'
         })
         .end((err, res) => {
           if (err) done(err);
@@ -172,7 +183,7 @@ describe('Authentifications',()=>{
         .set('Content-type', 'application/x-www-form-urlencoded')
         .send({
           email: 'jkchishugi@popmooder.com',
-          password : '87654321'
+          password : '87Ch@654321'
         })
         .end((err, res) => {
           if (err) done(err);
@@ -191,9 +202,9 @@ describe('Authentifications',()=>{
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
         .send({
-          old_password: '123456',
-          new_password : '654321',
-          confirm_new_password : '654321'
+          old_password: 'Chi@123456',
+          new_password : 'Ch@654321',
+          confirm_new_password : 'Ch@654321'
         })
         .end((err, res) => {
           if (err) done(err);
@@ -225,9 +236,9 @@ describe('Authentifications',()=>{
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
         .send({
-          old_password: '1234567',
-          new_password : '654321',
-          confirm_new_password : '654321'
+          old_password: 'Ch@1234567',
+          new_password : 'Ch@654321',
+          confirm_new_password : 'Ch@654321'
         })
         .end((err, res) => {
           if (err) done(err);
@@ -244,9 +255,9 @@ describe('Authentifications',()=>{
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
         .send({
-          old_password: '123456',
-          new_password : '654321',
-          confirm_new_password : '6543217'
+          old_password: 'Ch@123456',
+          new_password : 'Ch@654321',
+          confirm_new_password : 'Ch@6543217'
         })
         .end((err, res) => {
           if (err) done(err);
@@ -256,5 +267,44 @@ describe('Authentifications',()=>{
           done();
         })
     });
+  });
+  describe('Add information user',() =>{
+    it('Should return an object with a message when the user add informations', (done) => {
+      chai.request(server)
+        .patch('/api/v1/auth/addInformations')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .set('Content-type', 'application/x-www-form-urlencoded')
+        .send({
+          occupation: 'Software Develop',
+          expertise : 'Project manager',
+          bio : 'Born to win',
+          'address' :'Goma'
+        })
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(200)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('data')
+          done();
+        })
+    });
+
+    it('Should return an object with a message when the user add informations without required credentials', (done) => {
+      chai.request(server)
+        .patch('/api/v1/auth/addInformations')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .set('Content-type', 'application/x-www-form-urlencoded')
+        .send({})
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(422)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error')
+          done();
+        })
+    });
+    
   })
 });

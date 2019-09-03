@@ -132,17 +132,34 @@ const authController = {
     users.find(parseInt(req.params.userid)).then(user =>{
       if(user){
         user.is_admin = true;
-        res.status(200).json({
-          status: 200, 
-          data:{
+        users.findMentors().then(data =>{
+          let re = [];
+          data.forEach(user => {
+            let l = {
+              firstname : user.firstname,
+              lastname : user.lastname,
+              email : user.status,
+              address : user.email,
+              bio : user.bio,
+              occupation : user.occupation,
+              expertise : user.expertise,
+              is_mentor : user.is_mentor,
+              created_at : user.created_at
+            }
+            re.push(l); 
+          });
+          res.status(200).json({
+            status: 200, 
             message : 'user set to admin succuefully',
-            user :user
-          }
+            data:{
+              mentors: re
+            } 
+          });
         });
       }else{
         res.status(404).json({
           status : 404,
-          errr : 'No user found'
+          error: 'No user found'
         });
       }
     });

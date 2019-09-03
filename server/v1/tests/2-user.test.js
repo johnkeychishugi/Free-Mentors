@@ -18,7 +18,7 @@ describe('After Authentifications',() =>{
       .set('Content-type', 'application/x-www-form-urlencoded')
       .send({
         email: 'jkchishugi@gmail.com',
-        password : '123456'
+        password : 'Ch@123456'
       })
       .then(res => {
         userAdmintoken = res.body.data.token;
@@ -35,12 +35,8 @@ describe('After Authentifications',() =>{
         firstname : 'Bienvenue',
         lastname : 'zigabe',
         email : 'bienvenue@gmail.com',
-        address : 'Gisozi Kigali',
-        bio : 'Born to Kigali',
-        occupation : 'Programming',
-        expertise : 'Software developer',
-        password : '11223344',
-        confirmPassword : '11223344',
+        password : 'Ch@11223344',
+        confirmPassword : 'Ch@11223344',
       })
       .then(res => {
         usertoken = res.body.data.token;

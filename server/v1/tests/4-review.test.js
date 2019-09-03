@@ -19,7 +19,7 @@ describe('Review of sessions',() =>{
       .set('Content-type', 'application/x-www-form-urlencoded')
       .send({
         email: 'kalume@gmail.com',
-        password : '654321'
+        password : 'Ch@654321'
       })
       .then(res => {
         usertoken = res.body.data.token;
@@ -34,7 +34,7 @@ describe('Review of sessions',() =>{
       .set('Content-type', 'application/x-www-form-urlencoded')
       .send({
         email: 'bienvenue@gmail.com',
-        password : '11223344'
+        password : 'Ch@11223344'
       })
       .then(res => {
         userMentortoken = res.body.data.token;
@@ -49,7 +49,7 @@ describe('Review of sessions',() =>{
       .set('Content-type', 'application/x-www-form-urlencoded')
       .send({
         email: 'jkchishugi@gmail.com',
-        password : '123456'
+        password : 'Ch@123456'
       })
       .then(res => {
         userAdmintoken = res.body.data.token;
