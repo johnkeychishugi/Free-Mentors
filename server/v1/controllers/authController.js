@@ -48,8 +48,6 @@ const authController = {
           bcrypt.compare(req.body.password, user.password, (err,result)=>{
             if(result){
               sendToken(user, res, 200,'User is successfully logged in')
-            }else{
-              authFails(res); 
             }
           })
         }else{
