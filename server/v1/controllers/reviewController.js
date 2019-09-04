@@ -22,14 +22,22 @@ const reviewController = {
               }else{
                 id = 1;
               }
-              const created_at = new Date(); 
+              const created_at = new Date().toDateString(); 
               const menteeFullName = user.firstname + ' ' + user.lastname;
               const data = new Review.DataReview(session,req.body,id,menteeFullName,created_at);
 
               reviews.save(data).then(review =>{
                 res.status(201).json({
                   status : 201,
-                  data : review
+                  data : {
+                    id : review.id,
+                    sessionId : review.sessionId,
+                    mentorName : review.mentorName,
+                    menteeName : review.menteeFullName,
+                    score: review.score,
+                    remark : review.remark,
+                    created_at : review.created_at
+                  }
                 });
               });
             }else{
@@ -72,7 +80,15 @@ const reviewController = {
       if(review){
         res.status(200).json({
           status : 200,
-          data : review 
+          data : {
+            id : review.id,
+            sessionId : review.sessionId,
+            mentorName : review.mentorName,
+            menteeName : review.menteeFullName,
+            score: review.score,
+            remark : review.remark,
+            created_at : review.created_at
+          } 
         });
       }else{
         res.status(404).json({

@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import Joi from '@hapi/joi';
 
 export default class Validator {
   static schemaSignUp(user) {

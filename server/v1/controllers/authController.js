@@ -88,37 +88,46 @@ const authController = {
     }
     
   },
-  addInformations : (req, res) =>{
+  updateInformations : (req, res) =>{
     const user = helper.authUser(req.headers.authorization);
     const validate = Validator.schemaAddInfos(req.body);
     
     if(!validate.error){
       users.find(parseInt(user.userId)).then(user =>{
         if(user){
-          user.address = req.body.address;
-          user.bio = req.body.bio;
-          user.occupation = req.body.occupation;
-          user.expertise = req.body.expertise;
-
-
-          res.status(200).json({
-            status: 200, 
-            data:{
-              message : 'Informations added succuefully',
-              data : {
-                firstname : user.firstname,
-                lastname : user.lastname,
-                email : user.email,
-                address : user.address,
-                bio : user.bio,
-                occupation : user.occupation,
-                expertise : user.occupation,
-                is_mentor : user.is_mentor,
-                created_at : user.created_at
-              },
-          
-            }
-          });
+          if(!(user.address == req.body.address && user.bio == req.body.bio && 
+             user.occupation == req.body.occupation && user.expertise == req.body.expertise)){
+             
+            user.address = req.body.address;
+            user.bio = req.body.bio;
+            user.occupation = req.body.occupation;
+            user.expertise = req.body.expertise;
+    
+            res.status(200).json({
+              status: 200, 
+              data:{
+                message : 'Informations added succuefully',
+                data : {
+                  firstname : user.firstname,
+                  lastname : user.lastname,
+                  email : user.email,
+                  address : user.address,
+                  bio : user.bio,
+                  occupation : user.occupation,
+                  expertise : user.occupation,
+                  is_mentor : user.is_mentor,
+                  created_at : user.created_at
+                },
+              
+              }
+            });
+          }else{
+            res.status(409).json({
+              status : 409,
+              message : 'Duplication of data'
+            })
+          }
+        
         }
       });
     }else{
@@ -136,8 +145,8 @@ const authController = {
             let userData = {
               firstname : user.firstname,
               lastname : user.lastname,
-              email : user.status,
-              address : user.email,
+              email : user.email,
+              address : user.address,
               bio : user.bio,
               occupation : user.occupation,
               expertise : user.expertise,

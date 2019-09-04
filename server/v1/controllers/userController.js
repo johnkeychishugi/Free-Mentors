@@ -43,18 +43,17 @@ const userController = {
     users.findMentors().then(users =>{
       let usersArray = [];
       users.forEach(user => {
-        let usetData = {
+        let userData = {
           firstname : user.firstname,
           lastname : user.lastname,
-          email : user.status,
-          address : user.email,
+          email : user.email,
+          address : user.address,
           bio : user.bio,
           occupation : user.occupation,
           expertise : user.expertise,
-          is_mentor : user.is_mentor,
           created_at : user.created_at
         }
-        usersArray.push(usetData); 
+        usersArray.push(userData); 
       });
       if(usersArray.length != 0){
         res.status(200).json({ 
@@ -75,7 +74,16 @@ const userController = {
         if(user.is_mentor === true){
           res.status(200).json({
             status: 200,
-            data: user 
+            data: {
+              firstname : user.firstname,
+              lastname : user.lastname,
+              email : user.email,
+              address : user.address,
+              bio : user.bio,
+              occupation : user.occupation,
+              expertise : user.expertise,
+              created_at : user.created_at
+            } 
           });
         }else{
           res.status(404).json({
@@ -94,9 +102,23 @@ const userController = {
   admins : (req, res) =>{
     users.findAdmins().then(users =>{
       if(users.length != 0){
+        let adminArray = [];
+        users.forEach(user => {
+          let userData = {
+            firstname : user.firstname,
+            lastname : user.lastname,
+            email : user.email,
+            address : user.address,
+            bio : user.bio,
+            occupation : user.occupation,
+            expertise : user.expertise,
+            created_at : user.created_at
+          }
+          adminArray.push(userData); 
+        });
         res.status(200).json({ 
           status : 200,
-          data : users
+          data : adminArray
         });
       }else{
         res.status(404).json({

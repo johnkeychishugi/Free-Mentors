@@ -269,9 +269,9 @@ describe('Authentifications',()=>{
     });
   });
   describe('Add information user',() =>{
-    it('Should return an object with a message when the user add informations', (done) => {
+    it('Should return an object with a message when the user update informations', (done) => {
       chai.request(server)
-        .patch('/api/v1/auth/addInformations')
+        .patch('/api/v1/auth/updateInformations')
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
@@ -289,10 +289,30 @@ describe('Authentifications',()=>{
           done();
         })
     });
-
-    it('Should return an object with a message when the user add informations without required credentials', (done) => {
+    it('Should return an error 409 with a message when the user update informations but no change', (done) => {
       chai.request(server)
-        .patch('/api/v1/auth/addInformations')
+        .patch('/api/v1/auth/updateInformations')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .set('Content-type', 'application/x-www-form-urlencoded')
+        .send({
+          occupation: 'Software Develop',
+          expertise : 'Project manager',
+          bio : 'Born to win',
+          'address' :'Goma'
+        })
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(409)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('message')
+          done();
+        })
+    });
+
+    it('Should return an object with a message when the user update informations without required credentials', (done) => {
+      chai.request(server)
+        .patch('/api/v1/auth/updateInformations')
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
