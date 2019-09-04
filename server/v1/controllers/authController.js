@@ -88,7 +88,7 @@ const authController = {
     }
     
   },
-  updateInformations : (req, res) =>{
+  updateProfile : (req, res) =>{
     const user = helper.authUser(req.headers.authorization);
     const validate = Validator.schemaAddInfos(req.body);
     

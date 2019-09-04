@@ -271,7 +271,7 @@ describe('Authentifications',()=>{
   describe('Add information user',() =>{
     it('Should return an object with a message when the user update informations', (done) => {
       chai.request(server)
-        .patch('/api/v1/auth/updateInformations')
+        .patch('/api/v1/auth/updateProfile')
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
@@ -291,7 +291,7 @@ describe('Authentifications',()=>{
     });
     it('Should return an error 409 with a message when the user update informations but no change', (done) => {
       chai.request(server)
-        .patch('/api/v1/auth/updateInformations')
+        .patch('/api/v1/auth/updateProfile')
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
@@ -312,7 +312,7 @@ describe('Authentifications',()=>{
 
     it('Should return an object with a message when the user update informations without required credentials', (done) => {
       chai.request(server)
-        .patch('/api/v1/auth/updateInformations')
+        .patch('/api/v1/auth/updateProfile')
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
