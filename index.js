@@ -21,8 +21,8 @@ app.get('/',(req, res, next) => res.status(200).send({
   documentation : `For the documentaion visit this link ${docsUrl}`,
 }));
 
-app.use('**', (req, res) => res.status(404).send({
-  status : 404,
+app.use('**', (req, res) => res.status(405).send({
+  status : 405,
   message : `The requested resource was not found on the server, Visit the documentation link ${docsUrl}`
 }));
 

@@ -27,6 +27,7 @@ const sessionController = {
           sessions.save(data).then(session =>{
             res.status(201).json({
               status : 201,
+              message : 'Session created succuefully',
               data : {
                 id : session.id,
                 mentorName : mentor.firstname,
@@ -57,6 +58,7 @@ const sessionController = {
         session.status = 'accepted'; 
         res.status(200).json({
           status : 200,
+          message : 'session accepted succuefully',
           data : {
             id: session.id,
             mentorName: session.mentorName,
@@ -83,6 +85,7 @@ const sessionController = {
         session.status = 'rejected'; 
         res.status(200).json({
           status : 200,
+          message : 'session rejected succuefully',
           data : {
             id: session.id,
             mentorName: session.mentorName,
@@ -125,6 +128,7 @@ const sessionController = {
               });
               res.status(200).json({
                 status : 200,
+                message : 'all sessions',
                 data : sessionArray
               });
             }else{
@@ -153,6 +157,7 @@ const sessionController = {
               });
               res.status(200).json({
                 status : 200,
+                message : 'all sessions',
                 data : sessionArray
               });
             }else{

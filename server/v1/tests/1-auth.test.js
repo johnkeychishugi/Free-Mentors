@@ -1,11 +1,12 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../../index';
+import generator from './generator';
+
 
 chai.use(chaiHttp);
 
 const expect = chai.expect;
-const should = chai.should();
 let token;
 
 describe('Authentifications',()=>{
@@ -15,13 +16,7 @@ describe('Authentifications',()=>{
       .post('/api/v1/auth/signup')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send({
-        firstname : 'Aristotle',
-        lastname : 'Kalume',
-        email : 'kalume@gmail.com',
-        password : 'Chi@123456',
-        confirmPassword : 'Chi@123456'
-      })
+      .send(generator.signup[0])
       .then(res => {
         token = res.body.data.token;
         done();
@@ -39,14 +34,14 @@ describe('Authentifications',()=>{
         done();
       })
   });
-  it('Should return an error with 404 status when the user accesses a wrong endpoint', (done) => {
+  it('Should return an error with 405 status when the user accesses a wrong endpoint', (done) => {
     chai
       .request(server)
       .get('/v111/wrong-endpoint')
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) done(err);
-        expect(res).to.have.status(404)
+        expect(res).to.have.status(405)
         expect(res.body).to.be.an('object')
         expect(res.body).to.have.property('message');
         done();
@@ -70,13 +65,7 @@ describe('Authentifications',()=>{
         .post('/api/v1/auth/signup')
         .set('Accept', 'application/json')
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send({
-          firstname : 'John',
-          lastname : 'Chishugi',
-          email : 'jkchishugi@gmail.com',
-          password : 'Ch@123456',
-          confirmPassword : 'Ch@123456',
-        })
+        .send(generator.signup[1])
         .end((err, res) =>{
           if (err) done(err);
           res.body.should.have.status(201)
@@ -104,13 +93,7 @@ describe('Authentifications',()=>{
         .post('/api/v1/auth/signup')
         .set('Accept', 'application/json')
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send({
-          firstname : 'John',
-          lastname : 'Chishugi',
-          email : 'jkchishugi@gmail.com',
-          password : 'Ch@123456',
-          confirmPassword : 'Ch@123456',
-        })
+        .send(generator.signup[1])
         .end((err, res) =>{
           if (err) done(err);
           res.body.should.have.status(409)
@@ -150,10 +133,7 @@ describe('Authentifications',()=>{
         .post('/api/v1/auth/signin')
         .set('Accept', 'application/json')
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send({
-          email: 'jkchishugi@gmail.com',
-          password : 'Ch@123456'
-        })
+        .send(generator.signin[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(200)
@@ -181,10 +161,7 @@ describe('Authentifications',()=>{
         .post('/api/v1/auth/signin')
         .set('Accept', 'application/json')
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send({
-          email: 'jkchishugi@popmooder.com',
-          password : '87Ch@654321'
-        })
+        .send(generator.signin[1])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(401)
@@ -201,16 +178,12 @@ describe('Authentifications',()=>{
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send({
-          old_password: 'Chi@123456',
-          new_password : 'Ch@654321',
-          confirm_new_password : 'Ch@654321'
-        })
+        .send(generator.changepass[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(200)
           expect(res.body).to.be.an('object')
-          expect(res.body).to.have.property('data')
+          expect(res.body).to.have.property('message')
           done();
         })
     });
@@ -235,11 +208,7 @@ describe('Authentifications',()=>{
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send({
-          old_password: 'Ch@1234567',
-          new_password : 'Ch@654321',
-          confirm_new_password : 'Ch@654321'
-        })
+        .send(generator.changepass[1])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(400)
@@ -254,11 +223,7 @@ describe('Authentifications',()=>{
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send({
-          old_password: 'Ch@123456',
-          new_password : 'Ch@654321',
-          confirm_new_password : 'Ch@6543217'
-        })
+        .send(generator.changepass[2])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(422)
@@ -268,19 +233,14 @@ describe('Authentifications',()=>{
         })
     });
   });
-  describe('Add information user',() =>{
-    it('Should return an object with a message when the user update informations', (done) => {
+  describe('Update Profile',() =>{
+    it('Should return an object with a message when the user update profile', (done) => {
       chai.request(server)
         .patch('/api/v1/auth/updateProfile')
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send({
-          occupation: 'Software Develop',
-          expertise : 'Project manager',
-          bio : 'Born to win',
-          'address' :'Goma'
-        })
+        .send(generator.updateProfile[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(200)
@@ -289,28 +249,23 @@ describe('Authentifications',()=>{
           done();
         })
     });
-    it('Should return an error 409 with a message when the user update informations but no change', (done) => {
+    it('Should return an error 409 with a message when the user update profile but no change', (done) => {
       chai.request(server)
         .patch('/api/v1/auth/updateProfile')
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send({
-          occupation: 'Software Develop',
-          expertise : 'Project manager',
-          bio : 'Born to win',
-          'address' :'Goma'
-        })
+        .send(generator.updateProfile[1])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(409)
           expect(res.body).to.be.an('object')
-          expect(res.body).to.have.property('message')
+          expect(res.body).to.have.property('error')
           done();
         })
     });
 
-    it('Should return an object with a message when the user update informations without required credentials', (done) => {
+    it('Should return an object with a message when the user update profile without required credentials', (done) => {
       chai.request(server)
         .patch('/api/v1/auth/updateProfile')
         .set('Accept', 'application/json')

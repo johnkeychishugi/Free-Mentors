@@ -1,11 +1,11 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../../index';
+import generator from './generator';
 
 chai.use(chaiHttp);
 
 const expect = chai.expect;
-const should = chai.should();
 let usertoken;
 let userAdmintoken;
 
@@ -16,10 +16,7 @@ describe('After Authentifications',() =>{
       .post('/api/v1/auth/signin')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send({
-        email: 'jkchishugi@gmail.com',
-        password : 'Ch@123456'
-      })
+      .send(generator.signin[0])
       .then(res => {
         userAdmintoken = res.body.data.token;
         done();
@@ -31,13 +28,7 @@ describe('After Authentifications',() =>{
       .post('/api/v1/auth/signup')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send({
-        firstname : 'Bienvenue',
-        lastname : 'zigabe',
-        email : 'bienvenue@gmail.com',
-        password : 'Ch@11223344',
-        confirmPassword : 'Ch@11223344',
-      })
+      .send(generator.signup[2])
       .then(res => {
         usertoken = res.body.data.token;
         done()
@@ -75,7 +66,7 @@ describe('After Authentifications',() =>{
           if (err) done(err);
           expect(res).to.have.status(200)
           expect(res.body).to.be.an('object')
-          expect(res.body).to.have.property('data');
+          expect(res.body).to.have.property('message');
           done();
         });
     });
@@ -140,7 +131,7 @@ describe('After Authentifications',() =>{
           if (err) done(err);
           expect(res).to.have.status(200)
           expect(res.body).to.be.an('object')
-          expect(res.body).to.have.property('data');
+          expect(res.body).to.have.property('message');
           done();
         });  
     });

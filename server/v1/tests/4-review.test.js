@@ -1,11 +1,12 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../../index';
+import generator from './generator';
+
 
 chai.use(chaiHttp);
 
 const expect = chai.expect;
-const should = chai.should();
 let usertoken;
 let userMentortoken;
 let userAdmintoken;
@@ -17,10 +18,7 @@ describe('Review of sessions',() =>{
       .post('/api/v1/auth/signin')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send({
-        email: 'kalume@gmail.com',
-        password : 'Ch@654321'
-      })
+      .send(generator.signin[2])
       .then(res => {
         usertoken = res.body.data.token;
         done();
@@ -32,10 +30,7 @@ describe('Review of sessions',() =>{
       .post('/api/v1/auth/signin')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send({
-        email: 'bienvenue@gmail.com',
-        password : 'Ch@11223344'
-      })
+      .send(generator.signin[3])
       .then(res => {
         userMentortoken = res.body.data.token;
         done();
@@ -47,10 +42,7 @@ describe('Review of sessions',() =>{
       .post('/api/v1/auth/signin')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send({
-        email: 'jkchishugi@gmail.com',
-        password : 'Ch@123456'
-      })
+      .send(generator.signin[0])
       .then(res => {
         userAdmintoken = res.body.data.token;
         done();
@@ -74,10 +66,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${1}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${usertoken}`)
-        .send({
-          score: 3,
-          remark : 'Good job,but continous to learn by youself'
-        })
+        .send(generator.review[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(403)
@@ -91,10 +80,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${1}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${userMentortoken}`)
-        .send({
-          score: 3,
-          remark : 'Good job,but continous to learn by youself'
-        })
+        .send(generator.review[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(201)
@@ -108,10 +94,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${1}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${userMentortoken}`)
-        .send({
-          score: 3,
-          remark : 'Good job,but continous to learn by youself'
-        })
+        .send(generator.review[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(409)
@@ -139,10 +122,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${1}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${userMentortoken}`)
-        .send({
-          score: 0,
-          remark : 'Good job,but continous to learn by youself'
-        })
+        .send(generator.review[1])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(422)
@@ -156,10 +136,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${1}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${userMentortoken}`)
-        .send({
-          score: 6,
-          remark : 'Good job,but continous to learn by youself'
-        })
+        .send(generator.review[2])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(422)
@@ -173,10 +150,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${10}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${userMentortoken}`)
-        .send({
-          score: 5,
-          remark : 'Good job,but continous to learn by youself'
-        })
+        .send(generator.review[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(404)
@@ -275,7 +249,7 @@ describe('Review of sessions',() =>{
           if (err) done(err);
           expect(res).to.have.status(200)
           expect(res.body).to.be.an('object')
-          expect(res.body).to.have.property('data')
+          expect(res.body).to.have.property('message')
           done();
         });
     });

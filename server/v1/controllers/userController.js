@@ -9,9 +9,7 @@ const userController = {
         user.is_mentor = true;
         res.status(200).json({
           status: 200,
-          data: {
-            message :  'User account changed to mentor'
-          }
+          message :  'User account changed to mentor' 
         });
       }else{
         res.status(404).json({
@@ -27,9 +25,7 @@ const userController = {
         user.is_mentor = false;
         res.status(200).json({
           status: 200,
-          data: {
-            message :  'User account removed to mentors list'
-          }
+          message :  'User account removed to mentors list' 
         });
       }else{
         res.status(404).json({
@@ -44,6 +40,7 @@ const userController = {
       let usersArray = [];
       users.forEach(user => {
         let userData = {
+          id : user.id,
           firstname : user.firstname,
           lastname : user.lastname,
           email : user.email,
@@ -58,6 +55,7 @@ const userController = {
       if(usersArray.length != 0){
         res.status(200).json({ 
           status : 200,
+          message : 'All mentors',
           data : usersArray,
         });
       }else{
@@ -74,7 +72,9 @@ const userController = {
         if(user.is_mentor === true){
           res.status(200).json({
             status: 200,
+            message : 'Specific mentor',
             data: {
+              id: user.id,
               firstname : user.firstname,
               lastname : user.lastname,
               email : user.email,
@@ -105,6 +105,7 @@ const userController = {
         let adminArray = [];
         users.forEach(user => {
           let userData = {
+            id: user.id,
             firstname : user.firstname,
             lastname : user.lastname,
             email : user.email,
@@ -118,6 +119,7 @@ const userController = {
         });
         res.status(200).json({ 
           status : 200,
+          message: 'all admins',
           data : adminArray
         });
       }else{

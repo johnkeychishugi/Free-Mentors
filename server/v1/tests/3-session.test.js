@@ -1,6 +1,8 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../../index';
+import generator from './generator';
+
 
 chai.use(chaiHttp);
 
@@ -16,10 +18,7 @@ describe('Sessions',() =>{
       .post('/api/v1/auth/signin')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send({
-        email: 'kalume@gmail.com',
-        password : 'Ch@654321'
-      })
+      .send(generator.signin[2])
       .then(res => {
         usertoken = res.body.data.token;
         done();
@@ -31,10 +30,7 @@ describe('Sessions',() =>{
       .post('/api/v1/auth/signin')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send({
-        email: 'bienvenue@gmail.com',
-        password : 'Ch@11223344'
-      })
+      .send(generator.signin[3])
       .then(res => {
         userMentortoken = res.body.data.token;
         done();
@@ -46,10 +42,7 @@ describe('Sessions',() =>{
       .post('/api/v1/sessions')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${usertoken}`)
-      .send({
-        mentorId: 3,
-        questions : 'What is your best skills sir'
-      })
+      .send(generator.session[0])
       .then(res => {
         done()
       });
@@ -72,10 +65,7 @@ describe('Sessions',() =>{
         .post('/api/v1/sessions')
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${usertoken}`)
-        .send({
-          mentorId: 3,
-          questions : 'What is your best skills sir'
-        })
+        .send(generator.session[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(201)
@@ -103,10 +93,7 @@ describe('Sessions',() =>{
         .post('/api/v1/sessions')
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${usertoken}`)
-        .send({
-          mentorId: 1,
-          questions : 'What is your best skills sir'
-        })
+        .send(generator.session[1])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(404)

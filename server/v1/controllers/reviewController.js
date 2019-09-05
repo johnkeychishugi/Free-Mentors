@@ -31,6 +31,7 @@ const reviewController = {
                   reviews.save(data).then(review =>{
                     res.status(201).json({
                       status : 201,
+                      message : 'review accepted succuefully',
                       data : {
                         id : review.id,
                         sessionId : review.sessionId,
@@ -72,9 +73,7 @@ const reviewController = {
       if(reviews){
         res.status(200).json({
           status : 200,
-          data:{
-            mesaage : 'Review successfully deleted'
-          }
+          message : 'Review successfully deleted' 
         });
       }else{
         res.status(404).json({
@@ -89,6 +88,7 @@ const reviewController = {
       if(review){
         res.status(200).json({
           status : 200,
+          message : 'Get a review',
           data : {
             id : review.id,
             sessionId : review.sessionId,

@@ -70,8 +70,7 @@ const authController = {
                 user.password = hash;
                 res.status(200).json({
                   status: 200, 
-                  data:{
-                    message : 'Password change succuefully'}
+                  message : 'Password change succuefully'
                 });
               });
             }else{
@@ -105,26 +104,24 @@ const authController = {
     
             res.status(200).json({
               status: 200, 
+              message : 'Profile Updated succuefully',
               data:{
-                message : 'Informations added succuefully',
-                data : {
-                  firstname : user.firstname,
-                  lastname : user.lastname,
-                  email : user.email,
-                  address : user.address,
-                  bio : user.bio,
-                  occupation : user.occupation,
-                  expertise : user.occupation,
-                  is_mentor : user.is_mentor,
-                  created_at : user.created_at
-                },
-              
+                id: user.id,
+                firstname : user.firstname,
+                lastname : user.lastname,
+                email : user.email,
+                address : user.address,
+                bio : user.bio,
+                occupation : user.occupation,
+                expertise : user.occupation,
+                is_mentor : user.is_mentor,
+                created_at : user.created_at
               }
             });
           }else{
             res.status(409).json({
               status : 409,
-              message : 'Duplication of data'
+              error : 'Duplication of data'
             })
           }
         
@@ -139,29 +136,21 @@ const authController = {
     users.find(parseInt(req.params.userid)).then(user =>{
       if(user){
         user.is_admin = true;
-        users.findMentors().then(data =>{
-          let usersArray = [];
-          data.forEach(user => {
-            let userData = {
-              firstname : user.firstname,
-              lastname : user.lastname,
-              email : user.email,
-              address : user.address,
-              bio : user.bio,
-              occupation : user.occupation,
-              expertise : user.expertise,
-              is_mentor : user.is_mentor,
-              created_at : user.created_at
-            }
-            usersArray.push(userData); 
-          });
-          res.status(200).json({
-            status: 200, 
-            message : 'user set to admin succuefully',
-            data:{
-              mentors: usersArray
-            } 
-          });
+        res.status(200).json({
+          status: 200, 
+          message : 'user set to admin succuefully',
+          data:{
+            id: user.id,
+            firstname : user.firstname,
+            lastname : user.lastname,
+            email : user.email,
+            address : user.address,
+            bio : user.bio,
+            occupation : user.occupation,
+            expertise : user.occupation,
+            is_admin : user.is_admin,
+            created_at : user.created_at
+          } 
         });
       }else{
         res.status(404).json({
