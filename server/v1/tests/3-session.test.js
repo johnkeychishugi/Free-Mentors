@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../../index';
-import generator from './generator';
+import mockData from './mockData';
 
 
 chai.use(chaiHttp);
@@ -18,7 +18,7 @@ describe('Sessions',() =>{
       .post('/api/v1/auth/signin')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send(generator.signin[2])
+      .send(mockData.signin[2])
       .then(res => {
         usertoken = res.body.data.token;
         done();
@@ -30,7 +30,7 @@ describe('Sessions',() =>{
       .post('/api/v1/auth/signin')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send(generator.signin[3])
+      .send(mockData.signin[3])
       .then(res => {
         userMentortoken = res.body.data.token;
         done();
@@ -42,7 +42,7 @@ describe('Sessions',() =>{
       .post('/api/v1/sessions')
       .set('Accept', 'application/json')
       .set('Authorization', `Bearer ${usertoken}`)
-      .send(generator.session[0])
+      .send(mockData.session[0])
       .then(res => {
         done()
       });
@@ -65,7 +65,7 @@ describe('Sessions',() =>{
         .post('/api/v1/sessions')
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${usertoken}`)
-        .send(generator.session[0])
+        .send(mockData.session[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(201)
@@ -93,7 +93,7 @@ describe('Sessions',() =>{
         .post('/api/v1/sessions')
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${usertoken}`)
-        .send(generator.session[1])
+        .send(mockData.session[1])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(404)

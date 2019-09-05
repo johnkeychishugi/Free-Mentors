@@ -1,5 +1,5 @@
 
-const generator = {
+const mockData = {
   signup : [
     {
       firstname : 'Aristotle',
@@ -98,4 +98,4 @@ const generator = {
   ]
 }
 
-export default generator;
+export default mockData;

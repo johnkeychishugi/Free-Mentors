@@ -1,8 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../../index';
-import generator from './generator';
-
+import mockData from './mockData';
 
 chai.use(chaiHttp);
 
@@ -18,7 +17,7 @@ describe('Review of sessions',() =>{
       .post('/api/v1/auth/signin')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send(generator.signin[2])
+      .send(mockData.signin[2])
       .then(res => {
         usertoken = res.body.data.token;
         done();
@@ -30,7 +29,7 @@ describe('Review of sessions',() =>{
       .post('/api/v1/auth/signin')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send(generator.signin[3])
+      .send(mockData.signin[3])
       .then(res => {
         userMentortoken = res.body.data.token;
         done();
@@ -42,7 +41,7 @@ describe('Review of sessions',() =>{
       .post('/api/v1/auth/signin')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send(generator.signin[0])
+      .send(mockData.signin[0])
       .then(res => {
         userAdmintoken = res.body.data.token;
         done();
@@ -66,7 +65,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${1}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${usertoken}`)
-        .send(generator.review[0])
+        .send(mockData.review[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(403)
@@ -80,7 +79,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${1}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${userMentortoken}`)
-        .send(generator.review[0])
+        .send(mockData.review[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(201)
@@ -94,7 +93,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${2}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${userMentortoken}`)
-        .send(generator.review[0])
+        .send(mockData.review[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(201)
@@ -108,7 +107,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${1}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${userMentortoken}`)
-        .send(generator.review[0])
+        .send(mockData.review[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(409)
@@ -122,7 +121,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${2}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${userMentortoken}`)
-        .send(generator.review[0])
+        .send(mockData.review[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(409)
@@ -151,7 +150,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${1}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${userMentortoken}`)
-        .send(generator.review[1])
+        .send(mockData.review[1])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(422)
@@ -165,7 +164,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${1}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${userMentortoken}`)
-        .send(generator.review[2])
+        .send(mockData.review[2])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(422)
@@ -179,7 +178,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${10}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${userMentortoken}`)
-        .send(generator.review[0])
+        .send(mockData.review[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(404)

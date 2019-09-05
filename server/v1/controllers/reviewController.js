@@ -88,7 +88,7 @@ const reviewController = {
       if(review){
         res.status(200).json({
           status : 200,
-          message : 'Get a review',
+          message : 'Review is retrieved successfully',
           data : {
             id : review.id,
             sessionId : review.sessionId,

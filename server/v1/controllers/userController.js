@@ -55,7 +55,7 @@ const userController = {
       if(usersArray.length != 0){
         res.status(200).json({ 
           status : 200,
-          message : 'All mentors',
+          message : 'Mentors are retrieved successfully',
           data : usersArray,
         });
       }else{
@@ -72,7 +72,7 @@ const userController = {
         if(user.is_mentor === true){
           res.status(200).json({
             status: 200,
-            message : 'Specific mentor',
+            message : 'Mentor is retrieved successfully',
             data: {
               id: user.id,
               firstname : user.firstname,
@@ -119,7 +119,7 @@ const userController = {
         });
         res.status(200).json({ 
           status : 200,
-          message: 'all admins',
+          message: 'Admins are retrieved successfully',
           data : adminArray
         });
       }else{

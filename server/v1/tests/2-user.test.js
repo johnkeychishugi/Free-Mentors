@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../../index';
-import generator from './generator';
+import mockData from './mockData';
 
 chai.use(chaiHttp);
 
@@ -16,7 +16,7 @@ describe('After Authentifications',() =>{
       .post('/api/v1/auth/signin')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send(generator.signin[0])
+      .send(mockData.signin[0])
       .then(res => {
         userAdmintoken = res.body.data.token;
         done();
@@ -28,7 +28,7 @@ describe('After Authentifications',() =>{
       .post('/api/v1/auth/signup')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send(generator.signup[2])
+      .send(mockData.signup[2])
       .then(res => {
         usertoken = res.body.data.token;
         done()

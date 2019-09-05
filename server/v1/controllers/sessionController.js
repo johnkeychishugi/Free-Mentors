@@ -128,7 +128,7 @@ const sessionController = {
               });
               res.status(200).json({
                 status : 200,
-                message : 'all sessions',
+                message : 'Session is retrieved successfully',
                 data : sessionArray
               });
             }else{
@@ -157,7 +157,7 @@ const sessionController = {
               });
               res.status(200).json({
                 status : 200,
-                message : 'all sessions',
+                message : 'Session is retrieved successfully',
                 data : sessionArray
               });
             }else{

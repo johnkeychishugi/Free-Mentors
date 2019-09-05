@@ -1,7 +1,7 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../../index';
-import generator from './generator';
+import mockData from './mockData';
 
 
 chai.use(chaiHttp);
@@ -16,7 +16,7 @@ describe('Authentifications',()=>{
       .post('/api/v1/auth/signup')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send(generator.signup[0])
+      .send(mockData.signup[0])
       .then(res => {
         token = res.body.data.token;
         done();
@@ -65,7 +65,7 @@ describe('Authentifications',()=>{
         .post('/api/v1/auth/signup')
         .set('Accept', 'application/json')
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send(generator.signup[1])
+        .send(mockData.signup[1])
         .end((err, res) =>{
           if (err) done(err);
           res.body.should.have.status(201)
@@ -93,7 +93,7 @@ describe('Authentifications',()=>{
         .post('/api/v1/auth/signup')
         .set('Accept', 'application/json')
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send(generator.signup[1])
+        .send(mockData.signup[1])
         .end((err, res) =>{
           if (err) done(err);
           res.body.should.have.status(409)
@@ -133,7 +133,7 @@ describe('Authentifications',()=>{
         .post('/api/v1/auth/signin')
         .set('Accept', 'application/json')
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send(generator.signin[0])
+        .send(mockData.signin[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(200)
@@ -161,7 +161,7 @@ describe('Authentifications',()=>{
         .post('/api/v1/auth/signin')
         .set('Accept', 'application/json')
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send(generator.signin[1])
+        .send(mockData.signin[1])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(401)
@@ -178,7 +178,7 @@ describe('Authentifications',()=>{
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send(generator.changepass[0])
+        .send(mockData.changepass[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(200)
@@ -208,7 +208,7 @@ describe('Authentifications',()=>{
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send(generator.changepass[1])
+        .send(mockData.changepass[1])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(400)
@@ -223,7 +223,7 @@ describe('Authentifications',()=>{
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send(generator.changepass[2])
+        .send(mockData.changepass[2])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(422)
@@ -240,7 +240,7 @@ describe('Authentifications',()=>{
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send(generator.updateProfile[0])
+        .send(mockData.updateProfile[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(200)
@@ -255,7 +255,7 @@ describe('Authentifications',()=>{
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send(generator.updateProfile[1])
+        .send(mockData.updateProfile[1])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(409)
