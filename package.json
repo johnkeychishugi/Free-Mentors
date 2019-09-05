@@ -6,7 +6,7 @@
   "scripts": {
     "start": "babel-node index.js",
     "start-dev": "nodemon --exec babel-node index.js",
-    "test": "mocha --exit --require @babel/register --require babel-polyfill ./server/**/*.test.js",
+    "test": "nyc mocha --exit --require @babel/register --require babel-polyfill ./server/**/*.test.js",
     "lint": "eslint ./*.js",
     "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test | coveralls"
   },

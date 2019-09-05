@@ -103,6 +103,23 @@ describe('Review of sessions',() =>{
           done();
         });
     });
+    it('Should return an error with a 409 status when the mentor review twice a mentorship session',(done) =>{  
+      chai.request(server)
+        .post(`/api/v1/sessions/${1}/review`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${userMentortoken}`)
+        .send({
+          score: 3,
+          remark : 'Good job,but continous to learn by youself'
+        })
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(409)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error')
+          done();
+        });
+    });
     it('Should return an error with a 201 status when the mentor review a mentorship session without required credentials',(done) =>{  
       chai.request(server)
         .post(`/api/v1/sessions/${1}/review`)
@@ -195,6 +212,7 @@ describe('Review of sessions',() =>{
           done();
         });
     });
+
     it('Should return an error with a 404 status when the mentee need to see the review session but the review is not found',(done) =>{  
       chai.request(server)
         .get(`/api/v1/reviews/${10}`)

@@ -14,39 +14,48 @@ const reviewController = {
     if(!validate.error){
       sessions.find(parseInt(req.params.sessionId)).then(session =>{
         if(session){
-          users.find(session.menteeId).then(user =>{
-            if(user){
-              let id; 
-              if(reviews.datas.length != 0){
-                id = reviews.datas[reviews.datas.length-1].id+1;
-              }else{
-                id = 1;
-              }
-              const created_at = new Date().toDateString(); 
-              const menteeFullName = user.firstname + ' ' + user.lastname;
-              const data = new Review.DataReview(session,req.body,id,menteeFullName,created_at);
-
-              reviews.save(data).then(review =>{
-                res.status(201).json({
-                  status : 201,
-                  data : {
-                    id : review.id,
-                    sessionId : review.sessionId,
-                    mentorName : review.mentorName,
-                    menteeName : review.menteeFullName,
-                    score: review.score,
-                    remark : review.remark,
-                    created_at : review.created_at
+          reviews.findBysessionId(parseInt(req.params.sessionId)).then(data =>{
+            if(!data){
+              users.find(session.menteeId).then(user =>{
+                if(user){
+                  let id; 
+                  if(reviews.datas.length != 0){
+                    id = reviews.datas[reviews.datas.length-1].id+1;
+                  }else{
+                    id = 1;
                   }
-                });
+                  const created_at = new Date().toDateString(); 
+                  const menteeFullName = user.firstname + ' ' + user.lastname;
+                  const data = new Review.DataReview(session,req.body,id,menteeFullName,created_at);
+    
+                  reviews.save(data).then(review =>{
+                    res.status(201).json({
+                      status : 201,
+                      data : {
+                        id : review.id,
+                        sessionId : review.sessionId,
+                        mentorName : review.mentorName,
+                        menteeName : review.menteeFullName,
+                        score: review.score,
+                        remark : review.remark,
+                        created_at : review.created_at
+                      }
+                    });
+                  });
+                }else{
+                  res.status(404).json({
+                    status : 404,
+                    error : 'Mentee not found'
+                  }); 
+                }
               });
             }else{
-              res.status(404).json({
-                status : 404,
-                error : 'Mentee not found'
-              }); 
+              res.status(409).json({
+                status : 409,
+                error : 'Review already exist'
+              });
             }
-          });
+          })
         }else{
           res.status(404).json({
             status : 404,
