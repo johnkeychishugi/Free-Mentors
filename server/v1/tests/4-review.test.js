@@ -1,11 +1,11 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../../index';
+import mockData from './mockData';
 
 chai.use(chaiHttp);
 
 const expect = chai.expect;
-const should = chai.should();
 let usertoken;
 let userMentortoken;
 let userAdmintoken;
@@ -17,10 +17,7 @@ describe('Review of sessions',() =>{
       .post('/api/v1/auth/signin')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send({
-        email: 'kalume@gmail.com',
-        password : '654321'
-      })
+      .send(mockData.signin[2])
       .then(res => {
         usertoken = res.body.data.token;
         done();
@@ -32,10 +29,7 @@ describe('Review of sessions',() =>{
       .post('/api/v1/auth/signin')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send({
-        email: 'bienvenue@gmail.com',
-        password : '11223344'
-      })
+      .send(mockData.signin[3])
       .then(res => {
         userMentortoken = res.body.data.token;
         done();
@@ -47,10 +41,7 @@ describe('Review of sessions',() =>{
       .post('/api/v1/auth/signin')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send({
-        email: 'jkchishugi@gmail.com',
-        password : '123456'
-      })
+      .send(mockData.signin[0])
       .then(res => {
         userAdmintoken = res.body.data.token;
         done();
@@ -74,10 +65,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${1}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${usertoken}`)
-        .send({
-          score: 3,
-          remark : 'Good job,but continous to learn by youself'
-        })
+        .send(mockData.review[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(403)
@@ -91,10 +79,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${1}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${userMentortoken}`)
-        .send({
-          score: 3,
-          remark : 'Good job,but continous to learn by youself'
-        })
+        .send(mockData.review[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(201)
@@ -103,7 +88,49 @@ describe('Review of sessions',() =>{
           done();
         });
     });
-    it('Should return an error with a 201 status when the mentor review a mentorship session without required credentials',(done) =>{  
+    it('Should return a message with a 201 status when the mentor review a mentorship session',(done) =>{  
+      chai.request(server)
+        .post(`/api/v1/sessions/${2}/review`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${userMentortoken}`)
+        .send(mockData.review[0])
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(201)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('data')
+          done();
+        });
+    });
+    it('Should return an error with a 409 status when the mentor review twice a mentorship session',(done) =>{  
+      chai.request(server)
+        .post(`/api/v1/sessions/${1}/review`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${userMentortoken}`)
+        .send(mockData.review[0])
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(409)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error')
+          done();
+        });
+    });
+    it('Should return an error with a 409 status when the mentor review twice a mentorship session',(done) =>{  
+      chai.request(server)
+        .post(`/api/v1/sessions/${2}/review`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${userMentortoken}`)
+        .send(mockData.review[0])
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(409)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error')
+          done();
+        });
+    });
+    it('Should return an error with a 422 status when the mentor review a mentorship session without required credentials',(done) =>{  
       chai.request(server)
         .post(`/api/v1/sessions/${1}/review`)
         .set('Accept', 'application/json')
@@ -117,15 +144,13 @@ describe('Review of sessions',() =>{
           done();
         });
     });
+    
     it('Should return an error with a 422 status when the mentor review a mentorship session with a score less then 1 ',(done) =>{  
       chai.request(server)
         .post(`/api/v1/sessions/${1}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${userMentortoken}`)
-        .send({
-          score: 0,
-          remark : 'Good job,but continous to learn by youself'
-        })
+        .send(mockData.review[1])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(422)
@@ -139,10 +164,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${1}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${userMentortoken}`)
-        .send({
-          score: 6,
-          remark : 'Good job,but continous to learn by youself'
-        })
+        .send(mockData.review[2])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(422)
@@ -156,10 +178,7 @@ describe('Review of sessions',() =>{
         .post(`/api/v1/sessions/${10}/review`)
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${userMentortoken}`)
-        .send({
-          score: 5,
-          remark : 'Good job,but continous to learn by youself'
-        })
+        .send(mockData.review[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(404)
@@ -195,6 +214,7 @@ describe('Review of sessions',() =>{
           done();
         });
     });
+
     it('Should return an error with a 404 status when the mentee need to see the review session but the review is not found',(done) =>{  
       chai.request(server)
         .get(`/api/v1/reviews/${10}`)
@@ -257,7 +277,7 @@ describe('Review of sessions',() =>{
           if (err) done(err);
           expect(res).to.have.status(200)
           expect(res.body).to.be.an('object')
-          expect(res.body).to.have.property('data')
+          expect(res.body).to.have.property('message')
           done();
         });
     });

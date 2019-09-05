@@ -14,31 +14,49 @@ const reviewController = {
     if(!validate.error){
       sessions.find(parseInt(req.params.sessionId)).then(session =>{
         if(session){
-          users.find(session.menteeId).then(user =>{
-            if(user){
-              let id; 
-              if(reviews.datas.length != 0){
-                id = reviews.datas[reviews.datas.length-1].id+1;
-              }else{
-                id = 1;
-              }
-              const created_at = new Date(); 
-              const menteeFullName = user.firstname + ' ' + user.lastname;
-              const data = new Review.DataReview(session,req.body,id,menteeFullName,created_at);
-
-              reviews.save(data).then(review =>{
-                res.status(201).json({
-                  status : 201,
-                  data : review
-                });
+          reviews.findBysessionId(parseInt(req.params.sessionId)).then(data =>{
+            if(!data){
+              users.find(session.menteeId).then(user =>{
+                if(user){
+                  let id; 
+                  if(reviews.datas.length != 0){
+                    id = reviews.datas[reviews.datas.length-1].id+1;
+                  }else{
+                    id = 1;
+                  }
+                  const created_at = new Date().toDateString(); 
+                  const menteeFullName = user.firstname + ' ' + user.lastname;
+                  const data = new Review.DataReview(session,req.body,id,menteeFullName,created_at);
+    
+                  reviews.save(data).then(review =>{
+                    res.status(201).json({
+                      status : 201,
+                      message : 'review accepted succuefully',
+                      data : {
+                        id : review.id,
+                        sessionId : review.sessionId,
+                        mentorName : review.mentorName,
+                        menteeName : review.menteeFullName,
+                        score: review.score,
+                        remark : review.remark,
+                        created_at : review.created_at
+                      }
+                    });
+                  });
+                }else{
+                  res.status(404).json({
+                    status : 404,
+                    error : 'Mentee not found'
+                  }); 
+                }
               });
             }else{
-              res.status(404).json({
-                status : 404,
-                error : 'Mentee not found'
-              }); 
+              res.status(409).json({
+                status : 409,
+                error : 'Review already exist'
+              });
             }
-          });
+          })
         }else{
           res.status(404).json({
             status : 404,
@@ -55,9 +73,7 @@ const reviewController = {
       if(reviews){
         res.status(200).json({
           status : 200,
-          data:{
-            mesaage : 'Review successfully deleted'
-          }
+          message : 'Review successfully deleted' 
         });
       }else{
         res.status(404).json({
@@ -72,7 +88,16 @@ const reviewController = {
       if(review){
         res.status(200).json({
           status : 200,
-          data : review 
+          message : 'Review is retrieved successfully',
+          data : {
+            id : review.id,
+            sessionId : review.sessionId,
+            mentorName : review.mentorName,
+            menteeName : review.menteeFullName,
+            score: review.score,
+            remark : review.remark,
+            created_at : review.created_at
+          } 
         });
       }else{
         res.status(404).json({

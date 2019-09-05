@@ -1,11 +1,11 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../../index';
+import mockData from './mockData';
 
 chai.use(chaiHttp);
 
 const expect = chai.expect;
-const should = chai.should();
 let usertoken;
 let userAdmintoken;
 
@@ -16,10 +16,7 @@ describe('After Authentifications',() =>{
       .post('/api/v1/auth/signin')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send({
-        email: 'jkchishugi@gmail.com',
-        password : '123456'
-      })
+      .send(mockData.signin[0])
       .then(res => {
         userAdmintoken = res.body.data.token;
         done();
@@ -31,17 +28,7 @@ describe('After Authentifications',() =>{
       .post('/api/v1/auth/signup')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send({
-        firstname : 'Bienvenue',
-        lastname : 'zigabe',
-        email : 'bienvenue@gmail.com',
-        address : 'Gisozi Kigali',
-        bio : 'Born to Kigali',
-        occupation : 'Programming',
-        expertise : 'Software developer',
-        password : '11223344',
-        confirmPassword : '11223344',
-      })
+      .send(mockData.signup[2])
       .then(res => {
         usertoken = res.body.data.token;
         done()
@@ -79,9 +66,21 @@ describe('After Authentifications',() =>{
           if (err) done(err);
           expect(res).to.have.status(200)
           expect(res.body).to.be.an('object')
-          expect(res.body).to.have.property('data');
+          expect(res.body).to.have.property('message');
           done();
         });
+    });
+    it('Should return an object message with status 200 to set admin', (done) => {
+      chai.request(server)
+        .patch(`/api/v1/auth/${2}/setadmin`)
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(200)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('message');
+          done();
+        })
     });
     it('Should return an object with a error and 403 status when a no admin change user to mentor',(done) =>{
       chai.request(server)
@@ -132,7 +131,7 @@ describe('After Authentifications',() =>{
           if (err) done(err);
           expect(res).to.have.status(200)
           expect(res.body).to.be.an('object')
-          expect(res.body).to.have.property('data');
+          expect(res.body).to.have.property('message');
           done();
         });  
     });

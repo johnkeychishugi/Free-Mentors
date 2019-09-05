@@ -1,11 +1,12 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../../../index';
+import mockData from './mockData';
+
 
 chai.use(chaiHttp);
 
 const expect = chai.expect;
-const should = chai.should();
 let token;
 
 describe('Authentifications',()=>{
@@ -15,17 +16,7 @@ describe('Authentifications',()=>{
       .post('/api/v1/auth/signup')
       .set('Accept', 'application/json')
       .set('Content-type', 'application/x-www-form-urlencoded')
-      .send({
-        firstname : 'Aristotle',
-        lastname : 'Kalume',
-        email : 'kalume@gmail.com',
-        address : 'Gisozi Kigali',
-        bio : 'Born to worship',
-        occupation : 'Programmer',
-        expertise : 'Software developer',
-        password : '123456',
-        confirmPassword : '123456'
-      })
+      .send(mockData.signup[0])
       .then(res => {
         token = res.body.data.token;
         done();
@@ -43,14 +34,14 @@ describe('Authentifications',()=>{
         done();
       })
   });
-  it('Should return an error with 404 status when the user accesses a wrong endpoint', (done) => {
+  it('Should return an error with 405 status when the user accesses a wrong endpoint', (done) => {
     chai
       .request(server)
       .get('/v111/wrong-endpoint')
       .set('Accept', 'application/json')
       .end((err, res) => {
         if (err) done(err);
-        expect(res).to.have.status(404)
+        expect(res).to.have.status(405)
         expect(res.body).to.be.an('object')
         expect(res.body).to.have.property('message');
         done();
@@ -67,24 +58,14 @@ describe('Authentifications',()=>{
         done();
       })
   });
+
   describe('Sign Up', ()=>{
     it('Should register with 201 status and give the token', (done)=>{
       chai.request(server)
         .post('/api/v1/auth/signup')
         .set('Accept', 'application/json')
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send({
-          firstname : 'John',
-          lastname : 'Chishugi',
-          email : 'jkchishugi@gmail.com',
-          address : 'Gisozi Kigali',
-          bio : 'Born to worship',
-          occupation : 'Programmer',
-          expertise : 'Software developer',
-          password : '123456',
-          confirmPassword : '123456',
-          is_admin : true
-        })
+        .send(mockData.signup[1])
         .end((err, res) =>{
           if (err) done(err);
           res.body.should.have.status(201)
@@ -112,24 +93,37 @@ describe('Authentifications',()=>{
         .post('/api/v1/auth/signup')
         .set('Accept', 'application/json')
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send({
-          firstname : 'John',
-          lastname : 'Chishugi',
-          email : 'jkchishugi@gmail.com',
-          address : 'Gisozi Kigali',
-          bio : 'Born to worship',
-          occupation : 'Programmer',
-          expertise : 'Software developer',
-          password : '123456',
-          confirmPassword : '123456',
-          is_admin : true
-        })
+        .send(mockData.signup[1])
         .end((err, res) =>{
           if (err) done(err);
-          res.body.should.have.status(400)
+          res.body.should.have.status(409)
           res.body.should.be.an('Object')
           res.body.should.have.property('error')
           done()
+        })
+    });
+    it('Should return an object message with status 200 to set admin', (done) => {
+      chai.request(server)
+        .patch(`/api/v1/auth/${2}/setadmin`)
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(200)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('message');
+          done();
+        })
+    });
+    it('Should return an error  with status 404 to set admin but, user is not found', (done) => {
+      chai.request(server)
+        .patch(`/api/v1/auth/${20}/setadmin`)
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(404)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error');
+          done();
         })
     });
   });
@@ -139,10 +133,7 @@ describe('Authentifications',()=>{
         .post('/api/v1/auth/signin')
         .set('Accept', 'application/json')
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send({
-          email: 'jkchishugi@gmail.com',
-          password : '123456'
-        })
+        .send(mockData.signin[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(200)
@@ -170,10 +161,7 @@ describe('Authentifications',()=>{
         .post('/api/v1/auth/signin')
         .set('Accept', 'application/json')
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send({
-          email: 'jkchishugi@popmooder.com',
-          password : '87654321'
-        })
+        .send(mockData.signin[1])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(401)
@@ -190,16 +178,12 @@ describe('Authentifications',()=>{
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send({
-          old_password: '123456',
-          new_password : '654321',
-          confirm_new_password : '654321'
-        })
+        .send(mockData.changepass[0])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(200)
           expect(res.body).to.be.an('object')
-          expect(res.body).to.have.property('data')
+          expect(res.body).to.have.property('message')
           done();
         })
     });
@@ -224,11 +208,7 @@ describe('Authentifications',()=>{
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send({
-          old_password: '1234567',
-          new_password : '654321',
-          confirm_new_password : '654321'
-        })
+        .send(mockData.changepass[1])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(400)
@@ -243,11 +223,7 @@ describe('Authentifications',()=>{
         .set('Accept', 'application/json')
         .set('Authorization', `Bearer ${token}`)
         .set('Content-type', 'application/x-www-form-urlencoded')
-        .send({
-          old_password: '123456',
-          new_password : '654321',
-          confirm_new_password : '6543217'
-        })
+        .send(mockData.changepass[2])
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(422)
@@ -256,5 +232,54 @@ describe('Authentifications',()=>{
           done();
         })
     });
+  });
+  describe('Update Profile',() =>{
+    it('Should return an object with a message when the user update profile', (done) => {
+      chai.request(server)
+        .patch('/api/v1/auth/updateProfile')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .set('Content-type', 'application/x-www-form-urlencoded')
+        .send(mockData.updateProfile[0])
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(200)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('data')
+          done();
+        })
+    });
+    it('Should return an error 409 with a message when the user update profile but no change', (done) => {
+      chai.request(server)
+        .patch('/api/v1/auth/updateProfile')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .set('Content-type', 'application/x-www-form-urlencoded')
+        .send(mockData.updateProfile[1])
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(409)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error')
+          done();
+        })
+    });
+
+    it('Should return an object with a message when the user update profile without required credentials', (done) => {
+      chai.request(server)
+        .patch('/api/v1/auth/updateProfile')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .set('Content-type', 'application/x-www-form-urlencoded')
+        .send({})
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(422)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error')
+          done();
+        })
+    });
+    
   })
 });

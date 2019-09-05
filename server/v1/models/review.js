@@ -22,6 +22,9 @@ class Review {
   async find(id){
     return this.datas.find( review => review.id === id );
   }
+  async findBysessionId(id){
+    return this.datas.find( review => review.sessionId === id );
+  }
 }
 
 class DataReview {
@@ -29,6 +32,7 @@ class DataReview {
     this.id = id;
     this.sessionId = session.id;
     this.mentorId = session.mentorId;
+    this.mentorName = session.mentorName;
     this.menteeId = session.menteeId;
     this.score = data.score;
     this.menteeFullName = menteeFullName;

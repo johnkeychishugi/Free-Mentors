@@ -21,13 +21,23 @@ const sessionController = {
           }else{
             id = 1;
           }
-          const created_at = new Date(); 
-          const data = new Session.DataSession(req.body,id,user,created_at);
+          const created_at = new Date().toDateString(); 
+          const data = new Session.DataSession(req.body,id,user,mentor,created_at);
   
           sessions.save(data).then(session =>{
             res.status(201).json({
               status : 201,
-              data : session
+              message : 'Session created succuefully',
+              data : {
+                id : session.id,
+                mentorName : mentor.firstname,
+                mentorEmail : mentor.email,
+                menteeName : user.firstname,
+                menteeEmail : session.menteeEmail,
+                questions : session.questions,
+                status : session.status,
+                created_at : session.created_at 
+              }
             });
           });
         }else{
@@ -48,7 +58,17 @@ const sessionController = {
         session.status = 'accepted'; 
         res.status(200).json({
           status : 200,
-          data : session
+          message : 'session accepted succuefully',
+          data : {
+            id: session.id,
+            mentorName: session.mentorName,
+            mentorEmail: session.mentorEmail, 
+            menteeName: session.menteeName,
+            menteeEmail : session.menteeEmail,
+            questions : session.questions,
+            status : session.status,
+            created_at : session.created_at
+          }
         });
       }else{
         res.status(404).json({
@@ -65,7 +85,17 @@ const sessionController = {
         session.status = 'rejected'; 
         res.status(200).json({
           status : 200,
-          data : session
+          message : 'session rejected succuefully',
+          data : {
+            id: session.id,
+            mentorName: session.mentorName,
+            mentorEmail: session.mentorEmail, 
+            menteeName: session.menteeName,
+            menteeEmail : session.menteeEmail,
+            questions : session.questions,
+            status : session.status,
+            created_at : session.created_at
+          }
         });
       }else{
         res.status(404).json({
@@ -82,9 +112,24 @@ const sessionController = {
         if(user.is_mentor){
           sessions.findForMentor(user.id).then(sessions =>{
             if(sessions.length != 0){
+              let sessionArray = [];
+              sessions.forEach(session => {
+                let sessionData = {
+                  id: session.id,
+                  mentorName: session.mentorName,
+                  mentorEmail: session.mentorEmail, 
+                  menteeName: session.menteeName,
+                  menteeEmail : session.menteeEmail,
+                  questions : session.questions,
+                  status : session.status,
+                  created_at : session.created_at
+                }
+                sessionArray.push(sessionData); 
+              });
               res.status(200).json({
                 status : 200,
-                data : sessions
+                message : 'Session is retrieved successfully',
+                data : sessionArray
               });
             }else{
               res.status(404).json({
@@ -96,9 +141,24 @@ const sessionController = {
         }else{
           sessions.findForMentee(user.id).then(sessions =>{
             if(sessions.length != 0){
+              let sessionArray = [];
+              sessions.forEach(session => {
+                let sessionData = {
+                  id: session.id,
+                  mentorName: session.mentorName,
+                  mentorEmail: session.mentorEmail, 
+                  menteeName: session.menteeName,
+                  menteeEmail : session.menteeEmail,
+                  questions : session.questions,
+                  status : session.status,
+                  created_at : session.created_at
+                }
+                sessionArray.push(sessionData); 
+              });
               res.status(200).json({
                 status : 200,
-                data : sessions
+                message : 'Session is retrieved successfully',
+                data : sessionArray
               });
             }else{
               res.status(404).json({

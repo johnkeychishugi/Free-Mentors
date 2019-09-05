@@ -17,12 +17,15 @@ class Session {
   }
 }
 class DataSession {
-  constructor(mentor,id,mentee,created_at){
+  constructor(body,id,mentee,mentor,created_at){
     this.id = id,
-    this.mentorId = parseInt(mentor.mentorId);
+    this.mentorId = parseInt(body.mentorId);
+    this.mentorName = mentor.firstname;
+    this.mentorEmail = mentor.email;
     this.menteeId = parseInt(mentee.userId);
-    this.questions = mentor.questions;
+    this.menteeName = mentee.firstname;
     this.menteeEmail = mentee.email;
+    this.questions = body.questions;
     this.status = 'pending';
     this.created_at = created_at
 
