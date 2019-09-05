@@ -89,6 +89,20 @@ describe('Review of sessions',() =>{
           done();
         });
     });
+    it('Should return a message with a 201 status when the mentor review a mentorship session',(done) =>{  
+      chai.request(server)
+        .post(`/api/v1/sessions/${2}/review`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${userMentortoken}`)
+        .send(generator.review[0])
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(201)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('data')
+          done();
+        });
+    });
     it('Should return an error with a 409 status when the mentor review twice a mentorship session',(done) =>{  
       chai.request(server)
         .post(`/api/v1/sessions/${1}/review`)
@@ -103,7 +117,21 @@ describe('Review of sessions',() =>{
           done();
         });
     });
-    it('Should return an error with a 201 status when the mentor review a mentorship session without required credentials',(done) =>{  
+    it('Should return an error with a 409 status when the mentor review twice a mentorship session',(done) =>{  
+      chai.request(server)
+        .post(`/api/v1/sessions/${2}/review`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${userMentortoken}`)
+        .send(generator.review[0])
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(409)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error')
+          done();
+        });
+    });
+    it('Should return an error with a 422 status when the mentor review a mentorship session without required credentials',(done) =>{  
       chai.request(server)
         .post(`/api/v1/sessions/${1}/review`)
         .set('Accept', 'application/json')
@@ -117,6 +145,7 @@ describe('Review of sessions',() =>{
           done();
         });
     });
+    
     it('Should return an error with a 422 status when the mentor review a mentorship session with a score less then 1 ',(done) =>{  
       chai.request(server)
         .post(`/api/v1/sessions/${1}/review`)
