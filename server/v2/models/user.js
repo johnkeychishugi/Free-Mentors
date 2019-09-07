@@ -12,6 +12,16 @@ class User {
     const { rows } = await pool.query(queryString);
     return rows;
   }
+  async updateProfile(data,id){
+    const { address,bio,occupation,expertise} = data;
+    const queryString = {
+      text : `UPDATE users SET address=$1, bio=$2, occupation=$3 ,expertise=$4
+      WHERE id=$5 RETURNING id,firstname,lastname,email,address,bio,occupation,expertise,is_mentor`,
+      values : [address,bio,occupation,expertise,id]
+    }
+    const { rows } = await pool.query(queryString);
+    return rows[0];
+  }
   async  checkIfExist (email){
     const queryString = {
       text : 'SELECT * FROM users WHERE email=$1',
@@ -21,13 +31,12 @@ class User {
     return rows;
   }
   async find(id){
-    return this.datas.find( user => user.id === id );
-  }
-  async findMentors(){
-    return this.datas.filter(user => user.is_mentor === true);
-  }
-  async findAdmins(){
-    return this.datas.filter(user => user.is_admin === true);
+    const queryString = {
+      text : 'SELECT * FROM users WHERE id=$1',
+      values : [id]
+    };
+    const { rows }   = await pool.query(queryString);
+    return rows;
   }
 }
 class DataUser{

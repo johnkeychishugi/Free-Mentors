@@ -156,12 +156,29 @@ describe('Authentifications',()=>{
           done();
         })
     });
-    it('Should return an object with an error when the user signs in with an incorrect email or password', (done) => {
+    it('Should return an object with an error when the user signs in with an incorrect email', (done) => {
       chai.request(server)
         .post('/api/v1/auth/signin')
         .set('Accept', 'application/json')
         .set('Content-type', 'application/x-www-form-urlencoded')
         .send(mockData.signin[1])
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(401)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error')
+          done();
+        })
+    });
+    it('Should return an object with an error when the user signs in with an incorrect password', (done) => {
+      chai.request(server)
+        .post('/api/v1/auth/signin')
+        .set('Accept', 'application/json')
+        .set('Content-type', 'application/x-www-form-urlencoded')
+        .send({
+          email: 'jkchishugi@gmail.com',
+          password : 'Ch@123456o' 
+        })
         .end((err, res) => {
           if (err) done(err);
           expect(res).to.have.status(401)

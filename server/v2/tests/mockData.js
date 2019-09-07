@@ -1,4 +1,3 @@
-
 const mockData = {
   signup : [
     {
@@ -71,31 +70,6 @@ const mockData = {
       bio : 'Born to win',
       'address' :'Goma'
     }
-  ],
-  session : [
-    {
-      mentorId: 3,
-      questions : 'What is your best skills sir'
-    },
-    {
-      mentorId: 1,
-      questions : 'What is your best skills sir'
-    }
-  ],
-  review : [
-    {
-      score: 3,
-      remark : 'Good job,but continous to learn by youself'
-    },
-    {
-      score: 0,
-      remark : 'Good job,but continous to learn by youself'
-    },
-    {
-      score: 6,
-      remark : 'Good job,but continous to learn by youself'
-    }
   ]
 }
-
 export default mockData;
