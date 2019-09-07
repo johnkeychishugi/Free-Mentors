@@ -2,30 +2,30 @@
 const mockData = {
   signup : [
     {
-      firstname : 'Aristotle',
-      lastname : 'Kalume',
-      email : 'kalume@gmail.com',
+      firstname : 'Ary',
+      lastname : 'kakule',
+      email : 'kakule@gmail.com',
       password : 'Chi@123456',
       confirmPassword : 'Chi@123456'
     },
     {
-      firstname : 'John',
-      lastname : 'Chishugi',
-      email : 'jkchishugi@gmail.com',
+      firstname : 'John key',
+      lastname : 'iragi',
+      email : 'iragi@gmail.com',
       password : 'Ch@123456',
       confirmPassword : 'Ch@123456',
     },
     {
       firstname : 'Bienvenue',
       lastname : 'zigabe',
-      email : 'bienvenue@gmail.com',
+      email : 'bienvenue1@gmail.com',
       password : 'Ch@11223344',
       confirmPassword : 'Ch@11223344',
     }
   ],
   signin : [
     {
-      email: 'jkchishugi@gmail.com',
+      email: 'iragi@gmail.com',
       password : 'Ch@123456' 
     },
     {
@@ -33,11 +33,11 @@ const mockData = {
       password : '87Ch@654321'
     },
     {
-      email: 'kalume@gmail.com',
+      email: 'kakule@gmail.com',
       password : 'Ch@654321'
     },
     {
-      email: 'bienvenue@gmail.com',
+      email: 'bienvenue1@gmail.com',
       password : 'Ch@11223344'
     }
   ],
