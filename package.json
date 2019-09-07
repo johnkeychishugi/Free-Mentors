@@ -6,9 +6,11 @@
   "scripts": {
     "start": "babel-node index.js",
     "start-dev": "nodemon --exec babel-node index.js",
-    "test": "nyc mocha --exit --require @babel/register --require babel-polyfill ./server/**/*.test.js",
+    "test": "nyc mocha --exit --require @babel/register --require babel-polyfill ./server/v1/**/*.test.js",
     "lint": "eslint ./*.js",
-    "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test | coveralls"
+    "coverage": "nyc --reporter=lcov --reporter=text-lcov npm test | coveralls",
+    "migrate": "babel-node ./server/v2/models/db/schema.js",
+    "seeder": "npm run migrate && babel-node ./server/v2/models/db/seeder.js"
   },
   "repository": {
     "type": "git",
