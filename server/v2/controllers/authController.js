@@ -76,6 +76,22 @@ const authController = {
     }else{
       res.status(422).send({status: 422, error: validate.error});
     }
+  },
+  setadmin : async (req, res) =>{
+    let [user] = await users.find(parseInt(req.params.userid))
+    if(user){
+      let setUserAdmin = await users.setUserAdmin(parseInt(req.params.userid));
+      res.status(200).json({
+        status: 200, 
+        message : 'Profile Updated succuefully',
+        data: setUserAdmin
+      });
+    }else{
+      res.status(404).json({
+        status : 404,
+        error: 'No user found'
+      });
+    }
   }
 }
 const sendToken = (user,res,status,msg) =>{

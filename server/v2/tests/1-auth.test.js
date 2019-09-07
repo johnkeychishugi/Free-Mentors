@@ -101,30 +101,30 @@ describe('Authentifications',()=>{
           done()
         })
     });
-    // it('Should return an object message with status 200 to set admin', (done) => {
-    //   chai.request(server)
-    //     .patch(`/api/v2/auth/${2}/setadmin`)
-    //     .set('Accept', 'application/json')
-    //     .end((err, res) => {
-    //       if (err) done(err);
-    //       expect(res).to.have.status(200)
-    //       expect(res.body).to.be.an('object')
-    //       expect(res.body).to.have.property('message');
-    //       done();
-    //     })
-    // });
-    // it('Should return an error  with status 404 to set admin but, user is not found', (done) => {
-    //   chai.request(server)
-    //     .patch(`/api/v2/auth/${20}/setadmin`)
-    //     .set('Accept', 'application/json')
-    //     .end((err, res) => {
-    //       if (err) done(err);
-    //       expect(res).to.have.status(404)
-    //       expect(res.body).to.be.an('object')
-    //       expect(res.body).to.have.property('error');
-    //       done();
-    //     })
-    // });
+    it('Should return an object message with status 200 to set admin', (done) => {
+      chai.request(server)
+        .patch(`/api/v2/auth/${2}/setadmin`)
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(200)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('message');
+          done();
+        })
+    });
+    it('Should return an error  with status 404 to set admin but, user is not found', (done) => {
+      chai.request(server)
+        .patch(`/api/v2/auth/${200}/setadmin`)
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(404)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error');
+          done();
+        })
+    });
   });
   describe('Sign In',() =>{
     it('Should return an object with a data -> token when the user signs in with valid credentials', (done) => {

@@ -7,6 +7,7 @@ const routes = express.Router();
 
 routes.post('/auth/signup',authController.signup)
   .post('/auth/signin',authController.signin)
-  .patch('/auth/updateProfile',authCheck,authController.updateProfile);
+  .patch('/auth/updateProfile',authCheck,authController.updateProfile)
+  .patch('/auth/:userid/setadmin',authController.setadmin);
 
 export default routes;   
