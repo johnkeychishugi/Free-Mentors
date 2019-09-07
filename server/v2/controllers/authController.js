@@ -10,32 +10,22 @@ dotenv.config();
 const users =  User.Users;
 
 const authController = {
-  signup : (req, res) => {
+  signup : async (req, res) => {
     const validate = Validator.schemaSignUp(req.body);
     if(!validate.error){
-      users.checkIfExist(req.body.email).then(user =>{
-        if(user){
-          res.status(409).send({
-            status: 409, 
-            error:'Email already exist!!'
-          });
-        }else{
-          bcrypt.hash(req.body.password, 10, (err, hash)=>{
-            let id 
-            if(users.datas.length != 0){
-              id = users.datas[users.datas.length-1].id+1;
-            }else{
-              id = 1;
-            }
-            const created_at = new Date().toDateString(); 
-            const data = new User.DataUser(req.body,id,hash,created_at);
-
-            users.save(data).then(response =>{
-              sendToken(response,res,201,'User created successfully');
-            });
-          });
-        }
-      });
+      let user = await users.checkIfExist(req.body.email);
+      if(user.length){
+        res.status(409).send({
+          status: 409, 
+          error:'Email already exist!!'
+        });
+      }else{
+        bcrypt.hash(req.body.password, 10, async (err, hash)=>{
+          const data = new User.DataUser(req.body,hash);
+          let response  =  await users.save(data);
+          sendToken(response,res,201,'User created successfully');
+        });
+      } 
     }else{
       res.status(422).send({status: 422, error: validate.error});
     }
@@ -161,7 +151,7 @@ const authController = {
     });
   }
 }
-const sendToken = (user,res,status,msg) =>{
+const sendToken = ([user],res,status,msg) =>{
   const token = jwt.sign(
     {
       email : user.email,
@@ -174,7 +164,7 @@ const sendToken = (user,res,status,msg) =>{
     { 
       expiresIn : '2h'
     }
-  )
+  );
   return res.status(status).json({
     status : status,
     message : msg,

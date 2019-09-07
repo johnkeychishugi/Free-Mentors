@@ -1,13 +1,24 @@
+import pool from '../config/db.config';
+
 class User {
-  constructor(){
-    this.datas=[];
-  }
   async save(user){
-    this.datas.push(user);
-    return this.datas.find( data => data.email === user.email );
+    const { firstname,lastname,email,password} = user;
+    const queryString = {
+      text: `INSERT INTO users
+            (firstname,lastname,email,password)
+            VALUES($1, $2, $3, $4) RETURNING*;`,
+      values: [firstname,lastname,email,password]
+    };
+    const { rows } = await pool.query(queryString);
+    return rows;
   }
   async  checkIfExist (email){
-    return this.datas.find( user => user.email === email );
+    const queryString = {
+      text : 'SELECT * FROM users WHERE email=$1',
+      values : [email]
+    };
+    const { rows }   = await pool.query(queryString);
+    return rows;
   }
   async find(id){
     return this.datas.find( user => user.id === id );
@@ -20,19 +31,11 @@ class User {
   }
 }
 class DataUser{
-  constructor(data,id,hash,created_at){
-    this.id = id;
+  constructor(data,hash){
     this.firstname = data.firstname;
     this.lastname = data.lastname;
     this.email = data.email;
-    this.address = null;
-    this.bio = null;
-    this.occupation = null;
-    this.expertise = null;
-    this.is_admin =  false;
-    this.is_mentor = false;
     this.password = hash;
-    this.created_at = created_at;
   }
 }
 const Users = new User();
