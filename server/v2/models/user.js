@@ -31,6 +31,15 @@ class User {
     const { rows } = await pool.query(queryString);
     return rows[0];
   }
+  async changePassword(id,hash){
+    const queryString = {
+      text : `UPDATE users SET password=$1
+      WHERE id=$2 RETURNING id,firstname,lastname,email,address,bio,occupation,expertise,is_admin`,
+      values : [hash,id]
+    }
+    const { rows } = await pool.query(queryString);
+    return rows[0];
+  }
   async  checkIfExist (email){
     const queryString = {
       text : 'SELECT * FROM users WHERE email=$1',

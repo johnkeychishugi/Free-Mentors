@@ -18,13 +18,20 @@ export default class Validator {
     }
     return Joi.validate(user,userSchema);
   }
+  static schemaChangePassword(user){
+    const changepasswordSchema ={
+      old_password: Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).min(8).required(),
+      new_password: Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).min(8).required(),
+      confirm_new_password : Joi.string().valid(Joi.ref('new_password')).required().strict()
+    }
+    return Joi.validate(user,changepasswordSchema);
+  }
   static schemaUpdateProfile(userInfo) {
     const infosSchema ={
       address: Joi.string().required(),
       bio: Joi.string().required(),
       occupation: Joi.string().required(),
-      expertise: Joi.string().required()
-      
+      expertise: Joi.string().required()  
     }
     return Joi.validate(userInfo, infosSchema);
   }

@@ -77,6 +77,35 @@ const authController = {
       res.status(422).send({status: 422, error: validate.error});
     }
   },
+  changePassword : async (req, res) => {
+    const authUser = helper.authUser(req.headers.authorization);
+    const validate = Validator.schemaChangePassword(req.body);
+    if(!validate.error){
+      let [user] = await users.find(parseInt(authUser.userId))
+      if(user){
+        bcrypt.compare(req.body.old_password, user.password, (err,result)=>{
+          if(result){
+            bcrypt.hash(req.body.new_password, 10, async (err, hash)=>{
+              let response = await users.changePassword(authUser.userId,hash);
+              if(response){
+                res.status(200).json({
+                  status: 200, 
+                  message : 'Password change succuefully'
+                });
+              }
+            });
+          }else{
+            res.status(400).json({
+              status : 400,
+              error : 'Current password incorrect'
+            })
+          }
+        })
+      }
+    }else{
+      res.status(422).send({status: 422, error: validate.error});
+    } 
+  },
   setadmin : async (req, res) =>{
     let [user] = await users.find(parseInt(req.params.userid))
     if(user){

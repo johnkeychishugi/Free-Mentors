@@ -234,5 +234,67 @@ describe('Authentifications',()=>{
         })
     });
     
-  })
+  });
+  describe('Change password',() =>{
+    it('Should return an object with a message when the user change the password', (done) => {
+      chai.request(server)
+        .patch('/api/v2/auth/changepassword')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .set('Content-type', 'application/x-www-form-urlencoded')
+        .send(mockData.changepass[0])
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(200)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('message')
+          done();
+        })
+    });
+    it('Should return an object with an error when the user change the password without required credentials', (done) => {
+      chai.request(server)
+        .patch('/api/v2/auth/changepassword')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .set('Content-type', 'application/x-www-form-urlencoded')
+        .send()
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(422)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error')
+          done();
+        })
+    });
+    it('Should return an object with an error when the user change the  password but the old password is incorrect ', (done) => {
+      chai.request(server)
+        .patch('/api/v2/auth/changepassword')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .set('Content-type', 'application/x-www-form-urlencoded')
+        .send(mockData.changepass[1])
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(400)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error')
+          done();
+        })
+    });
+    it('Should return an object with an error when the user change the  password but the new password is not match with confirm new password ', (done) => {
+      chai.request(server)
+        .patch('/api/v2/auth/changepassword')
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .set('Content-type', 'application/x-www-form-urlencoded')
+        .send(mockData.changepass[2])
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(422)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error')
+          done();
+        })
+    });
+  });
 });
