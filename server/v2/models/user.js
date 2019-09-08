@@ -74,6 +74,15 @@ class User {
     const { rows }   = await pool.query(queryString);
     return rows;
   }
+  async findMentors(){
+    const queryString = {
+      text : `SELECT id,firstname,lastname,email,address,occupation,expertise,created_at
+             FROM users WHERE is_mentor=$1`,
+      values : [true]
+    };
+    const { rows }   = await pool.query(queryString);
+    return rows;
+  }
 }
 class DataUser{
   constructor(data,hash){

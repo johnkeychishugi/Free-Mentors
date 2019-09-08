@@ -36,6 +36,53 @@ const userController = {
         error: 'User not found'
       });
     }
+  },
+  mentors  : async (req, res) =>{
+    let mentors =  await users.findMentors();
+    if(mentors.length != 0){
+      res.status(200).json({ 
+        status : 200,
+        message : 'Mentors are retrieved successfully',
+        data : mentors,
+      });
+    }else{
+      res.status(404).json({
+        status : 404,
+        error: 'Not mentors found'
+      });
+    }
+  },
+  mentor : async (req, res) =>{
+    let [mentor] = await users.find(parseInt(req.params.mentorId));
+    if(mentor){
+      if(mentor.is_mentor === true){
+        res.status(200).json({
+          status: 200,
+          message : 'Mentor is retrieved successfully',
+          data: {
+            id: mentor.id,
+            firstname : mentor.firstname,
+            lastname : mentor.lastname,
+            email : mentor.email,
+            address : mentor.address,
+            bio : mentor.bio,
+            occupation : mentor.occupation,
+            expertise : mentor.expertise,
+            created_at : mentor.created_at
+          } 
+        });
+      }else{
+        res.status(404).json({
+          status: 404,
+          error: 'This user is not a mentor'
+        });
+      }
+    }else{
+      res.status(404).json({
+        status: 404,
+        error: 'Mentor not found'
+      });
+    }
   }
 }
 

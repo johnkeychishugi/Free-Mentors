@@ -6,6 +6,8 @@ import userController from '../controllers/userController';
 const routes = express.Router();
 
 routes.patch('/user/:userId',authCheck, adminCheck, userController.changeToMentor)
-  .patch('/mentor/:userId',authCheck, adminCheck, userController.removeToMentor);
+  .patch('/mentor/:userId',authCheck, adminCheck, userController.removeToMentor)
+  .get('/mentors',authCheck,userController.mentors)
+  .get('/mentors/:mentorId',authCheck,userController.mentor);
 
 export default routes;   
