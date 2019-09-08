@@ -71,28 +71,32 @@ const sessionController = {
         error : 'Session mentorship not found'
       });
     } 
+  },
+  getSession : async (req, res) => {
+    const authUser = helper.authUser(req.headers.authorization);
+    let [user] = await  users.find(authUser.userId);
+    if(user){
+      if(user.is_mentor){
+        let response = await sessions.findForMentor(user.id);
+        responseGetSession(res,response);
+      }else{
+        let response = await sessions.findForMentee(user.id);
+        responseGetSession(res,response);
+      }
+    }else{
+      res.status(404).json({
+        status : 404,
+        error : 'user not found'
+      }); 
+    }
   }
 }
 const responseGetSession = (res,sessions) =>{
   if(sessions.length != 0){
-    let sessionArray = [];
-    sessions.forEach(session => {
-      let sessionData = {
-        id: session.id,
-        mentorName: session.mentorName,
-        mentorEmail: session.mentorEmail, 
-        menteeName: session.menteeName,
-        menteeEmail : session.menteeEmail,
-        questions : session.questions,
-        status : session.status,
-        created_at : session.created_at
-      }
-      sessionArray.push(sessionData); 
-    });
     res.status(200).json({
       status : 200,
       message : 'Session is retrieved successfully',
-      data : sessionArray
+      data : sessions
     });
   }else{
     res.status(404).json({

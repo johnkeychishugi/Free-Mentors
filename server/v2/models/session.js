@@ -39,10 +39,20 @@ class Session {
     return rows[0];
   }
   async findForMentor(id){
-    return this.datas.filter(data => data.mentorId === id);
+    const queryString = {
+      text : 'SELECT * FROM sessions WHERE mentorId=$1',
+      values : [id]
+    };
+    const { rows }   = await pool.query(queryString);
+    return rows;
   }
   async findForMentee(id){
-    return this.datas.filter(data => data.menteeId === id);
+    const queryString = {
+      text : 'SELECT * FROM sessions WHERE menteeId=$1',
+      values : [id]
+    };
+    const { rows }   = await pool.query(queryString);
+    return rows;
   }
 }
 class DataSession {

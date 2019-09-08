@@ -209,5 +209,61 @@ describe('Sessions',() =>{
         });
     });
   });
+  describe('Get all mentorship session requests', () =>{
+    describe('For a mentor', () => {
+      it('Should return an error with a 401 status when the mentor is not authenticated',(done) =>{  
+        chai.request(server)
+          .get('/api/v2/sessions')
+          .set('Accept', 'application/json')
+          .end((err, res) => {
+            if (err) done(err);
+            expect(res).to.have.status(401)
+            expect(res.body).to.be.an('object')
+            expect(res.body).to.have.property('error');
+            done();
+          });
+      });
+      it('Should be a list of all mentorship request sessions created against the mentor',(done) =>{  
+        chai.request(server)
+          .get('/api/v2/sessions')
+          .set('Accept', 'application/json')
+          .set('Authorization', `Bearer ${userMentortoken}`)
+          .end((err, res) => {
+            if (err) done(err);
+            expect(res).to.have.status(200)
+            expect(res.body).to.be.an('object')
+            expect(res.body).to.have.property('data');
+            done();
+          });
+      });
+    });
+    describe('For a user (mentee)', () => {
+      it('Should return an error with a 401 status when the mentee is not authenticated',(done) =>{  
+        chai.request(server)
+          .get('/api/v2/sessions')
+          .set('Accept', 'application/json')
+          .end((err, res) => {
+            if (err) done(err);
+            expect(res).to.have.status(401)
+            expect(res.body).to.be.an('object')
+            expect(res.body).to.have.property('error');
+            done();
+          });
+      });
+      it('Should be a list of all mentorship request sessions created by the user',(done) =>{  
+        chai.request(server)
+          .get('/api/v2/sessions')
+          .set('Accept', 'application/json')
+          .set('Authorization', `Bearer ${usertoken}`)
+          .end((err, res) => {
+            if (err) done(err);
+            expect(res).to.have.status(200)
+            expect(res.body).to.be.an('object')
+            expect(res.body).to.have.property('data');
+            done();
+          });
+      });
+    });
+  })
 });
 
