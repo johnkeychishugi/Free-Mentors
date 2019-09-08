@@ -13,7 +13,30 @@ class Session {
     return rows;
   }
   async find(id){
-    return this.datas.find(data => data.id === id);
+    const queryString = {
+      text : 'SELECT * FROM sessions WHERE id=$1',
+      values : [id]
+    };
+    const { rows }   = await pool.query(queryString);
+    return rows;
+  }
+  async acceptSession(id){
+    const queryString = {
+      text : `UPDATE sessions SET status=$1
+      WHERE id=$2 RETURNING*`,
+      values : ['accepted',id]
+    }
+    const { rows } = await pool.query(queryString);
+    return rows[0];
+  }
+  async rejectSession(id){
+    const queryString = {
+      text : `UPDATE sessions SET status=$1
+      WHERE id=$2 RETURNING*`,
+      values : ['rejected',id]
+    }
+    const { rows } = await pool.query(queryString);
+    return rows[0];
   }
   async findForMentor(id){
     return this.datas.filter(data => data.mentorId === id);

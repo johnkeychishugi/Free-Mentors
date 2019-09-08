@@ -38,7 +38,11 @@ const mockData = {
     {
       email: 'bienvenue1@gmail.com',
       password : 'Ch@11223344'
-    }
+    },
+    {
+      email: 'ericebulu@gmail.com',
+      password : 'Chi@123456'
+    },
   ],
   changepass : [
     {

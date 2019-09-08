@@ -33,6 +33,44 @@ const sessionController = {
     }else{
       res.status(422).send({status: 422, error: validate.error});
     }   
+  },
+  acceptSession : async (req, res) => {
+    const id = parseInt(req.params.sessionId);
+    let [session] = await sessions.find(id);
+    if(session){
+      let response = await sessions.acceptSession(id); 
+      if(response){
+        res.status(200).json({
+          status : 200,
+          message : 'session accepted succuefully',
+          data : response
+        });
+      }
+    }else{
+      res.status(404).json({
+        status : 404,
+        error : 'Session mentorship not found'
+      });
+    }
+  },
+  rejectSession : async (req, res) => {
+    const id = parseInt(req.params.sessionId);
+    let [session] = await sessions.find(id);
+    if(session){
+      let response = await sessions.rejectSession(id); 
+      if(response){
+        res.status(200).json({
+          status : 200,
+          message : 'session rejected succuefully',
+          data : response
+        });
+      }
+    }else{
+      res.status(404).json({
+        status : 404,
+        error : 'Session mentorship not found'
+      });
+    } 
   }
 }
 const responseGetSession = (res,sessions) =>{

@@ -9,5 +9,4 @@ router.use(authRouter);
 router.use(userRouter);
 router.use(sessionRouter);
 
-
 export default router
