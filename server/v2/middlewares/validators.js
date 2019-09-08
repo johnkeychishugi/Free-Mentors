@@ -42,4 +42,11 @@ export default class Validator {
     }
     return Joi.validate(userInfo, infosSchema);
   }
+  static schemaReview(review){
+    const reviewSchema ={
+      score: Joi.number().min(1).max(5).required(),
+      remark: Joi.string().required()
+    }
+    return Joi.validate(review,reviewSchema);
+  }
 }

@@ -35,10 +35,7 @@ DROP TABLE IF EXISTS reviews CASCADE;
 CREATE TABLE reviews (
     id SERIAL PRIMARY KEY,
     sessionId INTEGER NOT NULL,
-    mentorId INTEGER NOT NULL,
-    menteeId INTEGER NOT NULL,
     score INTEGER NOT NULL,
-    menteeFullName VARCHAR(100) NOT NULL,
     remark VARCHAR(100) NOT NULL,
     created_at DATE DEFAULT NOW()
 );
