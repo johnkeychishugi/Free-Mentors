@@ -83,6 +83,21 @@ const userController = {
         error: 'Mentor not found'
       });
     }
+  },
+  admins : async (req, res) =>{
+    let admins = await users.findAdmins();
+    if(admins.length != 0){
+      res.status(200).json({ 
+        status : 200,
+        message: 'Admins are retrieved successfully',
+        data : admins
+      });
+    }else{
+      res.status(404).json({
+        status : 404,
+        error: 'Not Admin found'
+      });
+    }
   }
 }
 
