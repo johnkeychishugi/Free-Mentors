@@ -25,7 +25,6 @@ CREATE TABLE sessions (
     mentorId INTEGER NOT NULL,
     menteeId INTEGER NOT NULL,
     questions TEXT NOT NULL,
-    menteeEmail VARCHAR(254) NOT NULL,
     status VARCHAR(50) DEFAULT 'pending',
     created_at DATE DEFAULT NOW()
 );

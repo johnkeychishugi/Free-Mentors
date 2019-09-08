@@ -222,7 +222,7 @@ describe('After Authentifications',() =>{
   describe('Get specific mentor',() =>{
     it('Should return an error with a 401 status when the user is not authenticated',(done) =>{  
       chai.request(server)
-        .get(`/api/v2/mentors/${2}`)
+        .get(`/api/v2/mentors/${3}`)
         .set('Accept', 'application/json')
         .end((err, res) => {
           if (err) done(err);
@@ -232,19 +232,6 @@ describe('After Authentifications',() =>{
           done();
         });
     }); 
-    it('Should return an message with a 200 status to get a specific mentor',(done) =>{  
-      chai.request(server)
-        .get(`/api/v2/mentors/${2}`)
-        .set('Accept', 'application/json')
-        .set('Authorization', `Bearer ${usertoken}`)
-        .end((err, res) => {
-          if (err) done(err);
-          expect(res).to.have.status(200)
-          expect(res.body).to.be.an('object')
-          expect(res.body).to.have.property('data');
-          done();
-        });
-    });
     it('Should return an error with a 404 status to get a specific mentor but the user found is not a mentor',(done) =>{  
       chai.request(server)
         .get(`/api/v2/mentors/${6}`)
@@ -271,6 +258,19 @@ describe('After Authentifications',() =>{
           done();
         });
     }); 
+    it('Should return an message with a 200 status to get a specific mentor',(done) =>{  
+      chai.request(server)
+        .get(`/api/v2/mentors/${2}`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${usertoken}`)
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(200)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('data');
+          done();
+        });
+    });
   });
   describe('Get all admin',() =>{
     it('Should return an error with a 401 status when the user is not authenticated',(done) =>{  

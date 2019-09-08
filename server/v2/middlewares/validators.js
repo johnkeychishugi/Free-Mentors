@@ -18,6 +18,13 @@ export default class Validator {
     }
     return Joi.validate(user,userSchema);
   }
+  static schemaSession(session){
+    const sessionSchema ={
+      mentorId: Joi.number().required(),
+      questions: Joi.string().required()
+    }
+    return Joi.validate(session,sessionSchema);
+  }
   static schemaChangePassword(user){
     const changepasswordSchema ={
       old_password: Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).min(8).required(),

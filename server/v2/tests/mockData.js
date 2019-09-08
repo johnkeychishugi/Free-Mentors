@@ -70,6 +70,16 @@ const mockData = {
       bio : 'Born to win',
       'address' :'Goma'
     }
-  ]
+  ],
+  session : [
+    {
+      mentorId: 2,
+      questions : 'What is your best skills sir'
+    },
+    {
+      mentorId: 1,
+      questions : 'What is your best skills sir'
+    }
+  ],
 }
 export default mockData;
