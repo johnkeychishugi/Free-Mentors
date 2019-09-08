@@ -13,17 +13,12 @@ class Review {
     return rows;
   }
   async delete(id) {
-    let deleted;
-    for (const index in this.datas) {
-      if (this.datas[index].sessionId === id ) {
-        deleted = this.datas.splice(index, 1);
-      }
-    }
-    if(deleted){
-      return true;
-    }else{
-      return false;
-    }
+    const queryString = {
+      text : 'DELETE FROM reviews WHERE sessionId= $1 RETURNING*',
+      values : [id]
+    };
+    const { rows }   = await pool.query(queryString);
+    return rows;
   }
   async find(id){
     const queryString = {

@@ -229,4 +229,57 @@ describe('Review of sessions',() =>{
         });
     });
   });
+  describe('Delete a review by a admin', () =>{
+    it('Should return an error with a 401 status when the user is not authenticated',(done) =>{  
+      chai.request(server)
+        .delete(`/api/v2/sessions/${1}/review`)
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(401)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error')
+          done();
+        });
+    });
+    it('Should return an error with a 403 status when a no admin try to delete a review session',(done) =>{  
+      chai.request(server)
+        .delete(`/api/v2/sessions/${1}/review`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${usertoken}`)
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(403)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error')
+          done();
+        });
+    });
+    it('Should return an error with a 404 status when a admin delete a review session but a review is not found',(done) =>{  
+      chai.request(server)
+        .delete(`/api/v2/sessions/${10}/review`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${userAdmintoken}`)
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(404)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error')
+          done();
+        });
+    });
+    it('Should return a message with a 200 status when a admin delete a review session',(done) =>{  
+      chai.request(server)
+        .delete(`/api/v2/sessions/${1}/review`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${userAdmintoken}`)
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(200)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('message')
+          done();
+        });
+    });
+  });
 });

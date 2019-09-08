@@ -63,6 +63,20 @@ const reviewController = {
         error: 'Review not found'
       });
     }
+  },
+  Deletereview : async (req ,res) =>{
+    let [response] = await reviews.delete(parseInt(req.params.sessionId));
+    if(response){
+      res.status(200).json({
+        status : 200,
+        message : 'Review successfully deleted' 
+      });
+    }else{
+      res.status(404).json({
+        status : 404,
+        error : 'Review not found'
+      });
+    }
   }
 }
 export default reviewController;
