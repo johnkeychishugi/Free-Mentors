@@ -24,8 +24,8 @@ const mockData = {
   ],
   signin : [
     {
-      email: 'iragi@gmail.com',
-      password : 'Ch@123456' 
+      email: 'jkchishugi@gmail.com',
+      password : 'Chi@123456' 
     },
     {
       email: 'jkchishugi@popmooder.com',

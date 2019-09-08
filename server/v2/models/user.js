@@ -40,6 +40,24 @@ class User {
     const { rows } = await pool.query(queryString);
     return rows[0];
   }
+  async changeUserToMentor(id){
+    const queryString = {
+      text : `UPDATE users SET is_mentor=$1
+      WHERE id=$2 RETURNING id,firstname,lastname,email,address,bio,occupation`,
+      values : [true,id]
+    }
+    const { rows } = await pool.query(queryString);
+    return rows[0];
+  }
+  async removeToMentor(id){
+    const queryString = {
+      text : `UPDATE users SET is_mentor=$1
+      WHERE id=$2 RETURNING id,firstname,lastname,email,address,bio,occupation`,
+      values : [false,id]
+    }
+    const { rows } = await pool.query(queryString);
+    return rows[0];
+  }
   async  checkIfExist (email){
     const queryString = {
       text : 'SELECT * FROM users WHERE email=$1',
