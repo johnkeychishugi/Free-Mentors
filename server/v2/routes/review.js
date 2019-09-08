@@ -6,6 +6,7 @@ import reviewController from '../controllers/reviewController';
 
 const routes = express.Router();
 
-routes.post('/sessions/:sessionId/review',authCheck,mentorCheck,reviewController.review);
+routes.post('/sessions/:sessionId/review',authCheck,mentorCheck,reviewController.review)
+  .get('/reviews/:reviewId',authCheck,reviewController.showReview);
 
 export default routes;   

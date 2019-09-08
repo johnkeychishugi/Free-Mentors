@@ -26,7 +26,12 @@ class Review {
     }
   }
   async find(id){
-    return this.datas.find( review => review.id === id );
+    const queryString = {
+      text : 'SELECT * FROM reviews WHERE id=$1',
+      values : [id]
+    };
+    const { rows }   = await pool.query(queryString);
+    return rows;
   }
   async findBysessionId(id){
     const queryString = {

@@ -188,4 +188,45 @@ describe('Review of sessions',() =>{
         });
     });
   });
+  describe('Get a review', () =>{
+    it('Should return an error with a 401 status when the user is not authenticated',(done) =>{  
+      chai.request(server)
+        .get(`/api/v2/reviews/${1}`)
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(401)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error')
+          done();
+        });
+    });
+    it('Should return a message with a 200 status when the mentee need to see the review session',(done) =>{  
+      chai.request(server)
+        .get(`/api/v2/reviews/${1}`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${usertoken}`)
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(200)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('data')
+          done();
+        });
+    });
+
+    it('Should return an error with a 404 status when the mentee need to see the review session but the review is not found',(done) =>{  
+      chai.request(server)
+        .get(`/api/v2/reviews/${10}`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${usertoken}`)
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(404)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error')
+          done();
+        });
+    });
+  });
 });

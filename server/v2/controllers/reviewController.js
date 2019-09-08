@@ -48,6 +48,21 @@ const reviewController = {
     }else{
       res.status(422).send({status: 422, error: validate.error});
     }
+  },
+  showReview : async (req, res) =>{
+    let [review] = await reviews.find(parseInt(req.params.reviewId));
+    if(review){
+      res.status(200).json({
+        status : 200,
+        message : 'Review is retrieved successfully',
+        data : review
+      });
+    }else{
+      res.status(404).json({
+        status : 404,
+        error: 'Review not found'
+      });
+    }
   }
 }
 export default reviewController;
