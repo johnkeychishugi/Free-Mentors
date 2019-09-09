@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/johnkeychishugi/Free-Mentors.svg?branch=develop)](https://travis-ci.com/johnkeychishugi/Free-Mentors)
 [![Coverage Status](https://coveralls.io/repos/github/johnkeychishugi/Free-Mentors/badge.svg?branch=develop)](https://coveralls.io/github/johnkeychishugi/Free-Mentors?branch=develop)
-[![Maintainability](https://api.codeclimate.com/v1/badges/777fc7958611cff542ab/maintainability)](https://codeclimate.com/github/johnkeychishugi/Free-Mentors/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/1cebb4cfa2c5500ce494/maintainability)](https://codeclimate.com/github/johnkeychishugi/Free-Mentors/maintainability)
 
 ## Platform Description
 
