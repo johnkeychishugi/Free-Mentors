@@ -173,20 +173,6 @@ describe('Review of sessions',() =>{
           done();
         });
     });
-    it('Should return an error with a 404 status when the mentor review a mentorship session but session is not found',(done) =>{  
-      chai.request(server)
-        .post(`/api/v2/sessions/${10}/review`)
-        .set('Accept', 'application/json')
-        .set('Authorization', `Bearer ${userMentortoken}`)
-        .send(mockData.review[0])
-        .end((err, res) => {
-          if (err) done(err);
-          expect(res).to.have.status(404)
-          expect(res.body).to.be.an('object')
-          expect(res.body).to.have.property('error')
-          done();
-        });
-    });
   });
   describe('Get a review', () =>{
     it('Should return an error with a 401 status when the user is not authenticated',(done) =>{  
