@@ -9,8 +9,8 @@ dotenv.config();
 
 const users =  User.Users;
 
-const authController = {
-  signup : async (req, res) => {
+class authController {
+  static async signup(req, res){
     const validate = Validator.schemaSignUp(req.body);
     if(!validate.error){
       let user = await users.checkIfExist(req.body.email);
@@ -29,8 +29,8 @@ const authController = {
     }else{
       res.status(422).send({status: 422, error: validate.error});
     }
-  },
-  signin : async (req,res) => {
+  }
+  static async signin(req,res){
     const validate = Validator.schemaSignIn(req.body);
     if(!validate.error){
       let [user] = await users.checkIfExist(req.body.email);
@@ -48,8 +48,8 @@ const authController = {
     }else{
       res.status(422).send({status: 422, error: validate.error});
     }
-  },
-  updateProfile : async (req, res) =>{
+  }
+  static async updateProfile (req, res){
     const authUser = helper.authUser(req.headers.authorization);
     const validate = Validator.schemaUpdateProfile(req.body);
     
@@ -76,8 +76,8 @@ const authController = {
     }else{
       res.status(422).send({status: 422, error: validate.error});
     }
-  },
-  changePassword : async (req, res) => {
+  }
+  static async changePassword(req, res){
     const authUser = helper.authUser(req.headers.authorization);
     const validate = Validator.schemaChangePassword(req.body);
     if(!validate.error){
@@ -105,8 +105,8 @@ const authController = {
     }else{
       res.status(422).send({status: 422, error: validate.error});
     } 
-  },
-  setadmin : async (req, res) =>{
+  }
+  static async setadmin(req, res){
     let [user] = await users.find(parseInt(req.params.userid))
     if(user){
       let setUserAdmin = await users.setUserAdmin(parseInt(req.params.userid));

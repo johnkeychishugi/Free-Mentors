@@ -9,4 +9,5 @@ script :
 - npm run seeder
 - npm run test -s
 after_success:
+- npm run seeder
 - npm run coverage

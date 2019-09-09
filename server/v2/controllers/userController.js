@@ -2,8 +2,8 @@ import User from '../models/user';
 
 const users =  User.Users;
 
-const userController = {
-  changeToMentor : async (req, res) => {  
+class userController{
+  static async changeToMentor(req, res){  
     let [user] = await users.find(parseInt(req.params.userId))
     if(user){
       let response = users.changeUserToMentor(req.params.userId);
@@ -19,8 +19,8 @@ const userController = {
         error: 'User not found'
       });
     }
-  },
-  removeToMentor : async (req, res) => {
+  }
+  static async removeToMentor(req, res){
     let [user] = await users.find(parseInt(req.params.userId))
     if(user){
       let response = users.removeToMentor(req.params.userId);
@@ -36,8 +36,8 @@ const userController = {
         error: 'User not found'
       });
     }
-  },
-  mentors  : async (req, res) =>{
+  }
+  static async mentors(req, res){
     let mentors =  await users.findMentors();
     if(mentors.length != 0){
       res.status(200).json({ 
@@ -51,8 +51,8 @@ const userController = {
         error: 'Not mentors found'
       });
     }
-  },
-  mentor : async (req, res) =>{
+  }
+  static async mentor(req, res){
     let [mentor] = await users.find(parseInt(req.params.mentorId));
     if(mentor){
       if(mentor.is_mentor === true){
@@ -83,8 +83,8 @@ const userController = {
         error: 'Mentor not found'
       });
     }
-  },
-  admins : async (req, res) =>{
+  }
+  static async admins(req, res){
     let admins = await users.findAdmins();
     if(admins.length != 0){
       res.status(200).json({ 

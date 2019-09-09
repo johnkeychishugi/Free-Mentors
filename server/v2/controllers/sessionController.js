@@ -6,8 +6,8 @@ import Validator from '../middlewares/validators';
 const sessions = Session.sessions;
 const users =  User.Users;
 
-const sessionController = {
-  createSession : async (req, res) => {
+class sessionController{
+  static async createSession(req, res){
     req.body.mentorId = parseInt(req.body.mentorId);
     const validate = Validator.schemaSession(req.body);
     if(!validate.error){
@@ -33,8 +33,8 @@ const sessionController = {
     }else{
       res.status(422).send({status: 422, error: validate.error});
     }   
-  },
-  acceptSession : async (req, res) => {
+  }
+  static async acceptSession(req, res){
     const id = parseInt(req.params.sessionId);
     let [session] = await sessions.find(id);
     if(session){
@@ -52,8 +52,8 @@ const sessionController = {
         error : 'Session mentorship not found'
       });
     }
-  },
-  rejectSession : async (req, res) => {
+  }
+  static async rejectSession(req, res){
     const id = parseInt(req.params.sessionId);
     let [session] = await sessions.find(id);
     if(session){
@@ -71,8 +71,8 @@ const sessionController = {
         error : 'Session mentorship not found'
       });
     } 
-  },
-  getSession : async (req, res) => {
+  }
+  static async getSession(req, res){
     const authUser = helper.authUser(req.headers.authorization);
     let [user] = await  users.find(authUser.userId);
     if(user){

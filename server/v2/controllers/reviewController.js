@@ -7,8 +7,8 @@ const sessions = Session.sessions;
 const users =  User.Users;
 const reviews = Review.reviews;
 
-const reviewController = {
-  review : async (req, res) =>{
+class  reviewController{
+  static async review(req, res){
     req.body.score = parseInt(req.body.score);
     const validate = Validator.schemaReview(req.body);
     if(!validate.error){
@@ -48,8 +48,8 @@ const reviewController = {
     }else{
       res.status(422).send({status: 422, error: validate.error});
     }
-  },
-  showReview : async (req, res) =>{
+  }
+  static async showReview(req, res){
     let [review] = await reviews.find(parseInt(req.params.reviewId));
     if(review){
       res.status(200).json({
@@ -63,8 +63,8 @@ const reviewController = {
         error: 'Review not found'
       });
     }
-  },
-  Deletereview : async (req ,res) =>{
+  }
+  static async Deletereview(req ,res){
     let [response] = await reviews.delete(parseInt(req.params.sessionId));
     if(response){
       res.status(200).json({
