@@ -40,7 +40,8 @@ class Session {
   }
   async findForMentor(id){
     const queryString = {
-      text : 'SELECT * FROM sessions WHERE mentorId=$1',
+      text : `SELECT s.id,s.menteeId,s.mentorId,s.questions,s.status,u.firstname as menteeFirstname,u.lastname as menteeLastname,u.email as menteeEmail 
+              FROM sessions as s INNER JOIN Users as u ON s.menteeId = u.id WHERE mentorId=$1`,
       values : [id]
     };
     const { rows }   = await pool.query(queryString);
@@ -48,7 +49,8 @@ class Session {
   }
   async findForMentee(id){
     const queryString = {
-      text : 'SELECT * FROM sessions WHERE menteeId=$1',
+      text : `SELECT s.id,s.menteeId,s.mentorId,s.questions,s.status,u.firstname as mentorFirstname,u.lastname as mentorLastname,u.email as mentorEmail
+              FROM sessions as s INNER JOIN Users as u ON s.mentorId = u.id WHERE menteeId=$1`,
       values : [id]
     };
     const { rows }   = await pool.query(queryString);

@@ -22,7 +22,11 @@ class Review {
   }
   async find(id){
     const queryString = {
-      text : 'SELECT * FROM reviews WHERE id=$1',
+      text : `SELECT r.id,r.sessionId,r.score,r.remark,r.created_at,s.questions,u.firstname as mentorFirtsname, u.lastname as mentorLastsname, u.email as mentorEmail 
+              FROM reviews as r 
+              INNER JOIN sessions as s ON s.id = r.sessionId
+              INNER JOIN users as u ON s.mentorId = u.id
+              WHERE r.id=$1`,
       values : [id]
     };
     const { rows }   = await pool.query(queryString);
