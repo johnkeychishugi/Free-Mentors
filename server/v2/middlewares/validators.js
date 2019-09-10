@@ -7,7 +7,7 @@ export default class Validator {
       firstname: Joi.string().required().label('Fistname is required'),
       lastname: Joi.string().required().label('Lastname is required'),
       email : Joi.string().email().required().label('Email Address is invalid'),
-      password : Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).min(8).required().label('Password must contains at least 1 uppercase letter, 1 lowercase letter, and 1 special character  and the minimale is 8 characters'),
+      password : Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).min(8).required().label('Password must contains at least 1 uppercase letter, 1 lowercase letter, and 1 special character  and  min is 8 characters'),
       confirmPassword : Joi.string().valid(Joi.ref('password')).required().strict().label('confirm Password must match with password')
     }
     const response = Joi.validate(user,userSchema);
@@ -20,8 +20,8 @@ export default class Validator {
   }
   static schemaSignIn(user){
     const userSchema ={
-      email: Joi.string().email().required().label('Email address is required and must valid'),
-      password: Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).required().label('Password must contains at least 1 uppercase letter, 1 lowercase letter, and 1 special character  and the minimale is 8 characters')
+      email: Joi.string().email().required().label('Email Address is invalid'),
+      password: Joi.string().regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/).required().label('Password must contains at least 1 uppercase letter, 1 lowercase letter, and 1 special character  and  min is 8 characters')
     }
     const response = Joi.validate(user,userSchema);
     if(response.error)
