@@ -1,5 +1,6 @@
 import express from 'express';
-import routes from './server/v1/routes/';
+import apiv1Router from './server/v1/routes/';
+import apiv2Router from './server/v2/routes/';
 import swaggerUi from 'swagger-ui-express';
 import docs from './swagger.json';
 
@@ -10,10 +11,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 //intialize routes vesrion 1
-app.use('/api/v1',routes);
+app.use('/api/v1',apiv1Router);
+
+//intialize routes vesrion 2
+app.use('/api/v2',apiv2Router);
 
 //intialize endpoint of api documatation  of vesrion 1
 app.use('/api/v1/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
+//intialize endpoint of api documatation  of vesrion 1
+app.use('/api/v2/api-docs', swaggerUi.serve, swaggerUi.setup(docs));
 
 app.get('/',(req, res, next) => res.status(200).send({
   status : 200,
@@ -21,8 +27,8 @@ app.get('/',(req, res, next) => res.status(200).send({
   documentation : `For the documentaion visit this link ${docsUrl}`,
 }));
 
-app.use('**', (req, res) => res.status(404).send({
-  status : 404,
+app.use('**', (req, res) => res.status(405).send({
+  status : 405,
   message : `The requested resource was not found on the server, Visit the documentation link ${docsUrl}`
 }));
 

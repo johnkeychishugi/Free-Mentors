@@ -21,15 +21,11 @@ const sessionController = {
           }else{
             id = 1;
           }
-          const created_at = new Date(); 
-          const data = new Session.DataSession(req.body,id,user,created_at);
-  
-          sessions.save(data).then(session =>{
-            res.status(201).json({
-              status : 201,
-              data : session
-            });
-          });
+          const created_at = new Date().toDateString(); 
+          const data = new Session.DataSession(req.body,id,user,mentor,created_at);
+
+          responseSession(res,data,mentor,user);
+
         }else{
           res.status(404).json({
             status: 404,
@@ -41,6 +37,7 @@ const sessionController = {
       res.status(422).send({status: 422, error: validate.error});
     }   
   },
+  
   acceptSession : (req, res) => {
     const id = parseInt(req.params.sessionId);
     sessions.find(id).then(session =>{
@@ -48,7 +45,17 @@ const sessionController = {
         session.status = 'accepted'; 
         res.status(200).json({
           status : 200,
-          data : session
+          message : 'session accepted succuefully',
+          data : {
+            id: session.id,
+            mentorName: session.mentorName,
+            mentorEmail: session.mentorEmail, 
+            menteeName: session.menteeName,
+            menteeEmail : session.menteeEmail,
+            questions : session.questions,
+            status : session.status,
+            created_at : session.created_at
+          }
         });
       }else{
         res.status(404).json({
@@ -65,7 +72,17 @@ const sessionController = {
         session.status = 'rejected'; 
         res.status(200).json({
           status : 200,
-          data : session
+          message : 'session rejected succuefully',
+          data : {
+            id: session.id,
+            mentorName: session.mentorName,
+            mentorEmail: session.mentorEmail, 
+            menteeName: session.menteeName,
+            menteeEmail : session.menteeEmail,
+            questions : session.questions,
+            status : session.status,
+            created_at : session.created_at
+          }
         });
       }else{
         res.status(404).json({
@@ -81,31 +98,11 @@ const sessionController = {
       if(user){
         if(user.is_mentor){
           sessions.findForMentor(user.id).then(sessions =>{
-            if(sessions.length != 0){
-              res.status(200).json({
-                status : 200,
-                data : sessions
-              });
-            }else{
-              res.status(404).json({
-                status : 404,
-                error : 'No session found from now'
-              });  
-            }
+            responseGetSession(res,sessions);
           });
         }else{
           sessions.findForMentee(user.id).then(sessions =>{
-            if(sessions.length != 0){
-              res.status(200).json({
-                status : 200,
-                data : sessions
-              });
-            }else{
-              res.status(404).json({
-                status : 404,
-                error : 'No session found from now'
-              });   
-            }
+            responseGetSession(res,sessions);
           });
         }
       }else{
@@ -115,6 +112,52 @@ const sessionController = {
         }); 
       }
     });
+  }
+}
+const responseSession = (res,data,mentor,user) =>{
+  sessions.save(data).then(session =>{
+    res.status(201).json({
+      status : 201,
+      message : 'Session created succuefully',
+      data : {
+        id : session.id,
+        mentorName : mentor.firstname,
+        mentorEmail : mentor.email,
+        menteeName : user.firstname,
+        menteeEmail : session.menteeEmail,
+        questions : session.questions,
+        status : session.status,
+        created_at : session.created_at 
+      }
+    });
+  });
+}
+const responseGetSession = (res,sessions) =>{
+  if(sessions.length != 0){
+    let sessionArray = [];
+    sessions.forEach(session => {
+      let sessionData = {
+        id: session.id,
+        mentorName: session.mentorName,
+        mentorEmail: session.mentorEmail, 
+        menteeName: session.menteeName,
+        menteeEmail : session.menteeEmail,
+        questions : session.questions,
+        status : session.status,
+        created_at : session.created_at
+      }
+      sessionArray.push(sessionData); 
+    });
+    res.status(200).json({
+      status : 200,
+      message : 'Session is retrieved successfully',
+      data : sessionArray
+    });
+  }else{
+    res.status(404).json({
+      status : 404,
+      error : 'No session found from now'
+    });  
   }
 }
 

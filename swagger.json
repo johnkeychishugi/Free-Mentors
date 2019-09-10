@@ -103,8 +103,68 @@
           }
         }
       },
+      "/auth/updateProfile": {
+        "patch": {
+          "description": "User can update the informations after authentification",
+          "summary": "Update Profile",
+          "tags": [
+            "All Endpoints"
+          ],
+          "operationId": "updateprofile",
+          "deprecated": false,
+          "produces": [
+            "application/json"
+          ],
+          "consumes": [
+            "application/x-www-form-urlencoded"
+          ],
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "required": false,
+              "default": "Bearer {token}",
+              "type": "string"
+            },
+            {
+              "name": "Content-Type",
+              "in": "header",
+              "required": true,
+              "type": "string",
+              "description": ""
+            },
+            {
+              "name": "occupation",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": ""
+            },
+            {
+                "name": "bio",
+                "in": "formData",
+                "required": true,
+                "type": "string",
+                "description": ""
+              },
+            {
+              "name": "address",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": ""
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "",
+              "headers": {}
+            }
+          }
+        }
+      },
       "/auth/changepassword": {
-        "post": {
+        "patch": {
           "description": "User can change the password by providing the bew one",
           "summary": "Change password",
           "tags": [

@@ -25,10 +25,11 @@ class DataUser{
     this.firstname = data.firstname;
     this.lastname = data.lastname;
     this.email = data.email;
-    this.bio = data.bio;
-    this.occupation = data.occupation;
-    this.expertise = data.expertise;
-    this.is_admin = data.is_admin ? true : false;
+    this.address = null;
+    this.bio = null;
+    this.occupation = null;
+    this.expertise = null;
+    this.is_admin =  false;
     this.is_mentor = false;
     this.password = hash;
     this.created_at = created_at;

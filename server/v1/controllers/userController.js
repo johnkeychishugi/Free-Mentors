@@ -9,9 +9,7 @@ const userController = {
         user.is_mentor = true;
         res.status(200).json({
           status: 200,
-          data: {
-            message :  'User account changed to mentor'
-          }
+          message :  'User account changed to mentor' 
         });
       }else{
         res.status(404).json({
@@ -27,9 +25,7 @@ const userController = {
         user.is_mentor = false;
         res.status(200).json({
           status: 200,
-          data: {
-            message :  'User account removed to mentors list'
-          }
+          message :  'User account removed to mentors list' 
         });
       }else{
         res.status(404).json({
@@ -41,10 +37,26 @@ const userController = {
   },
   mentors  : (req, res) =>{
     users.findMentors().then(users =>{
-      if(users.length != 0){
+      let usersArray = [];
+      users.forEach(user => {
+        let userData = {
+          id : user.id,
+          firstname : user.firstname,
+          lastname : user.lastname,
+          email : user.email,
+          address : user.address,
+          bio : user.bio,
+          occupation : user.occupation,
+          expertise : user.expertise,
+          created_at : user.created_at
+        }
+        usersArray.push(userData); 
+      });
+      if(usersArray.length != 0){
         res.status(200).json({ 
           status : 200,
-          data : users
+          message : 'Mentors are retrieved successfully',
+          data : usersArray,
         });
       }else{
         res.status(404).json({
@@ -60,7 +72,18 @@ const userController = {
         if(user.is_mentor === true){
           res.status(200).json({
             status: 200,
-            data: user 
+            message : 'Mentor is retrieved successfully',
+            data: {
+              id: user.id,
+              firstname : user.firstname,
+              lastname : user.lastname,
+              email : user.email,
+              address : user.address,
+              bio : user.bio,
+              occupation : user.occupation,
+              expertise : user.expertise,
+              created_at : user.created_at
+            } 
           });
         }else{
           res.status(404).json({
@@ -79,9 +102,25 @@ const userController = {
   admins : (req, res) =>{
     users.findAdmins().then(users =>{
       if(users.length != 0){
+        let adminArray = [];
+        users.forEach(user => {
+          let userData = {
+            id: user.id,
+            firstname : user.firstname,
+            lastname : user.lastname,
+            email : user.email,
+            address : user.address,
+            bio : user.bio,
+            occupation : user.occupation,
+            expertise : user.expertise,
+            created_at : user.created_at
+          }
+          adminArray.push(userData); 
+        });
         res.status(200).json({ 
           status : 200,
-          data : users
+          message: 'Admins are retrieved successfully',
+          data : adminArray
         });
       }else{
         res.status(404).json({

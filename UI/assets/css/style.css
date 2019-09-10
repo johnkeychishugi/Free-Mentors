@@ -68,6 +68,26 @@ color: #fff;
   background-image: url("../img/img_parallax2.jpg");
   height: 100%;
 }
+div.blockloader{
+  text-align: center;
+  margin-top: 30px;
+}
+button.btnloader{
+  background-color: #ffff; 
+  border: 2px solid  #008cba;
+  color: #00316b;
+  padding: 15px 40px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+button.btnloader:hover {
+  color: #fff;
+  background-color: #008cba; 
+}
 .layer {
     background-color: rgba(30,30, 80, 0.5);
     position: absolute;
@@ -178,17 +198,16 @@ div.about p{
   border-top: 135px solid transparent;
   border-right:none;
   border-left: 1570px solid #fff;
-  border-bottom: : none;
+  border-bottom: none;
   overflow: hidden;
 }
-
 .transition_Border2 {
   margin-top: -7.6em;
   position: absolute;
   border-bottom: 115px solid #434260;
   border-right:none;
   border-left: 1583px solid transparent;
-  border-bottom: : none;
+  border-bottom: none;
 }
 footer .leftBlock2{
   height: 90px;
@@ -244,7 +263,6 @@ form{
 }
 input{
   width: 240px;
-  text-align:center;
   background: transparent;
   border:none;
   border-bottom: 1px solid #fff;
@@ -513,7 +531,6 @@ form span{
  .edit input[type=text], .edit input[type=email], .edit input[type=password]{
   width: 240px;
   margin-bottom:10px;
-  text-align:center;
   background: #0000;
   border:none;
   border-bottom: 1.5px solid #00316b;
@@ -581,7 +598,6 @@ a.decline:hover{
 {
   width: 240px;
   margin-bottom:10px;
-  text-align:center;
   background: #0000;
   border:none;
   border-bottom: 1.5px solid #00316b;
@@ -656,12 +672,12 @@ a.decline:hover{
   position: absolute;
   background: rgba(44,62,80,0.7);
   padding: 50px;
-  padding-top: 15px; 
+  padding-top: 5px; 
   width: 250px;
   margin: auto;
   margin-top: -38em;
-  height: 450px;
-  margin-left: 45em;
+  height: 420px;
+  margin-left:45em;
   border-radius: 10px;
   z-index: 7;
  }
@@ -795,7 +811,7 @@ a.decline:hover{
   padding-top: 15px; 
   width: 250px;
   margin: auto;
-  margin-top: -34em;
+  margin-top: -37em;
   height: 450px;
   margin-left: 25em;
   border-radius: 10px;
@@ -947,7 +963,7 @@ a.decline:hover{
   padding-top: 15px; 
   width: 250px;
   margin: auto;
-  margin-top: -34em;
+  margin-top: -37em;
   height: 450px;
   margin-left: 4em;
   border-radius: 10px;
