@@ -11,7 +11,7 @@ class  reviewController{
   static async review(req, res){
     req.body.score = parseInt(req.body.score);
     const validate = Validator.schemaReview(req.body);
-    if(!validate.error){
+    if(!validate){
       let [session] = await sessions.find(parseInt(req.params.sessionId))
       let [data] = await reviews.findBysessionId(parseInt(req.params.sessionId));
       if(!data){
@@ -30,7 +30,7 @@ class  reviewController{
         });
       }
     }else{
-      res.status(422).send({status: 422, error: validate.error});
+      res.status(422).send({status: 422, error: validate});
     }
   }
   static async showReview(req, res){

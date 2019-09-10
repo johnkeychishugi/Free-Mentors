@@ -142,6 +142,19 @@ describe('Sessions',() =>{
           done();
         });
     });
+    it('Should return a message with a 409 status when the mentor accept a mentorship session but session is already accepted',(done) =>{  
+      chai.request(server)
+        .patch(`/api/v2/sessions/${1}/accept`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${userMentortoken}`)
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(409)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error');
+          done();
+        });
+    });
     it('Should return an error with a 404 status when the mentor accept a mentorship session but session is not found',(done) =>{  
       chai.request(server)
         .patch(`/api/v2/sessions/${10}/accept`)
@@ -192,6 +205,19 @@ describe('Sessions',() =>{
           expect(res).to.have.status(200)
           expect(res.body).to.be.an('object')
           expect(res.body).to.have.property('data');
+          done();
+        });
+    });
+    it('Should return a message with a 409 status when the mentor reject a mentorship session but session is already rejected',(done) =>{  
+      chai.request(server)
+        .patch(`/api/v2/sessions/${2}/reject`)
+        .set('Accept', 'application/json')
+        .set('Authorization', `Bearer ${userMentortoken}`)
+        .end((err, res) => {
+          if (err) done(err);
+          expect(res).to.have.status(409)
+          expect(res.body).to.be.an('object')
+          expect(res.body).to.have.property('error');
           done();
         });
     });
