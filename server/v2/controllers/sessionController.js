@@ -10,7 +10,7 @@ class sessionController{
   static async createSession(req, res){
     req.body.mentorId = parseInt(req.body.mentorId);
     const validate = Validator.schemaSession(req.body);
-    if(!validate.error){
+    if(!validate){
       const user = helper.authUser(req.headers.authorization);
       let [mentor] = await users.find(parseInt(req.body.mentorId));
       if(mentor && mentor.is_mentor === true ){
@@ -31,19 +31,24 @@ class sessionController{
         });
       }
     }else{
-      res.status(422).send({status: 422, error: validate.error});
+      res.status(422).send({status: 422, error: validate});
     }   
   }
   static async acceptSession(req, res){
     const id = parseInt(req.params.sessionId);
     let [session] = await sessions.find(id);
     if(session){
-      let response = await sessions.acceptSession(id); 
-      if(response){
+      if(session.status != 'accepted'){
+        let response = await sessions.acceptSession(id); 
         res.status(200).json({
           status : 200,
           message : 'session accepted succuefully',
           data : response
+        });
+      }else{
+        res.status(409).json({
+          status : 409,
+          error : 'Session already accepted'
         });
       }
     }else{
@@ -57,12 +62,17 @@ class sessionController{
     const id = parseInt(req.params.sessionId);
     let [session] = await sessions.find(id);
     if(session){
-      let response = await sessions.rejectSession(id); 
-      if(response){
+      if(session.status != 'rejected'){
+        let response = await sessions.rejectSession(id); 
         res.status(200).json({
           status : 200,
           message : 'session rejected succuefully',
           data : response
+        });
+      }else{
+        res.status(409).json({
+          status : 409,
+          error : 'Session already rejected'
         });
       }
     }else{

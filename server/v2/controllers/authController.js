@@ -12,7 +12,7 @@ const users =  User.Users;
 class authController {
   static async signup(req, res){
     const validate = Validator.schemaSignUp(req.body);
-    if(!validate.error){
+    if(!validate){
       let user = await users.checkIfExist(req.body.email);
       if(user.length){
         res.status(409).send({
@@ -27,12 +27,12 @@ class authController {
         });
       } 
     }else{
-      res.status(422).send({status: 422, error: validate.error});
+      res.status(422).send({status: 422, error: validate});
     }
   }
   static async signin(req,res){
     const validate = Validator.schemaSignIn(req.body);
-    if(!validate.error){
+    if(!validate){
       let [user] = await users.checkIfExist(req.body.email);
       if(user){
         bcrypt.compare(req.body.password,user.password, async(err,result)=>{
@@ -46,14 +46,14 @@ class authController {
         authFails(res); 
       }
     }else{
-      res.status(422).send({status: 422, error: validate.error});
+      res.status(422).send({status: 422, error: validate});
     }
   }
   static async updateProfile (req, res){
     const authUser = helper.authUser(req.headers.authorization);
     const validate = Validator.schemaUpdateProfile(req.body);
     
-    if(!validate.error){
+    if(!validate){
       let [user] = await users.find(parseInt(authUser.userId))
       if(user){
         if(!(user.address == req.body.address && user.bio == req.body.bio && 
@@ -74,13 +74,13 @@ class authController {
         
       }
     }else{
-      res.status(422).send({status: 422, error: validate.error});
+      res.status(422).send({status: 422, error: validate});
     }
   }
   static async changePassword(req, res){
     const authUser = helper.authUser(req.headers.authorization);
     const validate = Validator.schemaChangePassword(req.body);
-    if(!validate.error){
+    if(!validate){
       let [user] = await users.find(parseInt(authUser.userId))
       if(user){
         bcrypt.compare(req.body.old_password, user.password, (err,result)=>{
@@ -103,7 +103,7 @@ class authController {
         })
       }
     }else{
-      res.status(422).send({status: 422, error: validate.error});
+      res.status(422).send({status: 422, error: validate});
     } 
   }
   static async setadmin(req, res){
