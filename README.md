@@ -34,6 +34,12 @@ Free-Mentors is a relationship in which a more experienced or more knowledgeable
 - visit this link [Free Mentors (Users side)](https://johnkeychishugi.github.io/Free-Mentors/UI)
 - visit this link [Free Mentors (Admin side)](https://johnkeychishugi.github.io/Free-Mentors/UI/admin)
 
+### Get start now
+
+`git clone https://github.com/johnkeychishugi/Free-Mentors`
+`npm install`
+`npm run start-dev`
+
 ## API Endpoints Specifications
 
 - ApiRoot = https://free-mentors-app.herokuapp.com/.
