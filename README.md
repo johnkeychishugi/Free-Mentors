@@ -36,9 +36,9 @@ Free-Mentors is a relationship in which a more experienced or more knowledgeable
 
 ### Get start now
 
-`git clone https://github.com/johnkeychishugi/Free-Mentors`
-`npm install`
-`npm run start-dev`
+- `git clone https://github.com/johnkeychishugi/Free-Mentors`
+- `npm install`
+- `npm run start-dev`
 
 ## API Endpoints Specifications
 
