@@ -6,8 +6,8 @@
       "description": "This is a public Free mentors api",
       "contact": {}
     },
-    "host": "free-mentors-app.herokuapp.com",
-    "basePath": "/api/v1",
+    "host": "free-mentors-app-2.herokuapp.com",
+    "basePath": "/api/v2",
     "securityDefinitions": {},
     "schemes": [
       "http",
@@ -37,11 +37,52 @@
           ],
           "parameters": [
             {
-              "name": "Authorization",
+              "name": "Content-Type",
               "in": "header",
-              "required": false,
-              "type": "string"
+              "required": true,
+              "default": "application/x-www-form-urlencoded",
+              "type": "string",
+              "description": ""
+            },
+            {
+              "name": "firstname",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": ""
+            },
+            {
+              "name": "lastname",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": ""
+            },
+            {
+              "name": "email",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": "",
+              "format": "email"
+            },
+            {
+              "name": "password",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "format" :"password",
+              "description": ""
+            },
+            {
+              "name": "confirmPassword",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "format" :"password",
+              "description": ""
             }
+
           ],
           "responses": {
             "201": {
@@ -68,15 +109,10 @@
           ],
           "parameters": [
             {
-              "name": "Authorization",
-              "in": "header",
-              "required": false,
-              "type": "string"
-            },
-            {
               "name": "Content-Type",
               "in": "header",
               "required": true,
+              "default": "application/x-www-form-urlencoded",
               "type": "string",
               "description": ""
             },
@@ -85,6 +121,7 @@
               "in": "formData",
               "required": true,
               "type": "string",
+              "format": "email",
               "description": ""
             },
             {
@@ -92,6 +129,7 @@
               "in": "formData",
               "required": true,
               "type": "string",
+              "format": "password",
               "description": ""
             }
           ],
@@ -130,6 +168,7 @@
               "name": "Content-Type",
               "in": "header",
               "required": true,
+              "default": "application/x-www-form-urlencoded",
               "type": "string",
               "description": ""
             },
@@ -149,6 +188,13 @@
               },
             {
               "name": "address",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": ""
+            },
+            {
+              "name": "expertise",
               "in": "formData",
               "required": true,
               "type": "string",
@@ -187,30 +233,33 @@
               "type": "string"
             },
             {
-              "name": "Content-Type",
+              "name": "Authorization",
               "in": "header",
-              "required": true,
-              "type": "string",
-              "description": ""
+              "required": false,
+              "default": "Bearer {token}",
+              "type": "string"
             },
             {
-              "name": "old password",
+              "name": "old_password",
               "in": "formData",
               "required": true,
+              "format":"password",
               "type": "string",
               "description": ""
             },
             {
-                "name": "new  password",
+                "name": "new_password",
                 "in": "formData",
                 "required": true,
+                "format":"password",
                 "type": "string",
                 "description": ""
               },
             {
-              "name": "confirm new password",
+              "name": "confirm_new_password",
               "in": "formData",
               "required": true,
+              "format":"password",
               "type": "string",
               "description": ""
             }
@@ -223,7 +272,7 @@
           }
         }
       },
-      "/user/:userId": {
+      "/user/{userId}": {
         "patch": {
           "description": "Admin can Change user to mentor by passing userId as parameter ",
           "summary": "Change user to mentor",
@@ -244,8 +293,8 @@
               "type": "string"
             },
             {
-                "name": "user_id",
-                "in": "formData",
+                "name": "userId",
+                "in": "path",
                 "required": true,
                 "type": "integer",
                 "format": "int32",
@@ -260,7 +309,7 @@
           }
         }
       },
-      "/mentor/:userId": {
+      "/mentor/{userId}": {
         "patch": {
           "description": "Admin can remove a mentor by passing mentor id as parameter",
           "summary": "Remove mentor",
@@ -281,12 +330,12 @@
               "type": "string"
             },
             {
-                "name": "user_id",
-                "in": "formData",
-                "required": true,
-                "type": "integer",
-                "format": "int32",
-                "description": ""
+              "name": "userId",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "format": "int32",
+              "description": ""
             }
           ],
           "responses": {
@@ -299,7 +348,7 @@
       },
       "/mentors": {
         "get": {
-          "description": "FOR viewing all mentors in the platform",
+          "description": "For viewing all mentors in the platform",
           "summary": "View all mentors",
           "tags": [
             "All Endpoints"
@@ -311,11 +360,11 @@
           ],
           "parameters": [
             {
-              "name": "Content-Type",
+              "name": "Authorization",
               "in": "header",
-              "required": true,
-              "type": "string",
-              "description": ""
+              "required": false,
+              "default": "Bearer {token}",
+              "type": "string"
             }
           ],
           "responses": {
@@ -326,7 +375,7 @@
           }
         }
       },
-      "/mentors/:mentorId": {
+      "/mentors/{mentorId}": {
         "get": {
           "description": "For Viewing a specific mentor and get all details about mentor",
           "summary": "Specific mentor",
@@ -350,8 +399,8 @@
               "type": "string"
             },
             {
-                "name": "mentor_id",
-                "in": "formData",
+                "name": "mentorId",
+                "in": "path",
                 "required": true,
                 "type": "integer",
                 "format": "int32",
@@ -422,7 +471,7 @@
           }
         }
       },
-      "/sessions/": {
+      "/sessions": {
         "post": {
           "description": "For creating a session, action perform by the user",
           "summary": "Create session",
@@ -434,6 +483,9 @@
           "produces": [
             "application/json"
           ],
+          "consumes": [
+            "application/x-www-form-urlencoded"
+          ],
           "parameters": [
             {
               "name": "Authorization",
@@ -441,6 +493,28 @@
               "required": false,
               "default": "Bearer {token}",
               "type": "string"
+            },
+            {
+              "name": "Content-Type",
+              "in": "header",
+              "required": true,
+              "default": "application/x-www-form-urlencoded",
+              "type": "string",
+              "description": ""
+            },
+            {
+              "name": "mentorId",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": ""
+            },
+            {
+              "name": "questions",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": ""
             }
           ],
           "responses": {
@@ -451,7 +525,7 @@
           }
         }
       },
-      "/sessions/:sessionId/accept": {
+      "/sessions/{sessionId}/accept": {
         "patch": {
           "description": "For the mentor to accept the mentorship session",
           "summary": "Accept session",
@@ -472,14 +546,13 @@
               "type": "string"
             },
             {
-                "name": "session_id",
-                "in": "formData",
+                "name": "sessionId",
+                "in": "path",
                 "required": true,
                 "type": "integer",
                 "format": "int32",
                 "description": ""
             }
-
           ],
           "responses": {
             "200": {
@@ -489,7 +562,7 @@
           }
         }
       },
-      "/sessions/:sessionId/reject": {
+      "/sessions/{sessionId}/reject": {
         "patch": {
           "description": "For the mentor to reject the mentorship session",
           "summary": "Reject session",
@@ -510,13 +583,13 @@
               "type": "string"
             },
             {
-                "name": "session_id",
-                "in": "formData",
-                "required": true,
-                "type": "integer",
-                "format": "int32",
-                "description": ""
-            }
+              "name": "sessionId",
+              "in": "path",
+              "required": true,
+              "type": "integer",
+              "format": "int32",
+              "description": ""
+          }
           ],
           "responses": {
             "200": {
@@ -526,7 +599,7 @@
           }
         }
       },
-      "/sessions": {
+      "/sessions/": {
         "get": {
           "description": "For the mentor or mentee to view all his mentorship sessions",
           "summary": "View sessions",
@@ -555,7 +628,7 @@
           }
         }
       },
-      "/sessions/:sessionId/review/": {
+      "/sessions/{sessionId}/review/": {
         "post": {
           "description": "For the mentor to create a review of a mentorship session",
           "summary": "Create a review",
@@ -567,6 +640,9 @@
           "produces": [
             "application/json"
           ],
+          "consumes": [
+            "application/x-www-form-urlencoded"
+          ],
           "parameters": [
             {
               "name": "Authorization",
@@ -576,12 +652,33 @@
               "type": "string"
             },
             {
-                "name": "session_id",
-                "in": "formData",
-                "required": true,
-                "type": "integer",
-                "format": "int32",
-                "description": ""
+              "name": "Content-Type",
+              "in": "header",
+              "required": true,
+              "default": "application/x-www-form-urlencoded",
+              "type": "string",
+              "description": ""
+            },
+            {
+              "name": "sessionId",
+              "in": "path",
+              "required": true,
+              "type": "string",
+              "description": ""
+            },
+            {
+              "name": "score",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": ""
+            },
+            {
+              "name": "remark",
+              "in": "formData",
+              "required": true,
+              "type": "string",
+              "description": ""
             }
           ],
           "responses": {
@@ -592,7 +689,7 @@
           }
         }
       },
-      "/reviews/:reviewId": {
+      "/reviews/{reviewId}": {
         "get": {
           "description": "For the mentee or mentor to get his specific reveiw ",
           "summary": "Get a specific review",
@@ -613,8 +710,8 @@
               "type": "string"
             },
             {
-                "name": "review_id",
-                "in": "formData",
+                "name": "reviewId",
+                "in": "path",
                 "required": true,
                 "type": "integer",
                 "format": "int32",
@@ -629,7 +726,7 @@
           }
         }
       },
-      "/sessions/:sessionId/review": {
+      "/sessions/{sessionId}/review": {
         "delete": {
           "description": "For admin can delete mentorship session review deemed inappropriate.",
           "summary": "Delete a review",
@@ -650,8 +747,8 @@
               "type": "string"
             },
             {
-                "name": "session_id",
-                "in": "formData",
+                "name": "sessionId",
+                "in": "path",
                 "required": true,
                 "type": "integer",
                 "format": "int32",
