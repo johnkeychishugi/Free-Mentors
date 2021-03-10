@@ -16,7 +16,7 @@ const authController = {
       users.checkIfExist(req.body.email).then(user =>{
         if(user){
           res.status(409).send({
-            status: 409, 
+            status: 409,
             error:'Email already exist!!'
           });
         }else{
